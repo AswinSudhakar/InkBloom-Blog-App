@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "793658896380",
+    "project_id": "inkbloom-7d470",
+    "storage_bucket": "inkbloom-7d470.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:793658896380:android:84db1941e19b8f27ee4c79",
+        "android_client_info": {
+          "package_name": "com.example.inkbloom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "793658896380-2q91gr66vlshhb583lvh90kjv2eh7cfl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDL0dazdDxH4oV0LIqS1Bjn1BhliOfddWc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "793658896380-2q91gr66vlshhb583lvh90kjv2eh7cfl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
