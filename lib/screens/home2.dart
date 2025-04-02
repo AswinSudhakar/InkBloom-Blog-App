@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:inkbloom/models/blog/blogmodel.dart';
-
+import 'package:inkbloom/api/api.dart';
+import 'package:inkbloom/providers/blogprovider.dart';
 import 'package:inkbloom/screens/detailscreen.dart';
-import 'package:inkbloom/service/blogservice.dart';
+import 'package:inkbloom/screens/loginpage.dart';
 import 'package:inkbloom/service/userprofile.dart';
 import 'package:inkbloom/widgets/drawer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen2 extends StatefulWidget {
   const HomeScreen2({super.key});
@@ -15,18 +16,15 @@ class HomeScreen2 extends StatefulWidget {
 }
 
 class _HomeScreen2State extends State<HomeScreen2> {
-  final Blogservice blogService = Blogservice();
-  late Future<List<BlogModel>?> blogsFuture;
-  final user = ProfileService().getUserProfile();
-
   String? name;
   String? email;
   String? avatar;
 
+  BlogProvider blogProvider = BlogProvider();
+
   @override
   void initState() {
     super.initState();
-    blogsFuture = blogService.getAllBlogs();
     fetchAndLoadUserData();
   }
 
@@ -38,7 +36,7 @@ class _HomeScreen2State extends State<HomeScreen2> {
   Future<void> _loadUserData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      name = prefs.getString('name') ?? " Guest";
+      name = prefs.getString('name') ?? "Guest";
       email = prefs.getString('email') ?? "No Email";
       avatar = prefs.getString('avatar') ?? "";
     });
@@ -48,31 +46,41 @@ class _HomeScreen2State extends State<HomeScreen2> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: AppDrawer(),
-      appBar: AppBar(title: Text('welcome  $name')),
-      body: FutureBuilder<List<BlogModel>?>(
-        future: blogsFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
+      appBar: AppBar(
+        title: Text('Welcome $name'),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => LoginPage(),
+                    ));
+              },
+              icon: Icon(Icons.refresh))
+        ],
+      ),
+      body: Consumer<BlogProvider>(
+        builder: (context, blogProvider, child) {
+          if (blogProvider.isLoading) {
             return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          } else if (blogProvider.error != null) {
+            return Center(child: Text('Error: ${blogProvider.error}'));
+          } else if (blogProvider.blogs.isEmpty) {
             return const Center(child: Text('No blogs found'));
           }
 
-          final blogs = snapshot.data!;
-
           return ListView.builder(
-            itemCount: blogs.length,
+            itemCount: blogProvider.blogs.length,
             itemBuilder: (context, index) {
-              final blog = blogs[index];
+              final blog = blogProvider.blogs[index];
 
               return Card(
                 margin: const EdgeInsets.all(10),
                 child: ListTile(
                   leading: blog.imageUrl != null
                       ? Image.network(
-                          "/users/profile/${blog.imageUrl}",
+                          "${Apis().baseurl}/${blog.imageUrl}",
                           width: 50,
                           height: 50,
                           fit: BoxFit.cover,
@@ -87,7 +95,6 @@ class _HomeScreen2State extends State<HomeScreen2> {
                         MaterialPageRoute(
                           builder: (context) => PostDetailScreen(),
                         ));
-                    // Navigate to blog details page if needed
                   },
                 ),
               );

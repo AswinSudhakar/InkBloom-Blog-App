@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:inkbloom/api/api.dart';
 import 'package:inkbloom/models/user/usermodel.dart';
-import 'package:inkbloom/screens/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final String pbaseurl = 'https://simple-blogging.onrender.com';
@@ -26,8 +25,7 @@ class ProfileService {
       if (response.statusCode == 200) {
         final responsebody = jsonDecode(response.body);
 
-        final UserProfileModel userprofile =
-            UserProfileModel.fromJson(responsebody);
+        UserProfileModel userprofile = UserProfileModel.fromJson(responsebody);
 
         String? avatar = userprofile.profileImage;
         if (avatar != null && avatar.isNotEmpty) {
@@ -39,6 +37,7 @@ class ProfileService {
           avatar = ""; // Default to empty if null
         }
         print("Profile Image URL: $avatar");
+        // Update the userProfile instance with the corrected image URL
 
         await pref.setString('name', userprofile.name ?? 'Guest');
         await pref.setString('email', userprofile.email ?? 'No Email');

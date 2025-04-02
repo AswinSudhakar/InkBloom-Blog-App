@@ -56,8 +56,12 @@ class _AppDrawerState extends State<AppDrawer> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   CircleAvatar(
-                    radius: 50,
-                  ),
+                      radius: 50,
+                      backgroundImage:
+                          // NetworkImage("${userProvider.profileimage}"),
+                          NetworkImage(
+                        "https://simple-blogging.onrender.com/uploads/profiles/aswin_example.com.jpg",
+                      )),
                   Column(
                     children: [
                       Text(userProvider.name ?? "unknown"),

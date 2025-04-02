@@ -59,9 +59,9 @@ class _SplashScreenState extends State<SplashScreen> {
           // ),
 
           // Dark Overlay for Better Visibility
-          Container(
-            color: Colors.black.withOpacity(0.4), // Dark overlay for contrast
-          ),
+          // Container(
+          //   color: Colors.black.withOpacity(0.4), // Dark overlay for contrast
+          // ),
 
           // Centered App Name
           Center(

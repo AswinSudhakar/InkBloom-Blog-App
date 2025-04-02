@@ -39,4 +39,52 @@ class Blogservice {
     }
     return null;
   }
+
+  Future<String?> AddBlog(BlogModel blogmodel) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    final token = pref.getString('token');
+
+    try {
+      var request = http.MultipartRequest(
+        'POST',
+        Uri.parse("${Apis().baseurl}${Apis().blogurl}"),
+      );
+
+      request.headers['Authorization'] = 'Bearer $token';
+      request.headers['Content-Type'] = 'multipart/form-data';
+
+      // Add fields (text data)
+      request.fields['title'] = blogmodel.title!;
+      request.fields['category'] = blogmodel.category!;
+      request.fields['content'] = blogmodel.content!;
+      request.fields['topic'] = blogmodel.topic!;
+      request.fields['readTime'] = blogmodel.readTime!;
+      request.fields['created_at'] = DateTime.now().toIso8601String();
+
+      // Attach image file if available
+      if (blogmodel.imageUrl!.isNotEmpty) {
+        request.files.add(
+          await http.MultipartFile.fromPath('image', blogmodel.imageUrl!),
+        );
+      }
+
+      // Send request
+      var response = await request.send();
+
+      if (response.statusCode == 200) {
+        final responseBody = await response.stream.bytesToString();
+        final data = json.decode(responseBody);
+        final message = data['message'];
+        getAllBlogs();
+
+        print(message);
+        return message;
+      } else {
+        print('Registration failed with status code: ${response.statusCode}');
+      }
+    } catch (e) {
+      print("the message got backkkkkk :=> $e");
+    }
+    return null;
+  }
 }

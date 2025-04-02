@@ -57,3 +57,35 @@ class BlogResponse(Blog):
 
 class BlogListResponse(BaseModel):
     blogs: List[BlogResponse]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+blog
+    [
+  {
+    "author": "string",
+    "author_email": "string",
+    "category": "string",
+    "topic": "string",
+    "title": "string",
+    "readTime": "string",
+    "avatar": "string",
+    "imageUrl": "string",
+    "content": "string",
+    "id": "string",
+    "created_at": "2025-04-01T09:12:39.270Z",
+    "updated_at": "2025-04-01T09:12:39.270Z"
+  }
+]

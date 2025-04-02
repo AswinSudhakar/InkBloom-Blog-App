@@ -48,6 +48,8 @@ class UserProvider extends ChangeNotifier {
 
         notifyListeners();
       }
-    } catch (e) {}
+    } catch (e) {
+      print(e);
+    }
   }
 }
