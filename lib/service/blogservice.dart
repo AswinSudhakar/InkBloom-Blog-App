@@ -28,6 +28,7 @@ class Blogservice {
             responsebody.map((json) => BlogModel.fromJson(json)).toList();
 
         print('the blogs returned:${blogs.length}');
+
         return blogs;
       } else {
         print('error occured and statuscode failed:${response.statusCode}');
@@ -67,6 +68,56 @@ class Blogservice {
           await http.MultipartFile.fromPath('image', blogmodel.imageUrl!),
         );
       }
+
+      // Send request
+      var response = await request.send();
+
+      if (response.statusCode == 200) {
+        final responseBody = await response.stream.bytesToString();
+        final data = json.decode(responseBody);
+        final message = data['message'];
+        getAllBlogs();
+
+        print(message);
+        return message;
+      } else {
+        print('Registration failed with status code: ${response.statusCode}');
+      }
+    } catch (e) {
+      print("the message got back :=> $e");
+    }
+    return null;
+  }
+
+  Future<String?> EditBlog(BlogModel blogmodel) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    final token = pref.getString('token');
+
+    try {
+      var request = http.MultipartRequest(
+        'PATCH',
+        Uri.parse("${Apis().baseurl}${Apis().blogurl}${blogmodel.id}"),
+      );
+      print('The editing request url is $request');
+
+      request.headers['Authorization'] = 'Bearer $token';
+      request.headers['Content-Type'] = 'multipart/form-data';
+
+      // Add fields (text data)
+      request.fields['title'] = blogmodel.title!;
+      request.fields['category'] = blogmodel.category!;
+      request.fields['content'] = blogmodel.content!;
+      request.fields['topic'] = blogmodel.topic!;
+      request.fields['readTime'] = blogmodel.readTime!;
+      request.fields['created_at'] = DateTime.now().toIso8601String();
+
+      // Attach image file if available
+      if (blogmodel.imageUrl != null && blogmodel.imageUrl!.isNotEmpty) {
+        request.files.add(
+          await http.MultipartFile.fromPath('image', blogmodel.imageUrl!),
+        );
+      }
+      print('The editing request url is $request');
 
       // Send request
       var response = await request.send();

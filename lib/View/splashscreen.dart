@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:inkbloom/screens/home2.dart';
+import 'package:inkbloom/View/blogscreens/home2.dart';
 
-import 'package:inkbloom/screens/login.dart';
+import 'package:inkbloom/View/authentication/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -18,13 +18,6 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     _navigateToNextScreen();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    // Safe to use MediaQuery here
-    precacheImage(AssetImage("assets/images/background.jpg"), context);
   }
 
   Future<void> _navigateToNextScreen() async {

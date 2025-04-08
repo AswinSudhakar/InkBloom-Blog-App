@@ -132,7 +132,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:inkbloom/models/blog/blogmodel.dart';
-import 'package:inkbloom/providers/blogprovider.dart';
+import 'package:inkbloom/ViewModel/blogprovider.dart';
+import 'package:inkbloom/View/blogscreens/home2.dart';
+import 'package:provider/provider.dart';
 
 class AddBlog extends StatefulWidget {
   const AddBlog({super.key});
@@ -191,20 +193,33 @@ class _AddBlogState extends State<AddBlog> {
       imageUrl: _selectedImage!.path.toString(),
     );
 
-    // Call the addBlog method of BlogProvider to upload the blog
+    // ✅ Use Provider instead of creating a new instance
+    final blogProvider = Provider.of<BlogProvider>(context, listen: false);
+
     blogProvider.addBlog(newBlog).then((_) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Blog uploaded successfully")),
       );
-      // After successful upload, clear the text fields
+
+      // ✅ Refresh blog list
+      blogProvider.fetchBlogs(); // This ensures the home screen updates
+
+      // Clear fields
       _CategoryController.clear();
       _contentController.clear();
       _readtimeController.clear();
       _titleController.clear();
       _topicController.clear();
+      setState(() {
+        _selectedImage = null;
+      });
 
-      // Optionally, navigate back to the homepage or another screen
-      Navigator.pop(context); // Goes back to the previous screen
+      // Navigate back to home screen
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomeScreen2(),
+          ));
     }).catchError((error) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Error: $error")),

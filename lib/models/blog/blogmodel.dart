@@ -1,4 +1,5 @@
 class BlogModel {
+  String? id;
   String? author;
   String? authorEmail;
   String? category;
@@ -13,6 +14,7 @@ class BlogModel {
   String? updatedAt;
 
   BlogModel({
+    this.id,
     this.author,
     this.authorEmail,
     required this.category,
@@ -28,14 +30,15 @@ class BlogModel {
 
   factory BlogModel.fromJson(Map<String, dynamic> json) {
     return BlogModel(
+      id: json['id'],
       author: json['author'],
       authorEmail: json['author_email'],
       category: json['category'],
       topic: json['topic'],
       title: json['title'],
-      readTime: json['read_time'], // Fixed key naming
+      readTime: json['readTime'], // Fixed key naming
       avatar: json['avatar'],
-      imageUrl: json['image_url'], // Fixed key naming
+      imageUrl: json['imageUrl'], // Fixed key naming
       content: json['content'],
 
       createdAt: json['created_at'],
@@ -45,14 +48,15 @@ class BlogModel {
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'author': author,
       'author_email': authorEmail,
       'category': category,
       'topic': topic,
       'title': title,
-      'read_time': readTime, // Fixed key naming
+      'readTime': readTime, // Fixed key naming
       'avatar': avatar,
-      'image_url': imageUrl, // Fixed key naming
+      'imageUrl': imageUrl, // Fixed key naming
       'content': content,
 
       'created_at': createdAt,
