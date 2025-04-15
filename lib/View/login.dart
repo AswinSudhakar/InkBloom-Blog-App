@@ -232,6 +232,7 @@ class _LoginScreenState extends State<LoginScreen> {
             const SnackBar(
                 content: Text("Invalid credentials. Please try again.")),
           );
+          // Navigator.pop(context);
         }
       } catch (e) {
         if (!mounted) return;

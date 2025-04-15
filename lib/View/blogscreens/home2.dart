@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inkbloom/api/api.dart';
+import 'package:inkbloom/View/test/welcomescreen.dart';
 import 'package:inkbloom/ViewModel/blogprovider.dart';
 import 'package:inkbloom/View/blogscreens/blogdetail.dart';
 
@@ -73,7 +73,17 @@ class _HomeScreen2State extends State<HomeScreen2> {
             'Explore',
             style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
           ),
-          actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search))],
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Welcomescreen(),
+                      ));
+                },
+                icon: Icon(Icons.search))
+          ],
         ),
         body: SingleChildScrollView(
           child: Column(

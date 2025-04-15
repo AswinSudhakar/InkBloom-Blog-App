@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:inkbloom/View/blogscreens/editblog.dart';
+import 'package:inkbloom/ViewModel/blogprovider.dart';
 
 import 'package:inkbloom/models/blog/blogmodel.dart';
+import 'package:provider/provider.dart';
 
 class BlogDetail extends StatelessWidget {
   final BlogModel blog;
@@ -146,7 +148,24 @@ class BlogDetail extends StatelessWidget {
                         icon: Icon(Icons.edit),
                       ),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          final success = await Provider.of<BlogProvider>(
+                                  context,
+                                  listen: false)
+                              .Deleteblog(blog);
+
+                          if (success!) {
+                            Navigator.pop(context);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                  content: Text('Blog deleted successfully')),
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('Failed to delete blog')),
+                            );
+                          }
+                        },
                         icon: Icon(Icons.delete),
                       ),
                       IconButton(

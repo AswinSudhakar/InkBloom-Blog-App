@@ -82,6 +82,7 @@ class Authservice {
   Future<void> logOut(BuildContext context) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.remove('token');
+
     await pref.clear();
 
     Navigator.pushAndRemoveUntil(

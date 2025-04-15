@@ -59,24 +59,23 @@ class ProfileService {
 
   Future<UserProfileModel?> editUserProfile(
     String username,
-    String email,
     String avatar,
-    List<String> category,
-    List<String> favorites,
   ) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    _token = pref.getString('token');
     final Map<String, dynamic> body = {
       "name": username,
-      "email": email,
       "profile_image": avatar,
-      "selected_categories": category,
-      "favourites": favorites,
     };
 
     try {
-      final response = await client.put(
-          Uri.parse("${Apis().baseurl}${Apis().profile}"),
-          headers: {'Content-Type': 'application/json'},
-          body: jsonEncode(body));
+      final response =
+          await client.put(Uri.parse("${Apis().baseurl}${Apis().profile}"),
+              headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': 'Bearer $_token',
+              },
+              body: jsonEncode(body));
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         print('User Data Updated successfully.');
@@ -93,5 +92,39 @@ class ProfileService {
       print(e);
     }
     return null;
+  }
+
+  //edit the user category
+  Future<void> editUserCAtegory(List<String> categories) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    _token = pref.getString('token');
+    final Map<String, dynamic> body = {
+      "selected_categories": categories,
+    };
+
+    try {
+      final response =
+          await client.put(Uri.parse("${Apis().baseurl}${Apis().category}"),
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer $_token',
+              },
+              body: jsonEncode(body));
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        print('User Data Updated successfully.');
+        final data = json.decode(response.body);
+
+        final message = data['message'];
+        // print(message);
+        return message;
+      } else {
+        print('profile Update failed with status code: ${response.statusCode}');
+        print('Response: ${response.body}');
+      }
+    } catch (e) {
+      print(e);
+    }
+    return;
   }
 }

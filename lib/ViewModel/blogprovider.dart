@@ -64,11 +64,24 @@ class BlogProvider extends ChangeNotifier {
     try {
       String? response = await Blogservice().EditBlog(newblog);
       if (response != null) {
-        _blogs.insert(0, newblog);
-        notifyListeners();
+        int index = _blogs.indexWhere((blog) => blog.id == newblog.id);
+        if (index != -1) {
+          _blogs[index] = newblog;
+          notifyListeners();
+        }
       }
     } catch (e) {
       print(e);
     }
+  }
+
+  //edit blog
+  Future<bool?> Deleteblog(BlogModel blogModel) async {
+    final success = await Blogservice().deleteBlog(blogModel);
+    if (success!) {
+      notifyListeners();
+      await fetchBlogs();
+    }
+    return success;
   }
 }

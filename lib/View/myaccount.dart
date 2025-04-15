@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:inkbloom/View/categoryseleection.dart';
 import 'package:inkbloom/ViewModel/userprovider.dart';
 import 'package:inkbloom/View/blogscreens/home2.dart';
 import 'package:provider/provider.dart';
-
-void main() {
-  runApp(ProfileScreen());
-}
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -116,7 +113,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                   InkWell(
                       onTap: () {
-                        _categoriesSelect(context);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CategoryScreen(),
+                            ));
                       },
                       child: ProfileField(
                           icon: Icons.category, text: 'Categories')),
@@ -183,23 +184,23 @@ class ProfileField extends StatelessWidget {
   }
 }
 
-Future<void> _categoriesSelect(BuildContext context) async {
-  return showDialog(
-    context: context,
-    builder: (context) => AlertDialog(
-      actions: [
-        SizedBox(
-          height: 18,
-        ),
-        Container(
-          width: 400,
-          height: 400,
-          color: Colors.black.withOpacity(.3),
-        )
-      ],
-    ),
-  );
-}
+// Future<void> _categoriesSelect(BuildContext context) async {
+//   return showDialog(
+//     context: context,
+//     builder: (context) => AlertDialog(
+//       actions: [
+//         SizedBox(
+//           height: 18,
+//         ),
+//         Container(
+//           width: 400,
+//           height: 400,
+//           color: Colors.black.withOpacity(.3),
+//         )
+//       ],
+//     ),
+//   );
+// }
 
 Future<void> editProfile(BuildContext context) async {
   return showDialog(
@@ -217,7 +218,7 @@ Future<void> editProfile(BuildContext context) async {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 InkWell(
-                  onTap: () => null,
+                  onTap: () {},
                   child: CircleAvatar(
                     radius: 50,
                   ),

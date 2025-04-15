@@ -4,6 +4,7 @@ import 'package:inkbloom/service/userprofile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserProvider extends ChangeNotifier {
+  UserProfileModel? user;
   String? _name;
   String? _email;
   String? _profileImage;
@@ -52,4 +53,6 @@ class UserProvider extends ChangeNotifier {
       print(e);
     }
   }
+
+  Future<void> editUser() async {}
 }

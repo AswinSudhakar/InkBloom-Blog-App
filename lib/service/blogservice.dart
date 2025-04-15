@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Blogservice {
   final client = http.Client();
 
+  //Get all Blogs
   Future<List<BlogModel>?> getAllBlogs() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     final token = pref.getString('token');
@@ -41,6 +42,7 @@ class Blogservice {
     return null;
   }
 
+  //add blog
   Future<String?> AddBlog(BlogModel blogmodel) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     final token = pref.getString('token');
@@ -89,6 +91,7 @@ class Blogservice {
     return null;
   }
 
+  //edit blog
   Future<String?> EditBlog(BlogModel blogmodel) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     final token = pref.getString('token');
@@ -109,14 +112,19 @@ class Blogservice {
       request.fields['content'] = blogmodel.content!;
       request.fields['topic'] = blogmodel.topic!;
       request.fields['readTime'] = blogmodel.readTime!;
-      request.fields['created_at'] = DateTime.now().toIso8601String();
+      request.fields['updated_at'] = DateTime.now().toString();
+      request.fields['created_at'] = blogmodel.createdAt!;
 
       // Attach image file if available
-      if (blogmodel.imageUrl != null && blogmodel.imageUrl!.isNotEmpty) {
+      if (blogmodel.imageUrl != null &&
+          blogmodel.imageUrl!.isNotEmpty &&
+          !blogmodel.imageUrl!.startsWith("http")) {
+        // Only add if it's a local file path, not a URL
         request.files.add(
           await http.MultipartFile.fromPath('image', blogmodel.imageUrl!),
         );
       }
+
       print('The editing request url is $request');
 
       // Send request
@@ -135,6 +143,70 @@ class Blogservice {
       }
     } catch (e) {
       print("the message got backkkkkk :=> $e");
+    }
+    return null;
+  }
+
+  //get the blogs by user category
+  Future<List<BlogModel>?> getBlogsByCategory() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    final token = pref.getString('token');
+    try {
+      final response = await client.get(
+          Uri.parse("${Apis().baseurl}${Apis().blogurl}by-selected-categories"),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token',
+          });
+      if (response.statusCode == 200) {
+        final List<dynamic> responsebody = jsonDecode(response.body);
+
+        final List<BlogModel> blogs =
+            responsebody.map((json) => BlogModel.fromJson(json)).toList();
+
+        print('the blogs returned:${blogs.length}');
+
+        return blogs;
+      } else {
+        print('error occured and statuscode failed:${response.statusCode}');
+      }
+    } catch (e) {
+      print(e);
+    }
+    return null;
+  }
+
+  //delete blog
+  Future<bool?> deleteBlog(BlogModel blogModel) async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    final token = pref.getString('token');
+
+    final url = Uri.parse("${Apis().baseurl}${Apis().blogurl}${blogModel.id}");
+    try {
+      final response = await client.delete(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      print('DELETE request sent to: $url');
+      print('Status code: ${response.statusCode}');
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        print('Delete message: ${data['message']}');
+        getAllBlogs();
+        return true;
+
+        // Call to refresh the blog list
+      } else {
+        print('Failed to delete blog. Status: ${response.statusCode}');
+        print('Response body: ${response.body}');
+      }
+    } catch (e) {
+      print('Error deleting blog: $e');
     }
     return null;
   }

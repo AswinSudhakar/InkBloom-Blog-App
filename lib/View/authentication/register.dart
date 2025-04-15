@@ -331,15 +331,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         color: Colors.white,
                       ),
                     ),
-                    Text(
-                      'Welcome to InkBloom',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30,
-                        color: Colors.white,
-                      ),
-                    ),
-                    SizedBox(height: 25),
+                    // Text(
+                    //   'Welcome to InkBloom',
+                    //   style: TextStyle(
+                    //     fontWeight: FontWeight.bold,
+                    //     fontSize: 30,
+                    //     color: Colors.white,
+                    //   ),
+                    // ),
+                    // SizedBox(height: 25),
+                    SizedBox(
+                      height: 70,
+                    )
                   ],
                 ),
               ),
@@ -379,64 +382,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       "Username", Icons.person, false),
                                   _buildTextField(_emailController, "Email",
                                       Icons.email, false),
-
-                                  //
-
-                                  // Password Field
-//                     TextFormField(_isPasswordVisible
-//                       controller: _passwordController,
-//                       obscureText: !,
-//                       decoration:
-//                           _inputDecoration("Password", Icons.lock).copyWith(
-//                         suffixIcon: IconButton(
-//                           icon: Icon(
-//                             _isPasswordVisible
-//                                 ? Icons.visibility
-//                                 : Icons.visibility_off,
-//                             color: Colors.grey,
-//                           ),
-//                           onPressed: () {
-//                             setState(() {
-//                               _isPasswordVisible = !_isPasswordVisible;
-//                             });
-//                           },
-//                         ),
-//                       ),
-//                       validator: (value) => value!.length < 6
-//                           ? 'Password must be at least 6 characters'
-//                           : null,
-//                     ),
-//                     const SizedBox(height: 15),
-
-//                     // Confirm Password Field
-//                     TextFormField(
-//                       controller: _confirmPasswordController,
-//                       obscureText: !_isConfirmPasswordVisible,
-//                       decoration:
-//                           _inputDecoration("Confirm Password", Icons.lock)
-//                               .copyWith(
-//                         suffixIcon: IconButton(
-//                           icon: Icon(
-//                             _isConfirmPasswordVisible
-//                                 ? Icons.visibility
-//                                 : Icons.visibility_off,
-//                             color: Colors.grey,
-//                           ),
-//                           onPressed: () {
-//                             setState(() {
-//                               _isConfirmPasswordVisible =
-//                                   !_isConfirmPasswordVisible;
-//                             });
-//                           },
-//                         ),
-//                       ),
-//                       validator: (value) => value != _passwordController.text
-//                           ? 'Passwords do not match'
-//                           : null,
-//                     ),
-
-                                  //
-
                                   _buildTextField(_passwordController,
                                       "Password", Icons.lock, true),
                                   _buildTextField(_confirmPasswordController,

@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 
 class EditBlog extends StatefulWidget {
   final BlogModel blog;
-  EditBlog({super.key, required this.blog});
+  const EditBlog({super.key, required this.blog});
 
   @override
   State<EditBlog> createState() => _AddBlogState();
@@ -17,12 +17,12 @@ class EditBlog extends StatefulWidget {
 
 class _AddBlogState extends State<EditBlog> {
   XFile? _selectedImage;
-  ImagePicker _picker = ImagePicker();
-  TextEditingController _titleController = TextEditingController();
-  TextEditingController _topicController = TextEditingController();
-  TextEditingController _contentController = TextEditingController();
-  TextEditingController _CategoryController = TextEditingController();
-  TextEditingController _readtimeController = TextEditingController();
+  final ImagePicker _picker = ImagePicker();
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _topicController = TextEditingController();
+  final TextEditingController _contentController = TextEditingController();
+  final TextEditingController _CategoryController = TextEditingController();
+  final TextEditingController _readtimeController = TextEditingController();
 
   BlogProvider blogProvider = BlogProvider();
 
@@ -38,11 +38,6 @@ class _AddBlogState extends State<EditBlog> {
 
   void _EditBlog(BlogModel blog) {
     print('');
-    // _titleController.text = blog.title.toString();
-    // _topicController.text = blog.topic.toString();
-    // _contentController.text = blog.content.toString();
-    // _CategoryController.text = blog.category.toString();
-    // _readtimeController.text = blog.readTime.toString();
 
     final newBlog = BlogModel(
       id: widget.blog.id,
@@ -53,8 +48,9 @@ class _AddBlogState extends State<EditBlog> {
       content: _contentController.text,
       createdAt: widget.blog.createdAt,
       updatedAt: DateTime.now().toString(),
-
-      // imageUrl: _selectedImage!.path.toString(),
+      imageUrl: _selectedImage != null
+          ? _selectedImage!.path.toString()
+          : widget.blog.imageUrl ?? '',
     );
 
     final blogProvider = Provider.of<BlogProvider>(context, listen: false);
@@ -93,6 +89,7 @@ class _AddBlogState extends State<EditBlog> {
     _contentController.text = widget.blog.content!;
     _CategoryController.text = widget.blog.category!;
     _readtimeController.text = widget.blog.readTime!;
+    _topicController.text = widget.blog.topic!;
   }
 
   @override
