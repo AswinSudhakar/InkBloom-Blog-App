@@ -281,7 +281,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
           SnackBar(content: Text("Error: ${e.toString()}")),
         );
       } finally {
-        if (!mounted) return;
         setState(() {
           _isLoading = false;
         });

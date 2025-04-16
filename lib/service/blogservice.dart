@@ -148,12 +148,13 @@ class Blogservice {
   }
 
   //get the blogs by user category
-  Future<List<BlogModel>?> getBlogsByCategory() async {
+  Future<List<BlogModel>?> getBlogsByuserCategory() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     final token = pref.getString('token');
     try {
       final response = await client.get(
-          Uri.parse("${Apis().baseurl}${Apis().blogurl}by-selected-categories"),
+          Uri.parse(
+              "https://simple-blogging.onrender.com/blogs/by-selected-categories"),
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer $token',
@@ -164,7 +165,8 @@ class Blogservice {
         final List<BlogModel> blogs =
             responsebody.map((json) => BlogModel.fromJson(json)).toList();
 
-        print('the blogs returned:${blogs.length}');
+        print(
+            'the blogs returned by userselected category ------>:${blogs.length}');
 
         return blogs;
       } else {
@@ -210,4 +212,39 @@ class Blogservice {
     }
     return null;
   }
+
+  // //Get Blogs by selected categories
+  // Future<List<BlogModel>?> getUserCategoryBlogs() async {
+  //   SharedPreferences pref = await SharedPreferences.getInstance();
+  //   final token = pref.getString('token');
+  //   print('the token is :$token');
+
+  //   try {
+  //     final response = await client.get(
+  //         Uri.parse("${Apis().baseurl}${Apis().blogurl}by-selected-categories"),
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //           'Authorization': 'Bearer $token',
+  //         });
+  //     print('Fetching blogs from: ${Apis().baseurl}${Apis().blogurl}by-selected-categories');
+
+  //     if (response.statusCode == 200) {
+  //       final List<dynamic> responsebody = jsonDecode(response.body);
+
+  //       final List<BlogModel> userblogs =
+  //           responsebody.map((json) => BlogModel.fromJson(json)).toList();
+
+  //       print('the blogs returned:${userblogs.length}');
+
+  //       return userblogs;
+  //     } else {
+  //       print('error occured and statuscode failed:${response.statusCode}');
+  //     }
+
+  //     print('response url is :${Apis().baseurl}${Apis().blogurl}by-selected-categories');
+  //   } catch (e) {
+  //     print('errorrrr occured :$e');
+  //   }
+  //   return null;
+  // }
 }

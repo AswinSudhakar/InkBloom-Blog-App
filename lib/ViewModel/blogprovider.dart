@@ -5,28 +5,21 @@ import 'package:inkbloom/service/blogservice.dart';
 
 class BlogProvider extends ChangeNotifier {
   List<BlogModel> _blogs = [];
-  List<BlogModel> _filteredBlogs = [];
-  String _selectedCategory = "All";
+
+  List<BlogModel> _userpreferedblogs = [];
+  // List<BlogModel> _userselectedblogs = [];
+
+  final List<BlogModel> _filteredBlogs = [];
+
   bool _isLoading = false;
   String? _error;
 
   List<BlogModel> get blogs => _blogs;
   List<BlogModel> get filteredblogs => _filteredBlogs;
+  List<BlogModel> get userprefblogs => _userpreferedblogs;
+
   bool get isLoading => _isLoading;
   String? get error => _error;
-
-  Future<void> filterByCategory(String category) async {
-    _selectedCategory = category;
-    if (category == 'All') {
-      _filteredBlogs = _blogs;
-    } else {
-      _filteredBlogs = _blogs
-          .where(
-              (blog) => blog.category?.toLowerCase() == category.toLowerCase())
-          .toList();
-    }
-    notifyListeners();
-  }
 
   Future<void> fetchBlogs() async {
     _isLoading = true;
@@ -36,6 +29,26 @@ class BlogProvider extends ChangeNotifier {
     try {
       List<BlogModel>? fetchedBlogs = await Blogservice().getAllBlogs();
       _blogs = fetchedBlogs ?? []; // Ensuring non-null list
+    } catch (e) {
+      _error = "Failed to fetch blogs: $e";
+    }
+
+    _isLoading = false;
+    notifyListeners();
+  }
+
+  //get user category blogs
+
+  Future<void> fetchUserCategoryBlogs() async {
+    _isLoading = true;
+    _error = null;
+    notifyListeners();
+
+    try {
+      final blogs = await Blogservice().getBlogsByuserCategory();
+      _userpreferedblogs = blogs ?? [];
+      _filteredBlogs.clear();
+      _filteredBlogs.addAll(_userpreferedblogs);
     } catch (e) {
       _error = "Failed to fetch blogs: $e";
     }

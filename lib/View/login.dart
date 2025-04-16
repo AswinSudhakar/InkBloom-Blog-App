@@ -199,6 +199,7 @@ class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _LoginScreenState createState() => _LoginScreenState();
 }
 
@@ -207,13 +208,10 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _isPasswordVisible = false;
-  bool _isLoading = false;
 
   void _login() async {
     if (_loginkey.currentState!.validate()) {
-      setState(() {
-        _isLoading = true;
-      });
+      setState(() {});
 
       Authservice authservice = Authservice();
       try {
@@ -241,11 +239,7 @@ class _LoginScreenState extends State<LoginScreen> {
           SnackBar(content: Text("Error: ${e.toString()}")),
         );
       } finally {
-        if (!mounted) return;
-
-        setState(() {
-          _isLoading = false;
-        });
+        setState(() {});
       }
     }
   }

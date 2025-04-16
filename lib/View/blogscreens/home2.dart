@@ -4,6 +4,8 @@ import 'package:inkbloom/ViewModel/blogprovider.dart';
 import 'package:inkbloom/View/blogscreens/blogdetail.dart';
 
 import 'package:inkbloom/service/userprofile.dart';
+import 'package:inkbloom/widgets/bloglistview.dart';
+import 'package:inkbloom/widgets/bloglistviewhoriz.dart';
 import 'package:inkbloom/widgets/drawer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
@@ -28,6 +30,11 @@ class _HomeScreen2State extends State<HomeScreen2> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<BlogProvider>(context, listen: false).fetchBlogs();
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final provider = Provider.of<BlogProvider>(context, listen: false);
+      provider.fetchUserCategoryBlogs(); // 👈 THIS is what triggers it
+    });
   }
 
   Future<void> fetchAndLoadUserData() async {
@@ -47,6 +54,7 @@ class _HomeScreen2State extends State<HomeScreen2> {
   }
 
   final categories = [
+    "Recommended",
     "All",
     "Business",
     "Culture",
@@ -58,7 +66,7 @@ class _HomeScreen2State extends State<HomeScreen2> {
     "Technology",
     "Work"
   ];
-  String selectedCategory = "All";
+  String selectedCategory = "Recommended";
 
   @override
   Widget build(BuildContext context) {
@@ -101,13 +109,7 @@ class _HomeScreen2State extends State<HomeScreen2> {
                       child: ChoiceChip(
                         label: Text(category),
                         selected: isSelected,
-                        onSelected: (selected) {
-                          setState(() {
-                            selectedCategory = category;
-                          });
-                          Provider.of<BlogProvider>(context, listen: false)
-                              .filterByCategory(category);
-                        },
+                        onSelected: (selected) {},
                         selectedColor: Colors.black87,
                         labelStyle: TextStyle(
                             color: isSelected ? Colors.white : Colors.black),
@@ -124,164 +126,177 @@ class _HomeScreen2State extends State<HomeScreen2> {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Container(
-                      height: 180,
-                      width: 230,
-                      decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(20)),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Container(
-                      height: 180,
-                      width: 230,
-                      decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(20)),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Container(
-                      height: 180,
-                      width: 230,
-                      decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(20)),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Container(
-                      height: 180,
-                      width: 230,
-                      decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(20)),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Container(
-                      height: 180,
-                      width: 230,
-                      decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(20)),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
+                    HorizontalBlogList(
+                      blogs: context.watch<BlogProvider>().blogs,
+                      isLoading: context.watch<BlogProvider>().isLoading,
+                    )
+                    // SizedBox(
+                    //   width: 20,
+                    // ),
+                    // Container(
+                    //   height: 180,
+                    //   width: 230,
+                    //   decoration: BoxDecoration(
+                    //       color: Colors.grey,
+                    //       borderRadius: BorderRadius.circular(20)),
+                    // ),
+                    // SizedBox(
+                    //   width: 20,
+                    // ),
+                    // Container(
+                    //   height: 180,
+                    //   width: 230,
+                    //   decoration: BoxDecoration(
+                    //       color: Colors.grey,
+                    //       borderRadius: BorderRadius.circular(20)),
+                    // ),
+                    // SizedBox(
+                    //   width: 20,
+                    // ),
+                    // Container(
+                    //   height: 180,
+                    //   width: 230,
+                    //   decoration: BoxDecoration(
+                    //       color: Colors.grey,
+                    //       borderRadius: BorderRadius.circular(20)),
+                    // ),
+                    // SizedBox(
+                    //   width: 20,
+                    // ),
+                    // Container(
+                    //   height: 180,
+                    //   width: 230,
+                    //   decoration: BoxDecoration(
+                    //       color: Colors.grey,
+                    //       borderRadius: BorderRadius.circular(20)),
+                    // ),
+                    // SizedBox(
+                    //   width: 20,
+                    // ),
+                    // Container(
+                    //   height: 180,
+                    //   width: 230,
+                    //   decoration: BoxDecoration(
+                    //       color: Colors.grey,
+                    //       borderRadius: BorderRadius.circular(20)),
+                    // ),
+                    // SizedBox(
+                    //   width: 20,
+                    // ),
                   ],
                 ),
               ),
-              SizedBox(
-                height: 30,
-              ),
-              Consumer<BlogProvider>(
-                builder: (context, blogProvider, child) {
-                  if (blogProvider.isLoading) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (blogProvider.blogs.isEmpty) {
-                    return const Center(child: Text('No blogs found'));
-                  }
+              // SizedBox(
+              //   height: 30,
+              // ),
+              // Consumer<BlogProvider>(
+              //   builder: (context, blogProvider, child) {
+              //     if (blogProvider.isLoading) {
+              //       return const Center(child: CircularProgressIndicator());
+              //     } else if (blogProvider.blogs.isEmpty) {
+              //       return const Center(child: Text('No blogs found'));
+              //     }
 
-                  return ListView.builder(
-                    shrinkWrap:
-                        true, // ✅ Let it size itself inside the scroll view
-                    physics:
-                        NeverScrollableScrollPhysics(), // ✅ Prevent nested scroll conflicts
-                    itemCount: blogProvider.blogs.length,
-                    itemBuilder: (context, index) {
-                      final blog = blogProvider.blogs[index];
+              //     return ListView.builder(
+              //       shrinkWrap:
+              //           true, // ✅ Let it size itself inside the scroll view
+              //       physics:
+              //           NeverScrollableScrollPhysics(), // ✅ Prevent nested scroll conflicts
+              //       itemCount: blogProvider.blogs.length,
+              //       itemBuilder: (context, index) {
+              //         final blog = blogProvider.blogs[index];
 
-                      return InkWell(
-                        onTap: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => BlogDetail(blog: blog),
-                            )),
-                        child: Card(
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: 12, vertical: 8),
-                          elevation: 4,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12)),
-                          child: Container(
-                            height: 180, // Slightly taller card
-                            padding: const EdgeInsets.all(15),
-                            child: Row(
-                              children: [
-                                // Blog Image
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Image.network(
-                                    blog.imageUrl ??
-                                        'https://as1.ftcdn.net/v2/jpg/05/03/24/40/1000_F_503244059_fRjgerSXBfOYZqTpei4oqyEpQrhbpOML.jpg',
-                                    height: double.infinity,
-                                    width: 110,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                SizedBox(width: 12),
-                                // Blog Details
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        blog.title ?? 'No Title',
-                                        style: TextStyle(
-                                          fontSize: 26,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      SizedBox(height: 5),
-                                      Text(
-                                        blog.content ?? '',
-                                        maxLines:
-                                            4, // ✅ Show 3–4 lines of preview content
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                            fontSize: 13,
-                                            color: Colors.grey[700]),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            'Readtime :${blog.readTime}' ??
-                                                'Read time',
-                                            style: TextStyle(
-                                                fontSize: 15,
-                                                color: Colors.grey[600]),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  );
-                },
-              ),
+              //         return InkWell(
+              //           onTap: () => Navigator.push(
+              //               context,
+              //               MaterialPageRoute(
+              //                 builder: (context) => BlogDetail(blog: blog),
+              //               )),
+              //           child: Card(
+              //             margin: const EdgeInsets.symmetric(
+              //                 horizontal: 12, vertical: 8),
+              //             elevation: 4,
+              //             shape: RoundedRectangleBorder(
+              //                 borderRadius: BorderRadius.circular(12)),
+              //             child: Container(
+              //               height: 180, // Slightly taller card
+              //               padding: const EdgeInsets.all(15),
+              //               child: Row(
+              //                 children: [
+              //                   // Blog Image
+              //                   ClipRRect(
+              //                     borderRadius: BorderRadius.circular(10),
+              //                     child: Image.network(
+              //                       blog.imageUrl ??
+              //                           'https://as1.ftcdn.net/v2/jpg/05/03/24/40/1000_F_503244059_fRjgerSXBfOYZqTpei4oqyEpQrhbpOML.jpg',
+              //                       height: double.infinity,
+              //                       width: 110,
+              //                       fit: BoxFit.cover,
+              //                     ),
+              //                   ),
+              //                   SizedBox(width: 12),
+              //                   // Blog Details
+              //                   Expanded(
+              //                     child: Column(
+              //                       crossAxisAlignment:
+              //                           CrossAxisAlignment.start,
+              //                       mainAxisAlignment:
+              //                           MainAxisAlignment.spaceBetween,
+              //                       children: [
+              //                         Text(
+              //                           blog.title ?? 'No Title',
+              //                           style: TextStyle(
+              //                             fontSize: 26,
+              //                             fontWeight: FontWeight.w600,
+              //                           ),
+              //                           maxLines: 1,
+              //                           overflow: TextOverflow.ellipsis,
+              //                         ),
+              //                         SizedBox(height: 5),
+              //                         Text(
+              //                           blog.content ?? '',
+              //                           maxLines:
+              //                               4, // ✅ Show 3–4 lines of preview content
+              //                           overflow: TextOverflow.ellipsis,
+              //                           style: TextStyle(
+              //                               fontSize: 13,
+              //                               color: Colors.grey[700]),
+              //                         ),
+              //                         SizedBox(height: 5),
+              //                         Row(
+              //                           mainAxisAlignment:
+              //                               MainAxisAlignment.spaceBetween,
+              //                           children: [
+              //                             Text(
+              //                               'Readtime :${blog.readTime}' ??
+              //                                   'Read time',
+              //                               style: TextStyle(
+              //                                   fontSize: 15,
+              //                                   color: Colors.grey[600]),
+              //                             ),
+              //                           ],
+              //                         ),
+              //                       ],
+              //                     ),
+              //                   ),
+              //                 ],
+              //               ),
+              //             ),
+              //           ),
+              //         );
+              //       },
+              //     );
+              //   },
+              // ),
+              // BlogListSection(
+              //   blogs: context.read<BlogProvider>().filteredblogs,
+              //   isLoading: context.watch<BlogProvider>().isLoading,
+              // )
+              // If you just want user category blogs directly
+              BlogListSection(
+                blogs: context.watch<BlogProvider>().filteredblogs,
+                isLoading: context.watch<BlogProvider>().isLoading,
+              )
             ],
           ),
         ),
@@ -289,6 +304,11 @@ class _HomeScreen2State extends State<HomeScreen2> {
     );
   }
 }
+
+
+
+
+
 
 
 // ListTile(

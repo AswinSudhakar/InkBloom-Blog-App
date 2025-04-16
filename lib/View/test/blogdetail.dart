@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:inkbloom/models/blog/blogmodel.dart';
 
 class BlogDetail extends StatelessWidget {
-  BlogModel blog;
-  BlogDetail({super.key, required this.blog});
+  final BlogModel blog;
+  const BlogDetail({super.key, required this.blog});
 
   @override
   Widget build(BuildContext context) {
