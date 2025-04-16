@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:inkbloom/View/test/welcomescreen.dart';
-import 'package:inkbloom/ViewModel/blogprovider.dart';
-import 'package:inkbloom/View/blogscreens/blogdetail.dart';
 
+import 'package:inkbloom/ViewModel/blogprovider.dart';
 import 'package:inkbloom/service/userprofile.dart';
 import 'package:inkbloom/widgets/bloglistview.dart';
 import 'package:inkbloom/widgets/bloglistviewhoriz.dart';
@@ -70,7 +68,7 @@ class _HomeScreen2State extends State<HomeScreen2> {
 
   @override
   Widget build(BuildContext context) {
-    final blogProvider = Provider.of<BlogProvider>(context);
+    // final blogProvider = Provider.of<BlogProvider>(context);
 
     return SafeArea(
       child: Scaffold(
@@ -84,11 +82,11 @@ class _HomeScreen2State extends State<HomeScreen2> {
           actions: [
             IconButton(
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Welcomescreen(),
-                      ));
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //       builder: (context) => Welcomescreen(),
+                  //     ));
                 },
                 icon: Icon(Icons.search))
           ],
@@ -96,6 +94,49 @@ class _HomeScreen2State extends State<HomeScreen2> {
         body: SingleChildScrollView(
           child: Column(
             children: [
+              SizedBox(
+                height: 30,
+              ),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: Colors.grey.withOpacity(0.3),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: const Text(
+                      'Trending',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 10,
+                    ),
+                    HorizontalBlogList(
+                      blogs: context.watch<BlogProvider>().blogs,
+                      isLoading: context.watch<BlogProvider>().isLoading,
+                    )
+                  ],
+                ),
+              ),
               SizedBox(
                 height: 30,
               ),
@@ -120,179 +161,8 @@ class _HomeScreen2State extends State<HomeScreen2> {
                 ),
               ),
               SizedBox(
-                height: 30,
+                height: 10,
               ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    HorizontalBlogList(
-                      blogs: context.watch<BlogProvider>().blogs,
-                      isLoading: context.watch<BlogProvider>().isLoading,
-                    )
-                    // SizedBox(
-                    //   width: 20,
-                    // ),
-                    // Container(
-                    //   height: 180,
-                    //   width: 230,
-                    //   decoration: BoxDecoration(
-                    //       color: Colors.grey,
-                    //       borderRadius: BorderRadius.circular(20)),
-                    // ),
-                    // SizedBox(
-                    //   width: 20,
-                    // ),
-                    // Container(
-                    //   height: 180,
-                    //   width: 230,
-                    //   decoration: BoxDecoration(
-                    //       color: Colors.grey,
-                    //       borderRadius: BorderRadius.circular(20)),
-                    // ),
-                    // SizedBox(
-                    //   width: 20,
-                    // ),
-                    // Container(
-                    //   height: 180,
-                    //   width: 230,
-                    //   decoration: BoxDecoration(
-                    //       color: Colors.grey,
-                    //       borderRadius: BorderRadius.circular(20)),
-                    // ),
-                    // SizedBox(
-                    //   width: 20,
-                    // ),
-                    // Container(
-                    //   height: 180,
-                    //   width: 230,
-                    //   decoration: BoxDecoration(
-                    //       color: Colors.grey,
-                    //       borderRadius: BorderRadius.circular(20)),
-                    // ),
-                    // SizedBox(
-                    //   width: 20,
-                    // ),
-                    // Container(
-                    //   height: 180,
-                    //   width: 230,
-                    //   decoration: BoxDecoration(
-                    //       color: Colors.grey,
-                    //       borderRadius: BorderRadius.circular(20)),
-                    // ),
-                    // SizedBox(
-                    //   width: 20,
-                    // ),
-                  ],
-                ),
-              ),
-              // SizedBox(
-              //   height: 30,
-              // ),
-              // Consumer<BlogProvider>(
-              //   builder: (context, blogProvider, child) {
-              //     if (blogProvider.isLoading) {
-              //       return const Center(child: CircularProgressIndicator());
-              //     } else if (blogProvider.blogs.isEmpty) {
-              //       return const Center(child: Text('No blogs found'));
-              //     }
-
-              //     return ListView.builder(
-              //       shrinkWrap:
-              //           true, // ✅ Let it size itself inside the scroll view
-              //       physics:
-              //           NeverScrollableScrollPhysics(), // ✅ Prevent nested scroll conflicts
-              //       itemCount: blogProvider.blogs.length,
-              //       itemBuilder: (context, index) {
-              //         final blog = blogProvider.blogs[index];
-
-              //         return InkWell(
-              //           onTap: () => Navigator.push(
-              //               context,
-              //               MaterialPageRoute(
-              //                 builder: (context) => BlogDetail(blog: blog),
-              //               )),
-              //           child: Card(
-              //             margin: const EdgeInsets.symmetric(
-              //                 horizontal: 12, vertical: 8),
-              //             elevation: 4,
-              //             shape: RoundedRectangleBorder(
-              //                 borderRadius: BorderRadius.circular(12)),
-              //             child: Container(
-              //               height: 180, // Slightly taller card
-              //               padding: const EdgeInsets.all(15),
-              //               child: Row(
-              //                 children: [
-              //                   // Blog Image
-              //                   ClipRRect(
-              //                     borderRadius: BorderRadius.circular(10),
-              //                     child: Image.network(
-              //                       blog.imageUrl ??
-              //                           'https://as1.ftcdn.net/v2/jpg/05/03/24/40/1000_F_503244059_fRjgerSXBfOYZqTpei4oqyEpQrhbpOML.jpg',
-              //                       height: double.infinity,
-              //                       width: 110,
-              //                       fit: BoxFit.cover,
-              //                     ),
-              //                   ),
-              //                   SizedBox(width: 12),
-              //                   // Blog Details
-              //                   Expanded(
-              //                     child: Column(
-              //                       crossAxisAlignment:
-              //                           CrossAxisAlignment.start,
-              //                       mainAxisAlignment:
-              //                           MainAxisAlignment.spaceBetween,
-              //                       children: [
-              //                         Text(
-              //                           blog.title ?? 'No Title',
-              //                           style: TextStyle(
-              //                             fontSize: 26,
-              //                             fontWeight: FontWeight.w600,
-              //                           ),
-              //                           maxLines: 1,
-              //                           overflow: TextOverflow.ellipsis,
-              //                         ),
-              //                         SizedBox(height: 5),
-              //                         Text(
-              //                           blog.content ?? '',
-              //                           maxLines:
-              //                               4, // ✅ Show 3–4 lines of preview content
-              //                           overflow: TextOverflow.ellipsis,
-              //                           style: TextStyle(
-              //                               fontSize: 13,
-              //                               color: Colors.grey[700]),
-              //                         ),
-              //                         SizedBox(height: 5),
-              //                         Row(
-              //                           mainAxisAlignment:
-              //                               MainAxisAlignment.spaceBetween,
-              //                           children: [
-              //                             Text(
-              //                               'Readtime :${blog.readTime}' ??
-              //                                   'Read time',
-              //                               style: TextStyle(
-              //                                   fontSize: 15,
-              //                                   color: Colors.grey[600]),
-              //                             ),
-              //                           ],
-              //                         ),
-              //                       ],
-              //                     ),
-              //                   ),
-              //                 ],
-              //               ),
-              //             ),
-              //           ),
-              //         );
-              //       },
-              //     );
-              //   },
-              // ),
-              // BlogListSection(
-              //   blogs: context.read<BlogProvider>().filteredblogs,
-              //   isLoading: context.watch<BlogProvider>().isLoading,
-              // )
-              // If you just want user category blogs directly
               BlogListSection(
                 blogs: context.watch<BlogProvider>().filteredblogs,
                 isLoading: context.watch<BlogProvider>().isLoading,
@@ -304,32 +174,3 @@ class _HomeScreen2State extends State<HomeScreen2> {
     );
   }
 }
-
-
-
-
-
-
-
-// ListTile(
-//                           // leading: blog.imageUrl != null
-//                           //     ? Image.network(
-//                           //         "${Apis().baseurl}/${blog.imageUrl}",
-//                           //         width: 50,
-//                           //         height: 50,
-//                           //         fit: BoxFit.cover,
-//                           //       )
-//                           //     : const Icon(Icons.image_not_supported),
-//                           title: Text(blog.title ?? "No Title"),
-//                           subtitle: Text(blog.category ?? "No read time"),
-//                           trailing: Text(blog.readTime ?? "no email"),
-//                           onTap: () {
-//                             Navigator.push(
-//                                 context,
-//                                 MaterialPageRoute(
-//                                   builder: (context) => BlogDetail(
-//                                     blog: blog,
-//                                   ),
-//                                 ));
-//                           },
-//                         ),

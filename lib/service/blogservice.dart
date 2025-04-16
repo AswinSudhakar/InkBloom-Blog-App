@@ -12,7 +12,7 @@ class Blogservice {
   Future<List<BlogModel>?> getAllBlogs() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     final token = pref.getString('token');
-    print('the token is :$token');
+    // print('the token is :$token');
 
     try {
       final response = await client
@@ -20,7 +20,7 @@ class Blogservice {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
       });
-      print('Fetching blogs from: ${Apis().baseurl}${Apis().blogurl}');
+      // print('Fetching blogs from: ${Apis().baseurl}${Apis().blogurl}');
 
       if (response.statusCode == 200) {
         final List<dynamic> responsebody = jsonDecode(response.body);
@@ -28,14 +28,14 @@ class Blogservice {
         final List<BlogModel> blogs =
             responsebody.map((json) => BlogModel.fromJson(json)).toList();
 
-        print('the blogs returned:${blogs.length}');
+        // print('the blogs returned:${blogs.length}');
 
         return blogs;
       } else {
         print('error occured and statuscode failed:${response.statusCode}');
       }
 
-      print('response url is :${Apis().baseurl}${Apis().blogurl}');
+      // print('response url is :${Apis().baseurl}${Apis().blogurl}');
     } catch (e) {
       print('errorrrr occured :$e');
     }
@@ -125,7 +125,7 @@ class Blogservice {
         );
       }
 
-      print('The editing request url is $request');
+      // print('The editing request url is $request');
 
       // Send request
       var response = await request.send();
@@ -159,8 +159,11 @@ class Blogservice {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer $token',
           });
+      print("📡 API CALL: Getting blogs by selected category...");
+
       if (response.statusCode == 200) {
         final List<dynamic> responsebody = jsonDecode(response.body);
+        // print("🧪 Raw response: ${response.body}");
 
         final List<BlogModel> blogs =
             responsebody.map((json) => BlogModel.fromJson(json)).toList();
@@ -209,6 +212,35 @@ class Blogservice {
       }
     } catch (e) {
       print('Error deleting blog: $e');
+    }
+    return null;
+  }
+
+  //search blogs
+
+  Future<List<BlogModel>?> SearchBlogs() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    final token = pref.getString('token');
+
+    try {
+      final request = await client
+          .get(Uri.parse("${Apis().baseurl}${Apis().search}"), headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      });
+
+      if (request.statusCode == 200) {
+        final List<dynamic> responsebody = jsonDecode(request.body);
+        print("🧪 Raw response: ${request.body}");
+
+        final List<BlogModel> blogs =
+            responsebody.map((json) => BlogModel.fromJson(json)).toList();
+        return blogs;
+      } else {
+        print('error occured and statuscode failed:${request.statusCode}');
+      }
+    } catch (e) {
+      print(e);
     }
     return null;
   }

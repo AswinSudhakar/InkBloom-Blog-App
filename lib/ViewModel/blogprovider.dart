@@ -45,8 +45,10 @@ class BlogProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final blogs = await Blogservice().getBlogsByuserCategory();
-      _userpreferedblogs = blogs ?? [];
+      final newblogs = await Blogservice().getBlogsByuserCategory();
+      print("🔁 fetchUserCategoryBlogs called");
+
+      _userpreferedblogs = newblogs ?? [];
       _filteredBlogs.clear();
       _filteredBlogs.addAll(_userpreferedblogs);
     } catch (e) {

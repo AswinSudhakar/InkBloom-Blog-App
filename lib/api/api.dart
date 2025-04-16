@@ -12,4 +12,5 @@ class Apis {
   final String favorites = '/users/favourites';
 
   final String blogurl = '/blogs/';
+  final String search = '/blogs/search';
 }

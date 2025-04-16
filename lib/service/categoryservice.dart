@@ -26,12 +26,14 @@ class Categoryservice {
         final List<String> categories = jsonDecode(request.body);
 
         print('category length is ${categories.length}');
-        return categories;
+        return categories.isNotEmpty ? categories : null;
       } else {
         print('error occured and statuscode failed:${request.statusCode}');
+        return null;
       }
     } catch (e) {
       print(e);
+      return null;
     }
   }
 
@@ -80,12 +82,14 @@ class Categoryservice {
         final List<String> usercategories = jsonDecode(request.body);
 
         print('usercategory length is ${usercategories.length}');
-        return usercategories;
+        return usercategories.isNotEmpty ? usercategories : null;
       } else {
         print('error occured and statuscode failed:${request.statusCode}');
+        return null;
       }
     } catch (e) {
       print(e);
+      return null;
     }
   }
 }
