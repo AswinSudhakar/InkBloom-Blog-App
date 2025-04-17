@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:inkbloom/ViewModel/blogprovider.dart';
+import 'package:inkbloom/models/blog/blogmodel.dart';
 import 'package:inkbloom/service/userprofile.dart';
 import 'package:inkbloom/widgets/bloglistview.dart';
 import 'package:inkbloom/widgets/bloglistviewhoriz.dart';
@@ -19,6 +20,7 @@ class _HomeScreen2State extends State<HomeScreen2> {
   String? name;
   String? email;
   String? avatar;
+  final List<BlogModel> recent = [];
 
   @override
   void initState() {
@@ -99,49 +101,49 @@ class _HomeScreen2State extends State<HomeScreen2> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(
-                height: 30,
-              ),
-              Row(
-                children: [
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                    decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(0.3),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: const Text(
-                      'Trending',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87,
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: 10,
-                    ),
-                    HorizontalBlogList(
-                      blogs: context.watch<BlogProvider>().userprefblogs,
-                      isLoading: context.watch<BlogProvider>().isLoading,
-                    )
-                  ],
-                ),
-              ),
+              // SizedBox(
+              //   height: 30,
+              // ),
+              // Row(
+              //   children: [
+              //     SizedBox(
+              //       width: 20,
+              //     ),
+              //     Container(
+              //       padding:
+              //           const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              //       decoration: BoxDecoration(
+              //         color: Colors.grey.withOpacity(0.3),
+              //         borderRadius: BorderRadius.circular(12),
+              //       ),
+              //       child: const Text(
+              //         'Trending',
+              //         style: TextStyle(
+              //           fontSize: 14,
+              //           fontWeight: FontWeight.bold,
+              //           color: Colors.black87,
+              //         ),
+              //       ),
+              //     )
+              //   ],
+              // ),
+              // SizedBox(
+              //   height: 10,
+              // ),
+              // SingleChildScrollView(
+              //   scrollDirection: Axis.horizontal,
+              //   child: Row(
+              //     children: [
+              //       SizedBox(
+              //         width: 10,
+              //       ),
+              //       HorizontalBlogList(
+              //         blogs: context.watch<BlogProvider>().userprefblogs,
+              //         isLoading: context.watch<BlogProvider>().isLoading,
+              //       )
+              //     ],
+              //   ),
+              // ),
               SizedBox(
                 height: 30,
               ),

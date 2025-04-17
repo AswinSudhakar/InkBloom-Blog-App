@@ -23,7 +23,11 @@ class BlogListSection extends StatelessWidget {
     }
 
     if (blogs.isEmpty) {
-      return const Center(child: Text('No blogs found'));
+      return const Center(
+          child: Text(
+        'No blogs found',
+        style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+      ));
     }
 
     return ListView.builder(
