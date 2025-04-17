@@ -217,7 +217,6 @@ class Blogservice {
   }
 
   //search blogs
-
   Future<List<BlogModel>?> SearchBlogs() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     final token = pref.getString('token');
@@ -245,38 +244,31 @@ class Blogservice {
     return null;
   }
 
-  // //Get Blogs by selected categories
-  // Future<List<BlogModel>?> getUserCategoryBlogs() async {
-  //   SharedPreferences pref = await SharedPreferences.getInstance();
-  //   final token = pref.getString('token');
-  //   print('the token is :$token');
+  //filter blogs by selected category
+  Future<List<BlogModel>?> FilterBlog(String category) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    final token = pref.getString('token');
 
-  //   try {
-  //     final response = await client.get(
-  //         Uri.parse("${Apis().baseurl}${Apis().blogurl}by-selected-categories"),
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //           'Authorization': 'Bearer $token',
-  //         });
-  //     print('Fetching blogs from: ${Apis().baseurl}${Apis().blogurl}by-selected-categories');
+    try {
+      final request = await client.get(
+          Uri.parse("${Apis().baseurl}${Apis().blogurl}?category=$category"),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token',
+          });
 
-  //     if (response.statusCode == 200) {
-  //       final List<dynamic> responsebody = jsonDecode(response.body);
+      if (request.statusCode == 200) {
+        final List<dynamic> responsebody = jsonDecode(request.body);
+        print("🧪 Raw response: ${request.body}");
 
-  //       final List<BlogModel> userblogs =
-  //           responsebody.map((json) => BlogModel.fromJson(json)).toList();
-
-  //       print('the blogs returned:${userblogs.length}');
-
-  //       return userblogs;
-  //     } else {
-  //       print('error occured and statuscode failed:${response.statusCode}');
-  //     }
-
-  //     print('response url is :${Apis().baseurl}${Apis().blogurl}by-selected-categories');
-  //   } catch (e) {
-  //     print('errorrrr occured :$e');
-  //   }
-  //   return null;
-  // }
+        final List<BlogModel> blogs =
+            responsebody.map((json) => BlogModel.fromJson(json)).toList();
+        return blogs;
+      } else {
+        print('status code failed---');
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 }

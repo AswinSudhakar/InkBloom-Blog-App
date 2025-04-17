@@ -68,7 +68,12 @@ class _HomeScreen2State extends State<HomeScreen2> {
 
   @override
   Widget build(BuildContext context) {
-    // final blogProvider = Provider.of<BlogProvider>(context);
+    final blogProvider = context.watch<BlogProvider>();
+    final blogsToShow = selectedCategory == "Recommended"
+        ? blogProvider.userprefblogs
+        : selectedCategory == "All"
+            ? blogProvider.blogs
+            : blogProvider.filteredblogs;
 
     return SafeArea(
       child: Scaffold(
@@ -131,7 +136,7 @@ class _HomeScreen2State extends State<HomeScreen2> {
                       width: 10,
                     ),
                     HorizontalBlogList(
-                      blogs: context.watch<BlogProvider>().blogs,
+                      blogs: context.watch<BlogProvider>().userprefblogs,
                       isLoading: context.watch<BlogProvider>().isLoading,
                     )
                   ],
@@ -150,7 +155,25 @@ class _HomeScreen2State extends State<HomeScreen2> {
                       child: ChoiceChip(
                         label: Text(category),
                         selected: isSelected,
-                        onSelected: (selected) {},
+                        onSelected: (selected) {
+                          if (selected) {
+                            setState(() {
+                              selectedCategory = category;
+                            });
+
+                            final blogProvider = Provider.of<BlogProvider>(
+                                context,
+                                listen: false);
+
+                            if (category == "All") {
+                              blogProvider.fetchBlogs();
+                            } else if (category == "Recommended") {
+                              blogProvider.fetchUserCategoryBlogs();
+                            } else {
+                              blogProvider.filterCategoryBlogs(category);
+                            }
+                          }
+                        },
                         selectedColor: Colors.black87,
                         labelStyle: TextStyle(
                             color: isSelected ? Colors.white : Colors.black),
@@ -163,10 +186,16 @@ class _HomeScreen2State extends State<HomeScreen2> {
               SizedBox(
                 height: 10,
               ),
+
               BlogListSection(
-                blogs: context.watch<BlogProvider>().filteredblogs,
-                isLoading: context.watch<BlogProvider>().isLoading,
+                blogs: blogsToShow,
+                isLoading: blogProvider.isLoading,
               )
+
+              // BlogListSection(
+              //   blogs: context.watch<BlogProvider>().blogs,
+              //   isLoading: context.watch<BlogProvider>().isLoading,
+              // )
             ],
           ),
         ),

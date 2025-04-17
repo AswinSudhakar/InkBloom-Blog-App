@@ -9,12 +9,12 @@ class BlogListSection extends StatelessWidget {
   final void Function(BlogModel blog)? onTap;
 
   const BlogListSection({
-    Key? key,
+    super.key,
     required this.blogs,
     this.isLoading = false,
     this.isScrollable = false,
     this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

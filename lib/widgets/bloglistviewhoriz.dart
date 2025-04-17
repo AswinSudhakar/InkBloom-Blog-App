@@ -7,10 +7,10 @@ class HorizontalBlogList extends StatelessWidget {
   final bool isLoading;
 
   const HorizontalBlogList({
-    Key? key,
+    super.key,
     required this.blogs,
     required this.isLoading,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

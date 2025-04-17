@@ -49,8 +49,8 @@ class BlogProvider extends ChangeNotifier {
       print("🔁 fetchUserCategoryBlogs called");
 
       _userpreferedblogs = newblogs ?? [];
-      _filteredBlogs.clear();
-      _filteredBlogs.addAll(_userpreferedblogs);
+      // _filteredBlogs.clear();
+      // _filteredBlogs.addAll(_userpreferedblogs);
     } catch (e) {
       _error = "Failed to fetch blogs: $e";
     }
@@ -98,5 +98,26 @@ class BlogProvider extends ChangeNotifier {
       await fetchBlogs();
     }
     return success;
+  }
+
+  //filter by single category
+  Future<void> filterCategoryBlogs(String category) async {
+    _isLoading = true;
+    _error = null;
+    notifyListeners();
+
+    try {
+      final newblogs = await Blogservice().FilterBlog(category);
+      debugPrint("🔁 filter blogs categorywise: ${newblogs?.length}");
+
+      _filteredBlogs.clear();
+      _filteredBlogs.addAll(newblogs ?? []);
+    } catch (e) {
+      _error = "❌ Failed to fetch blogs: $e";
+      debugPrint(_error);
+    }
+
+    _isLoading = false;
+    notifyListeners();
   }
 }

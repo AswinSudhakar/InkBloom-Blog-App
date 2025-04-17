@@ -40,8 +40,8 @@ class Categoryservice {
   //update usercategories
 
   Future<void> updateCategories() async {
-    SharedPreferences _pref = await SharedPreferences.getInstance();
-    final token = _pref.getString('token');
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    final token = pref.getString('token');
 
     try {
       final request = await client
