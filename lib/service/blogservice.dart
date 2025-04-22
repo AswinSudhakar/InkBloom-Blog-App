@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:ffi';
 
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:inkbloom/api/api.dart';
 import 'package:inkbloom/models/blog/blogmodel.dart';
@@ -101,7 +103,7 @@ class Blogservice {
         'PATCH',
         Uri.parse("${Apis().baseurl}${Apis().blogurl}${blogmodel.id}"),
       );
-      print('The editing request url is $request');
+      debugPrint('The editing request url is $request');
 
       request.headers['Authorization'] = 'Bearer $token';
       request.headers['Content-Type'] = 'multipart/form-data';
@@ -176,7 +178,7 @@ class Blogservice {
         print('error occured and statuscode failed:${response.statusCode}');
       }
     } catch (e) {
-      print(e);
+      debugPrint('$e');
     }
     return null;
   }
@@ -196,50 +198,51 @@ class Blogservice {
         },
       );
 
-      print('DELETE request sent to: $url');
-      print('Status code: ${response.statusCode}');
+      debugPrint('DELETE request sent to: $url');
+      debugPrint('Status code: ${response.statusCode}');
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        print('Delete message: ${data['message']}');
+        debugPrint('Delete message: ${data['message']}');
         getAllBlogs();
         return true;
 
         // Call to refresh the blog list
       } else {
-        print('Failed to delete blog. Status: ${response.statusCode}');
-        print('Response body: ${response.body}');
+        debugPrint('Failed to delete blog. Status: ${response.statusCode}');
+        debugPrint('Response body: ${response.body}');
       }
     } catch (e) {
-      print('Error deleting blog: $e');
+      debugPrint('Error deleting blog: $e');
     }
     return null;
   }
 
   //search blogs
-  Future<List<BlogModel>?> SearchBlogs() async {
+  Future<List<BlogModel>?> SearchBlogs(String query) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     final token = pref.getString('token');
 
     try {
-      final request = await client
-          .get(Uri.parse("${Apis().baseurl}${Apis().search}"), headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
-      });
+      final request = await client.get(
+          Uri.parse("${Apis().baseurl}${Apis().blogurl}search?query=$query"),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token',
+          });
 
       if (request.statusCode == 200) {
         final List<dynamic> responsebody = jsonDecode(request.body);
-        print("🧪 Raw response: ${request.body}");
+        debugPrint("🧪 Raw response: ${request.body}");
 
         final List<BlogModel> blogs =
             responsebody.map((json) => BlogModel.fromJson(json)).toList();
         return blogs;
       } else {
-        print('error occured and statuscode failed:${request.statusCode}');
+        debugPrint('error occured and statuscode failed:${request.statusCode}');
       }
     } catch (e) {
-      print(e);
+      debugPrint('$e');
     }
     return null;
   }
@@ -259,16 +262,88 @@ class Blogservice {
 
       if (request.statusCode == 200) {
         final List<dynamic> responsebody = jsonDecode(request.body);
-        print("🧪 Raw response: ${request.body}");
+        debugPrint("🧪 Raw response: ${request.body}");
 
         final List<BlogModel> blogs =
             responsebody.map((json) => BlogModel.fromJson(json)).toList();
         return blogs;
       } else {
-        print('status code failed---');
+        debugPrint('status code failed---');
       }
     } catch (e) {
-      print(e);
+      debugPrint('$e');
+    }
+    return null;
+  }
+
+  //add blog to favorites
+  Future<String?> AddToFavorite(String id) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    final token = pref.getString('token');
+    try {
+      final request = await client.post(
+          Uri.parse("${Apis().baseurl}${Apis().favorites}/$id"),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token',
+          });
+      if (request.statusCode == 200) {
+        final requestbody = await jsonDecode(request.body);
+        debugPrint("The blog added to favorites $requestbody");
+        final message = requestbody['message'];
+
+        return message;
+      }
+    } catch (e) {
+      debugPrint('$e');
+    }
+    return null;
+  }
+
+  //get all favorite blogs
+  Future<List<BlogModel>?> GetFavoriteBlogs() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    final token = pref.getString('token');
+    try {
+      final request = await client
+          .get(Uri.parse("${Apis().baseurl}${Apis().favorites}"), headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      });
+      if (request.statusCode == 200) {
+        List<dynamic> requestbody = jsonDecode(request.body);
+        final List<BlogModel> blogs =
+            requestbody.map((json) => BlogModel.fromJson(json)).toList();
+        return blogs;
+      }
+    } catch (e) {
+      debugPrint("$e");
+    }
+  }
+
+  //delete blog from Favorite
+  Future<bool?> DeletefromFavorite(String id) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    final token = pref.getString('token');
+    try {
+      final request = await client.delete(
+          Uri.parse("${Apis().baseurl}${Apis().favorites}/$id"),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token',
+          });
+
+      if (request.statusCode == 200) {
+        final reqbody = jsonDecode(request.body);
+        final message = reqbody['message'];
+        debugPrint("$message");
+        return true;
+      } else {
+        debugPrint("deleteing request failed");
+        return false;
+      }
+    } catch (e) {
+      debugPrint("$e");
     }
   }
 }

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:inkbloom/api/api.dart';
 
@@ -39,16 +40,22 @@ class Categoryservice {
 
   //update usercategories
 
-  Future<void> updateCategories() async {
+  Future<String?> updateCategories(List<String> categories) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     final token = pref.getString('token');
+    final Map<String, dynamic> body = {
+      "selected_categories": categories,
+    };
+    debugPrint("the Category service is caled");
 
     try {
-      final request = await client
-          .put(Uri.parse("${Apis().baseurl}${Apis().category}"), headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
-      });
+      final request =
+          await client.put(Uri.parse("${Apis().baseurl}${Apis().category}"),
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer $token',
+              },
+              body: jsonEncode(body));
       print(' category add url is ${Apis().baseurl}${Apis().category}');
 
       if (request.statusCode == 200) {
@@ -62,6 +69,7 @@ class Categoryservice {
     } catch (e) {
       print(e);
     }
+    return null;
   }
 
   //get User categories

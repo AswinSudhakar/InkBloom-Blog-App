@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:inkbloom/View/blogscreens/favoritescreen.dart';
+import 'package:inkbloom/View/categoryseleection.dart';
 import 'package:inkbloom/View/settings.dart';
 import 'package:inkbloom/ViewModel/userprovider.dart';
 import 'package:inkbloom/View/blogscreens/addblog.dart';
@@ -62,16 +64,33 @@ class _AppDrawerState extends State<AppDrawer> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  CircleAvatar(
-                    radius: 50,
-                    backgroundImage: userProvider.profileimage != null &&
-                            userProvider.profileimage!.isNotEmpty
-                        ? NetworkImage(userProvider.profileimage!)
-                        : null,
-                    child: userProvider.profileimage == null ||
-                            userProvider.profileimage!.isEmpty
-                        ? Icon(Icons.person, size: 40)
-                        : null,
+                  // CircleAvatar(
+                  //   radius: 50,
+                  //   backgroundImage: userProvider.profileimage != null &&
+                  //           userProvider.profileimage!.isNotEmpty
+                  //       ? NetworkImage(userProvider.profileimage!)
+                  //       : null,
+                  //   child: userProvider.profileimage == null ||
+                  //           userProvider.profileimage!.isEmpty
+                  //       ? Icon(Icons.person, size: 40)
+                  //       : null,
+                  // ),
+
+                  SizedBox(
+                    width: 100,
+                    height: 100,
+                    child: ClipOval(
+                      child: userProvider.profileimage != null &&
+                              userProvider.profileimage!.isNotEmpty
+                          ? Image.network(
+                              userProvider.profileimage!,
+                              fit: BoxFit.fill,
+                            )
+                          : Container(
+                              color: Colors.grey[300],
+                              child: Icon(Icons.person, size: 40),
+                            ),
+                    ),
                   ),
                   Column(
                     children: [
@@ -105,13 +124,26 @@ class _AppDrawerState extends State<AppDrawer> {
               },
             ),
             ListTile(
+              leading: const Icon(Icons.category),
+              title: const Text("My Category"),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const CategoryScreen()),
+                );
+              },
+            ),
+            ListTile(
               leading: const Icon(Icons.favorite),
               title: const Text("Favorites"),
               onTap: () {
-                //     Navigator.push(
-                //       context,
-                //       MaterialPageRoute(builder: (context) => const Favoritescreen()),
-                //     );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const FavoriteScreen()),
+                );
               },
             ),
             ListTile(

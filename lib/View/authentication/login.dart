@@ -88,9 +88,9 @@ class _LoginScreenState extends State<LoginScreen> {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 colors: [
-                  Colors.orange.shade900,
-                  Colors.orange.shade600,
-                  Colors.orange.shade400,
+                  Colors.grey.shade900,
+                  Colors.grey.shade600,
+                  Colors.grey.shade400,
                 ],
               ),
             ),
@@ -163,18 +163,18 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                               const SizedBox(height: 20),
-                              TextButton(
-                                onPressed: () {},
-                                child: const Text(
-                                  'Forgot password?',
-                                  style: TextStyle(color: Colors.grey),
-                                ),
-                              ),
+                              // TextButton(
+                              //   onPressed: () {},
+                              //   child: const Text(
+                              //     'Forgot password?',
+                              //     style: TextStyle(color: Colors.grey),
+                              //   ),
+                              // ),
                               const SizedBox(height: 10),
-                              _buildButton("Login", Colors.orange, _login),
+                              _buildButton("Login", Colors.grey, _login),
                               const SizedBox(height: 20),
-                              _buildButton("Register", Colors.lightBlueAccent,
-                                  () {
+                              _buildButton("Register",
+                                  const Color.fromARGB(255, 59, 98, 116), () {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -211,7 +211,7 @@ class _LoginScreenState extends State<LoginScreen> {
           hintText: hint,
           hintStyle: const TextStyle(color: Colors.grey),
           border: InputBorder.none,
-          prefixIcon: Icon(icon, color: Colors.orange),
+          prefixIcon: Icon(icon, color: Colors.grey),
           suffixIcon: isPassword
               ? IconButton(
                   icon: Icon(

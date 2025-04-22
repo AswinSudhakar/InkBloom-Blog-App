@@ -57,6 +57,7 @@ class ProfileService {
     return null;
   }
 
+  //edit user profile
   Future<UserProfileModel?> editUserProfile(
     String username,
     String avatar,

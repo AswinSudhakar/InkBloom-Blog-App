@@ -96,7 +96,7 @@ class _AddBlogState extends State<EditBlog> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Blog'),
+        title: const Text('Edit Blog'),
         centerTitle: true,
       ),
       body: Padding(

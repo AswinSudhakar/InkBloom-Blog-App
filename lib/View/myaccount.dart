@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inkbloom/View/categoryseleection.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:inkbloom/ViewModel/userprovider.dart';
 import 'package:inkbloom/View/blogscreens/home2.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +27,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
     fetchAndLoadUserData();
   }
 
+  XFile? _selectedImage;
+  final ImagePicker _picker = ImagePicker();
+
+  Future<void> _pickImage() async {
+    final XFile? pickedFile =
+        await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _selectedImage = pickedFile;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context);
@@ -49,6 +62,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                 ),
+                Positioned(
+                    top: 210, left: 250, child: Icon(Icons.edit_rounded)),
                 Positioned(
                   left: 20,
                   top: 50,
@@ -73,15 +88,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   right: 0,
                   child: Column(
                     children: [
-                      CircleAvatar(
-                        radius: 50,
-                        backgroundImage: userProvider.profileimage != null &&
-                                userProvider.profileimage!.isNotEmpty
-                            ? NetworkImage(userProvider.profileimage!)
-                            : null,
-                        child: userProvider.profileimage == null
-                            ? Icon(Icons.person, size: 40)
-                            : null,
+                      SizedBox(
+                        width: 100,
+                        height: 100,
+                        child: ClipOval(
+                          child: userProvider.profileimage != null &&
+                                  userProvider.profileimage!.isNotEmpty
+                              ? Image.network(
+                                  userProvider.profileimage!,
+                                  fit: BoxFit.fill,
+                                )
+                              : Container(
+                                  color: Colors.grey[300],
+                                  child: Icon(Icons.person, size: 40),
+                                ),
+                        ),
                       ),
 
                       SizedBox(height: 20),
@@ -111,17 +132,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ProfileField(
                       icon: Icons.email, text: '${userProvider.email}'),
 
-                  InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => CategoryScreen(),
-                            ));
-                      },
-                      child: ProfileField(
-                          icon: Icons.category, text: 'Categories')),
-                  // ProfileField(icon: Icons.camera_alt, text: 'Instagram account'),
+                  // InkWell(
+                  //     onTap: () {
+                  //       Navigator.push(
+                  //           context,
+                  //           MaterialPageRoute(
+                  //             builder: (context) => CategoryScreen(),
+                  //           ));
+                  //     },
+                  //     child: ProfileField(
+                  //         icon: Icons.category, text: 'Categories')),
+                  // // ProfileField(icon: Icons.camera_alt, text: 'Instagram account'),
 
                   // ProfileField(
                   //     icon: Icons.visibility, text: 'Password', isPassword: true),
@@ -229,8 +250,8 @@ Future<void> editProfile(BuildContext context) async {
                 TextFormField(
                   decoration: InputDecoration(hintText: 'Email'),
                 ),
-                TextFormField(
-                    decoration: InputDecoration(hintText: 'Category')),
+                // TextFormField(
+                //     decoration: InputDecoration(hintText: 'Category')),
                 SizedBox(
                   height: 70,
                 ),

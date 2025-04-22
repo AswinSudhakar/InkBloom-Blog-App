@@ -7,7 +7,8 @@ class BlogProvider extends ChangeNotifier {
   List<BlogModel> _blogs = [];
 
   List<BlogModel> _userpreferedblogs = [];
-  // List<BlogModel> _userselectedblogs = [];
+  final List<BlogModel> _searchedblogs = [];
+  List<BlogModel> _favoriteBlogs = [];
 
   final List<BlogModel> _filteredBlogs = [];
 
@@ -15,8 +16,11 @@ class BlogProvider extends ChangeNotifier {
   String? _error;
 
   List<BlogModel> get blogs => _blogs;
+  List<BlogModel> get favoriteBlogs => _favoriteBlogs;
   List<BlogModel> get filteredblogs => _filteredBlogs;
   List<BlogModel> get userprefblogs => _userpreferedblogs;
+
+  List<BlogModel> get searchedblogs => _searchedblogs;
 
   bool get isLoading => _isLoading;
   String? get error => _error;
@@ -90,7 +94,7 @@ class BlogProvider extends ChangeNotifier {
     }
   }
 
-  //edit blog
+  //delete blog
   Future<bool?> Deleteblog(BlogModel blogModel) async {
     final success = await Blogservice().deleteBlog(blogModel);
     if (success!) {
@@ -119,5 +123,73 @@ class BlogProvider extends ChangeNotifier {
 
     _isLoading = false;
     notifyListeners();
+  }
+
+  //search blogs
+  Future<void> SearchBlogs(String query) async {
+    _isLoading = true;
+    _error = null;
+    notifyListeners();
+
+    try {
+      final newblogs = await Blogservice().SearchBlogs(query);
+      debugPrint("🔁 Search blogs : ${newblogs?.length}");
+
+      _searchedblogs.clear();
+      _searchedblogs.addAll(newblogs ?? []);
+    } catch (e) {
+      _error = "❌ Failed to search blogs: $e";
+      debugPrint(_error);
+    }
+
+    _isLoading = false;
+    notifyListeners();
+  }
+
+  // //add to favorites
+  // Future<void> AddToFavorite(String id) async {
+  //   final message = await Blogservice().AddToFavorite(id);
+  //   debugPrint(message);
+  //   notifyListeners();
+  // }
+
+  String? _favoriteMessage;
+  String? get favoriteMessage => _favoriteMessage;
+
+  //add to fav
+
+  Future<void> addToFavorite(String id) async {
+    final message = await Blogservice().AddToFavorite(id);
+    debugPrint("Favorite message: $message");
+
+    _favoriteMessage = message;
+    notifyListeners();
+  }
+
+  //getfav blogs
+  Future<void> getfavBlogs() async {
+    _isLoading = true;
+    _error = null;
+    notifyListeners();
+
+    try {
+      List<BlogModel>? favblogs = await Blogservice().GetFavoriteBlogs();
+      _favoriteBlogs = favblogs ?? []; // Ensuring non-null list
+    } catch (e) {
+      _error = "Failed to fetch blogs: $e";
+    }
+
+    _isLoading = false;
+    notifyListeners();
+  }
+
+  //delete fav blog
+  Future<bool?> deleteFromFav(String id) async {
+    final success = await Blogservice().DeletefromFavorite(id);
+    if (success!) {
+      notifyListeners();
+      await getfavBlogs();
+    }
+    return success;
   }
 }

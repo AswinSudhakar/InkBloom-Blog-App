@@ -13,18 +13,18 @@ class Welcome extends StatelessWidget {
           width: double.infinity,
           height: double.infinity,
           child: Image.asset(
-            "assets/images/wn1.jpg",
+            "assets/images/gw.jpg",
             fit: BoxFit.cover,
           ),
         ),
         Align(
-          alignment: Alignment(.0, .95),
+          alignment: Alignment(.0, .8),
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.deepOrange.withOpacity(0.2),
+                  color: Colors.grey.withOpacity(0.2),
                   blurRadius: 12,
                   spreadRadius: 1,
                   offset: const Offset(0, 6),
@@ -40,7 +40,7 @@ class Welcome extends StatelessWidget {
                     ));
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.deepOrangeAccent,
+                backgroundColor: Colors.grey,
                 elevation: 6,
                 padding:
                     const EdgeInsets.symmetric(horizontal: 27, vertical: 15),

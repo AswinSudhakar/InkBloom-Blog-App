@@ -307,9 +307,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               colors: [
-                Colors.orange.shade900,
-                Colors.orange.shade600,
-                Colors.orange.shade400,
+                Colors.grey.shade900,
+                Colors.grey.shade600,
+                Colors.grey.shade400,
               ],
             ),
           ),
@@ -389,7 +389,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                             ),
                             const SizedBox(height: 20),
-                            _buildButton("Register", Colors.orange, _register),
+                            _buildButton("Register", Colors.grey, _register),
                             const SizedBox(height: 20),
                             TextButton(
                               onPressed: () {
@@ -401,7 +401,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               },
                               child: const Text(
                                 "Already have an account? Login",
-                                style: TextStyle(color: Colors.blueAccent),
+                                style: TextStyle(
+                                    color: Color.fromARGB(255, 59, 98, 116)),
                               ),
                             ),
                           ],
@@ -436,7 +437,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           hintText: hint,
           hintStyle: const TextStyle(color: Colors.grey),
           border: InputBorder.none,
-          prefixIcon: Icon(icon, color: Colors.orange),
+          prefixIcon: Icon(icon, color: Colors.grey),
           suffixIcon: isPassword
               ? IconButton(
                   icon: Icon(
