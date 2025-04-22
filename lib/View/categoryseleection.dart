@@ -53,10 +53,12 @@ class _CategoryScreenState extends State<CategoryScreen> {
       appBar: AppBar(
         title: Text(
           'Select Your Favorite Categories',
-          style: TextStyle(fontWeight: FontWeight.w600),
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+          ),
         ),
-        backgroundColor: Colors.grey,
-        foregroundColor: Colors.white,
+        backgroundColor: Colors.grey.withOpacity(.3),
+        foregroundColor: Colors.black,
         elevation: 4,
       ),
       body: Padding(
@@ -105,7 +107,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
             padding: EdgeInsets.symmetric(vertical: 16),
-            backgroundColor: Colors.grey,
+            backgroundColor: Colors.grey.shade300,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),
             ),
@@ -119,7 +121,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
           },
           child: Text(
             'Submit',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
           ),
         ),
       ),
