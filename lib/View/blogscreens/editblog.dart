@@ -21,7 +21,7 @@ class _AddBlogState extends State<EditBlog> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _topicController = TextEditingController();
   final TextEditingController _contentController = TextEditingController();
-  final TextEditingController _CategoryController = TextEditingController();
+
   final TextEditingController _readtimeController = TextEditingController();
 
   BlogProvider blogProvider = BlogProvider();
@@ -36,12 +36,26 @@ class _AddBlogState extends State<EditBlog> {
     }
   }
 
+  List<String> _categories = [
+    'Technology',
+    'Business',
+    'Lifestyle',
+    'Health',
+    'Education',
+    'Culture',
+    'Sports',
+    'Society',
+    'Work',
+  ];
+
+  String? _selectedCategory;
+
   void _EditBlog(BlogModel blog) {
     print('');
 
     final newBlog = BlogModel(
       id: widget.blog.id,
-      category: _CategoryController.text,
+      category: _selectedCategory,
       topic: _topicController.text,
       title: _titleController.text,
       readTime: _readtimeController.text,
@@ -62,7 +76,6 @@ class _AddBlogState extends State<EditBlog> {
 
       blogProvider.fetchBlogs();
 
-      _CategoryController.clear();
       _contentController.clear();
       _readtimeController.clear();
       _titleController.clear();
@@ -87,7 +100,7 @@ class _AddBlogState extends State<EditBlog> {
     // Pre-fill controllers with existing blog data
     _titleController.text = widget.blog.title!;
     _contentController.text = widget.blog.content!;
-    _CategoryController.text = widget.blog.category!;
+    _selectedCategory = widget.blog.category!;
     _readtimeController.text = widget.blog.readTime!;
     _topicController.text = widget.blog.topic!;
   }
@@ -163,12 +176,25 @@ class _AddBlogState extends State<EditBlog> {
                 ),
               ),
               const SizedBox(height: 20),
-              TextField(
-                controller: _CategoryController,
+              DropdownButtonFormField<String>(
+                value: _selectedCategory,
                 decoration: const InputDecoration(
-                  hintText: 'Category',
+                  hintText: 'Select Category',
                   border: OutlineInputBorder(),
                 ),
+                items: _categories.map((category) {
+                  return DropdownMenuItem<String>(
+                    value: category,
+                    child: Text(category),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    _selectedCategory = value;
+                  });
+                },
+                validator: (value) =>
+                    value == null ? 'Please select a category' : null,
               ),
               const SizedBox(height: 20),
               TextField(

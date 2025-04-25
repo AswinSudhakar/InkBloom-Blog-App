@@ -149,7 +149,7 @@ class _AddBlogState extends State<AddBlog> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _topicController = TextEditingController();
   final TextEditingController _contentController = TextEditingController();
-  final TextEditingController _CategoryController = TextEditingController();
+
   final TextEditingController _readtimeController = TextEditingController();
 
   BlogProvider blogProvider = BlogProvider();
@@ -164,17 +164,31 @@ class _AddBlogState extends State<AddBlog> {
     }
   }
 
+  List<String> _categories = [
+    'Technology',
+    'Business',
+    'Lifestyle',
+    'Health',
+    'Education',
+    'Culture',
+    'Sports',
+    'Society',
+    'Work',
+  ];
+
+  String? _selectedCategory;
+
   void _uploadBlog() {
     final title = _titleController.text.trim();
     final topic = _topicController.text.trim();
     final content = _contentController.text.trim();
-    final category = _CategoryController.text.trim();
+    final category = _selectedCategory;
     final readTime = _readtimeController.text.trim();
 
     if (title.isEmpty ||
         topic.isEmpty ||
         content.isEmpty ||
-        category.isEmpty ||
+        category == null ||
         readTime.isEmpty ||
         _selectedImage == null) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -205,7 +219,7 @@ class _AddBlogState extends State<AddBlog> {
       blogProvider.fetchBlogs(); // This ensures the home screen updates
 
       // Clear fields
-      _CategoryController.clear();
+
       _contentController.clear();
       _readtimeController.clear();
       _titleController.clear();
@@ -295,12 +309,25 @@ class _AddBlogState extends State<AddBlog> {
                 ),
               ),
               const SizedBox(height: 20),
-              TextField(
-                controller: _CategoryController,
+              DropdownButtonFormField<String>(
+                value: _selectedCategory,
                 decoration: const InputDecoration(
-                  hintText: 'Category',
+                  hintText: 'Select Category',
                   border: OutlineInputBorder(),
                 ),
+                items: _categories.map((category) {
+                  return DropdownMenuItem<String>(
+                    value: category,
+                    child: Text(category),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    _selectedCategory = value;
+                  });
+                },
+                validator: (value) =>
+                    value == null ? 'Please select a category' : null,
               ),
               const SizedBox(height: 20),
               TextField(

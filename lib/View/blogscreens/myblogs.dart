@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:inkbloom/ViewModel/blogprovider.dart';
 import 'package:inkbloom/ViewModel/userprovider.dart';
-import 'package:inkbloom/models/blog/blogmodel.dart';
+
 import 'package:inkbloom/widgets/bloglistview.dart';
 import 'package:provider/provider.dart';
 
@@ -33,7 +33,7 @@ class _FavoriteScreenState extends State<Myblogs> {
           style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
         ),
       ),
-      body: Container(
+      body: SizedBox(
         child: SingleChildScrollView(
           child: Column(
             children: [
