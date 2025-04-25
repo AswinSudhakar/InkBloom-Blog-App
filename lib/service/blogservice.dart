@@ -319,6 +319,7 @@ class Blogservice {
     } catch (e) {
       debugPrint("$e");
     }
+    return null;
   }
 
   //delete blog from Favorite
@@ -345,5 +346,6 @@ class Blogservice {
     } catch (e) {
       debugPrint("$e");
     }
+    return null;
   }
 }

@@ -23,7 +23,7 @@ class _ProfileScreenState extends State<Editprofile> {
   }
 
   // Future<void> _loadUserData() async {
-  TextEditingController _nameController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
   @override
   void initState() {
     super.initState();

@@ -41,6 +41,15 @@ class BlogProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  //get myBlogs
+  List<BlogModel> getMyBlogs(String currentUserName) {
+    return _blogs
+        .where((blog) =>
+            blog.author!.trim().toLowerCase() ==
+            currentUserName.trim().toLowerCase())
+        .toList();
+  }
+
   //get user category blogs
 
   Future<void> fetchUserCategoryBlogs() async {

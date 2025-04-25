@@ -4,7 +4,6 @@ import 'package:inkbloom/ViewModel/blogprovider.dart';
 
 import 'package:inkbloom/models/blog/blogmodel.dart';
 import 'package:inkbloom/service/userprofile.dart';
-import 'package:inkbloom/widgets/snackbar.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

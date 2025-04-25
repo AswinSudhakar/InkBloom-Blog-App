@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inkbloom/View/blogscreens/favoritescreen.dart';
+import 'package:inkbloom/View/blogscreens/myblogs.dart';
 import 'package:inkbloom/View/categoryseleection.dart';
 import 'package:inkbloom/View/settings.dart';
 import 'package:inkbloom/ViewModel/userprovider.dart';
@@ -120,6 +121,17 @@ class _AppDrawerState extends State<AppDrawer> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => ProfileScreen()),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.my_library_books),
+              title: const Text("My Blogs"),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Myblogs()),
                 );
               },
             ),

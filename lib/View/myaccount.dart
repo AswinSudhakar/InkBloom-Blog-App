@@ -13,7 +13,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  TextEditingController _nameContrller = TextEditingController();
+  final TextEditingController _nameContrller = TextEditingController();
 
   Future<void> fetchAndLoadUserData() async {
     // await ProfileService().getUserProfile(); // Ensure profile is fetched
