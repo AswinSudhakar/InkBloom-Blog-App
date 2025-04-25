@@ -231,7 +231,8 @@ class _AddBlogState extends State<AddBlog> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Blog'),
+        title: const Text('Add Blog',
+            style: TextStyle(fontSize: 26, fontWeight: FontWeight.w600)),
         centerTitle: true,
       ),
       body: Padding(
@@ -285,8 +286,10 @@ class _AddBlogState extends State<AddBlog> {
               ),
               const SizedBox(height: 10),
               TextField(
+                keyboardType: TextInputType.number,
                 controller: _readtimeController,
                 decoration: const InputDecoration(
+                  suffixText: 'Min',
                   hintText: 'Read Time',
                   border: OutlineInputBorder(),
                 ),

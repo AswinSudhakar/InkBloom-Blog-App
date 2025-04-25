@@ -96,7 +96,7 @@ class BlogListSection extends StatelessWidget {
                         ),
                         const SizedBox(height: 5),
                         Text(
-                          'Readtime: ${blog.readTime}',
+                          'Readtime: ${blog.readTime} Min',
                           style: TextStyle(
                             fontSize: 15,
                             color: Colors.grey[600],

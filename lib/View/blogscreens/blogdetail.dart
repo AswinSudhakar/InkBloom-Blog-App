@@ -130,8 +130,7 @@ class _BlogDetailState extends State<BlogDetail> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         // Title
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                        Wrap(
                           children: [
                             Text(
                               '${widget.blog.title}',
@@ -152,8 +151,22 @@ class _BlogDetailState extends State<BlogDetail> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Text("Author: ${widget.blog.author}"),
-                              Text("Read Time: ${widget.blog.readTime}"),
+                              Row(
+                                children: [
+                                  CircleAvatar(
+                                    backgroundImage: widget.blog.avatar != null
+                                        ? NetworkImage(widget.blog.avatar!)
+                                        : NetworkImage(
+                                            "https://th.bing.com/th/id/OIP.rcmXeqCUOiCg54dfU4v9tgHaHa?rs=1&pid=ImgDetMain"),
+                                    radius: 15,
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text("Author: ${widget.blog.author}"),
+                                ],
+                              ),
+                              Text("Read Time: ${widget.blog.readTime}  Min"),
                             ],
                           ),
                         ),

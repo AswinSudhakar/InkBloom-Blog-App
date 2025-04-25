@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:inkbloom/models/user/usermodel.dart';
 import 'package:inkbloom/service/userprofile.dart';
@@ -54,5 +56,17 @@ class UserProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> editUser() async {}
+  bool isUpdating = false;
+
+  Future<bool?> updateProfile(String name, dynamic image) async {
+    isUpdating = true;
+    notifyListeners();
+
+    final success = await ProfileService().editUserProfile(name, image);
+    fetchandUpdate();
+
+    isUpdating = false;
+    notifyListeners();
+    return success;
+  }
 }

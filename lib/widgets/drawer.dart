@@ -125,7 +125,7 @@ class _AppDrawerState extends State<AppDrawer> {
             ),
             ListTile(
               leading: const Icon(Icons.category),
-              title: const Text("My Category"),
+              title: const Text("Suggested Content"),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(

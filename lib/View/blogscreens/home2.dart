@@ -66,7 +66,7 @@ class _HomeScreen2State extends State<HomeScreen2> with RouteAware {
   }
 
   final categories = [
-    "Recommended",
+    // "Recommended",
     "All",
     "Business",
     "Culture",
@@ -78,14 +78,16 @@ class _HomeScreen2State extends State<HomeScreen2> with RouteAware {
     "Technology",
     "Work"
   ];
-  String selectedCategory = "Recommended";
+  String selectedCategory = "All";
 
   @override
   Widget build(BuildContext context) {
     final blogProvider = context.watch<BlogProvider>();
-    final blogsToShow = selectedCategory == "Recommended"
-        ? blogProvider.userprefblogs
-        : selectedCategory == "All"
+    final blogsToShow =
+        //  selectedCategory == "Recommended"
+        //     ? blogProvider.userprefblogs
+        //     :
+        selectedCategory == "All"
             ? blogProvider.blogs
             : selectedCategory == "Search"
                 ? blogProvider.searchedblogs
@@ -177,7 +179,7 @@ class _HomeScreen2State extends State<HomeScreen2> with RouteAware {
                       ],
                     ),
                     child: const Text(
-                      'Trending',
+                      'Recommended',
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,

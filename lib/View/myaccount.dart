@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:inkbloom/View/editprofile.dart';
 import 'package:inkbloom/ViewModel/userprovider.dart';
 import 'package:inkbloom/View/blogscreens/home2.dart';
 import 'package:provider/provider.dart';
@@ -12,6 +13,8 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  TextEditingController _nameContrller = TextEditingController();
+
   Future<void> fetchAndLoadUserData() async {
     // await ProfileService().getUserProfile(); // Ensure profile is fetched
     Provider.of<UserProvider>(context, listen: false).loadData();
@@ -63,8 +66,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
                 Positioned(
-                    top: 210, left: 250, child: Icon(Icons.edit_rounded)),
-                Positioned(
                   left: 20,
                   top: 50,
                   child: IconButton(
@@ -104,16 +105,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                         ),
                       ),
-
                       SizedBox(height: 20),
-                      // Text(
-                      //   'Anna Avetisyan',
-                      //   style: TextStyle(
-                      //     fontSize: 20,
-                      //     fontWeight: FontWeight.bold,
-                      //     color: Colors.white,
-                      //   ),
-                      // ),
                     ],
                   ),
                 ),
@@ -131,22 +123,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       icon: Icons.person, text: '${userProvider.name}'),
                   ProfileField(
                       icon: Icons.email, text: '${userProvider.email}'),
-
-                  // InkWell(
-                  //     onTap: () {
-                  //       Navigator.push(
-                  //           context,
-                  //           MaterialPageRoute(
-                  //             builder: (context) => CategoryScreen(),
-                  //           ));
-                  //     },
-                  //     child: ProfileField(
-                  //         icon: Icons.category, text: 'Categories')),
-                  // // ProfileField(icon: Icons.camera_alt, text: 'Instagram account'),
-
-                  // ProfileField(
-                  //     icon: Icons.visibility, text: 'Password', isPassword: true),
-
                   SizedBox(height: 20),
 
                   // Edit Profile Button
@@ -154,7 +130,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        editProfile(context);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Editprofile(),
+                            ));
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue.shade700,
@@ -222,55 +202,3 @@ class ProfileField extends StatelessWidget {
 //     ),
 //   );
 // }
-
-Future<void> editProfile(BuildContext context) async {
-  return showDialog(
-    context: context,
-    builder: (context) => AlertDialog(
-      title: Text(
-        'Edit Profile',
-        style: TextStyle(fontWeight: FontWeight.w600),
-      ),
-      content: SizedBox(
-        height: 350,
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                InkWell(
-                  onTap: () {},
-                  child: CircleAvatar(
-                    radius: 50,
-                  ),
-                ),
-                TextFormField(
-                  decoration: InputDecoration(hintText: 'Name'),
-                ),
-                TextFormField(
-                  decoration: InputDecoration(hintText: 'Email'),
-                ),
-                // TextFormField(
-                //     decoration: InputDecoration(hintText: 'Category')),
-                SizedBox(
-                  height: 70,
-                ),
-                // ElevatedButton(onPressed: () {}, child: Text('Update'))
-              ],
-            ),
-          ),
-        ),
-      ),
-      actions: [
-        TextButton(
-          child: Text("Cancel"),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        TextButton(
-          child: Text("Update"),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-      ],
-    ),
-  );
-}

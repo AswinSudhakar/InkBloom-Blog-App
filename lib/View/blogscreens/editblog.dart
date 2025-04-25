@@ -154,8 +154,10 @@ class _AddBlogState extends State<EditBlog> {
               ),
               const SizedBox(height: 10),
               TextField(
+                keyboardType: TextInputType.number,
                 controller: _readtimeController,
                 decoration: const InputDecoration(
+                  suffixText: ' Min',
                   hintText: 'Read Time',
                   border: OutlineInputBorder(),
                 ),

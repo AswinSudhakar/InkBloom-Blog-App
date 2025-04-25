@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:inkbloom/api/api.dart';
@@ -57,42 +58,77 @@ class ProfileService {
     return null;
   }
 
-  //edit user profile
-  Future<UserProfileModel?> editUserProfile(
-    String username,
-    String avatar,
-  ) async {
+// Future<bool?> editUserProfile(String username, File? avatar) async {
+//   SharedPreferences pref = await SharedPreferences.getInstance();
+//   final token = pref.getString('token');
+//   final uri = Uri.parse("${Apis().baseurl}${Apis().profile}");
+
+//   try {
+//     final request = http.MultipartRequest("PUT", uri);
+//     request.headers['Authorization'] = 'Bearer $token';
+
+//     request.fields['name'] = username;
+
+//     if (avatar != null) {
+//       request.files.add(
+//         await http.MultipartFile.fromPath('profile_image', avatar.path),
+//       );
+//     }
+
+//     final response = await request.send();
+
+//     if (response.statusCode == 200 || response.statusCode == 201) {
+//       print('User Data Updated successfully.');
+//       final responseBody = await response.stream.bytesToString();
+//       final data = json.decode(responseBody);
+//       print(data);
+//       return true;
+//     } else {
+//       print('Profile update failed: ${response.statusCode}');
+//       final errorBody = await response.stream.bytesToString();
+//       print('Response: $errorBody');
+//       return false;
+//     }
+//   } catch (e) {
+//     print('Error during profile update: $e');
+//     return false;
+//   }
+// }
+  Future<bool?> editUserProfile(String username, dynamic image) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     _token = pref.getString('token');
-    final Map<String, dynamic> body = {
-      "name": username,
-      "profile_image": avatar,
-    };
 
     try {
-      final response =
-          await client.put(Uri.parse("${Apis().baseurl}${Apis().profile}"),
-              headers: {
-                'Content-Type': 'multipart/form-data',
-                'Authorization': 'Bearer $_token',
-              },
-              body: jsonEncode(body));
+      final uri = Uri.parse("${Apis().baseurl}${Apis().profile}");
+      var request = http.MultipartRequest('PUT', uri);
+      request.headers['Authorization'] = 'Bearer $_token';
+
+      request.fields['name'] = username;
+
+      if (image != null) {
+        if (image is File) {
+          request.files.add(
+              await http.MultipartFile.fromPath('profile_image', image.path));
+        } else if (image is String && image.isNotEmpty) {
+          // If the image is a URL, just add it as a field (optional based on your backend handling)
+          request.fields['profile_image_url'] = image;
+        }
+      }
+
+      final response = await request.send();
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        print('User Data Updated successfully.');
-        final data = json.decode(response.body);
-
-        final message = data['message'];
-        // print(message);
-        return message;
+        print("Profile updated successfully");
+        return true;
       } else {
-        print('profile Update failed with status code: ${response.statusCode}');
-        print('Response: ${response.body}');
+        final responseBody = await response.stream.bytesToString();
+        print('Update failed: ${response.statusCode} - $responseBody');
       }
     } catch (e) {
-      print(e);
+      print("Error during profile update: $e");
     }
-    return null;
+
+    return false;
   }
 
   //edit the user category
