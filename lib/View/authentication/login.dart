@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inkbloom/View/additionalscreen/loadingscreen.dart';
+import 'package:inkbloom/View/additionalscreen/loginloading.dart';
 import 'package:inkbloom/service/authservice.dart';
 import 'package:inkbloom/View/blogscreens/home2.dart';
 import 'package:inkbloom/View/authentication/register.dart';
@@ -26,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => Loadingscreen(),
+            builder: (context) => Loginloading(),
           ));
 
       try {
@@ -45,6 +46,9 @@ class _LoginScreenState extends State<LoginScreen> {
             const SnackBar(
                 content: Text("Invalid credentials. Please try again.")),
           );
+          _emailController.clear();
+          _passwordController.clear();
+
           Navigator.pop(context);
         }
       } catch (e) {

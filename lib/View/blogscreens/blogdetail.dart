@@ -49,8 +49,6 @@ class _BlogDetailState extends State<BlogDetail> {
 
   @override
   Widget build(BuildContext context) {
-    Color isFav = Colors.white;
-
     Future<void> addToFav(BuildContext context, String id) async {
       final blogProvider = context.read<BlogProvider>();
 
@@ -62,9 +60,7 @@ class _BlogDetailState extends State<BlogDetail> {
       );
 
       // Toggle heart color after successful action
-      setState(() {
-        isFav = Colors.blue;
-      });
+      setState(() {});
     }
 
     Future<void> removefromFav(BuildContext context, String id) async {
@@ -78,9 +74,7 @@ class _BlogDetailState extends State<BlogDetail> {
       );
 
       // Toggle heart color after successful action
-      setState(() {
-        isFav = Colors.blue;
-      });
+      setState(() {});
     }
 
     return SafeArea(
@@ -282,11 +276,14 @@ class _BlogDetailState extends State<BlogDetail> {
                                 .Deleteblog(widget.blog);
 
                             if (success!) {
-                              Navigator.pop(context);
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                    content: Text('Blog deleted successfully')),
-                              );
+                              if (mounted) {
+                                Navigator.pop(context);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content:
+                                          Text('Blog deleted successfully')),
+                                );
+                              }
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(

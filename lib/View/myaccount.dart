@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+
 import 'package:inkbloom/View/editprofile.dart';
 import 'package:inkbloom/ViewModel/userprovider.dart';
 import 'package:inkbloom/View/blogscreens/home2.dart';
@@ -13,8 +13,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  final TextEditingController _nameContrller = TextEditingController();
-
   Future<void> fetchAndLoadUserData() async {
     // await ProfileService().getUserProfile(); // Ensure profile is fetched
     Provider.of<UserProvider>(context, listen: false).loadData();
@@ -28,19 +26,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     super.initState();
 
     fetchAndLoadUserData();
-  }
-
-  XFile? _selectedImage;
-  final ImagePicker _picker = ImagePicker();
-
-  Future<void> _pickImage() async {
-    final XFile? pickedFile =
-        await _picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      setState(() {
-        _selectedImage = pickedFile;
-      });
-    }
   }
 
   @override
@@ -184,21 +169,3 @@ class ProfileField extends StatelessWidget {
     );
   }
 }
-
-// Future<void> _categoriesSelect(BuildContext context) async {
-//   return showDialog(
-//     context: context,
-//     builder: (context) => AlertDialog(
-//       actions: [
-//         SizedBox(
-//           height: 18,
-//         ),
-//         Container(
-//           width: 400,
-//           height: 400,
-//           color: Colors.black.withOpacity(.3),
-//         )
-//       ],
-//     ),
-//   );
-// }

@@ -36,7 +36,7 @@ class _AddBlogState extends State<EditBlog> {
     }
   }
 
-  List<String> _categories = [
+  final List<String> _categories = [
     'Technology',
     'Business',
     'Lifestyle',
@@ -50,7 +50,7 @@ class _AddBlogState extends State<EditBlog> {
 
   String? _selectedCategory;
 
-  void _EditBlog(BlogModel blog) {
+  void _editBlog(BlogModel blog) {
     print('');
 
     final newBlog = BlogModel(
@@ -208,7 +208,7 @@ class _AddBlogState extends State<EditBlog> {
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                  _EditBlog(widget.blog);
+                  _editBlog(widget.blog);
                 },
                 child: const Text('Update Blog'),
               ),

@@ -75,7 +75,7 @@ class BlogProvider extends ChangeNotifier {
   // Add a New Blog
   Future<void> addBlog(BlogModel newBlog) async {
     try {
-      String? response = await Blogservice().AddBlog(newBlog);
+      String? response = await Blogservice().addBlog(newBlog);
       if (response != null) {
         _blogs.insert(0, newBlog); // Insert new blog at the top
         notifyListeners();
@@ -90,7 +90,7 @@ class BlogProvider extends ChangeNotifier {
 
   Future<void> editBlog(BlogModel newblog) async {
     try {
-      String? response = await Blogservice().EditBlog(newblog);
+      String? response = await Blogservice().editBlog(newblog);
       if (response != null) {
         int index = _blogs.indexWhere((blog) => blog.id == newblog.id);
         if (index != -1) {
@@ -120,7 +120,7 @@ class BlogProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final newblogs = await Blogservice().FilterBlog(category);
+      final newblogs = await Blogservice().filterBlog(category);
       debugPrint("🔁 filter blogs categorywise: ${newblogs?.length}");
 
       _filteredBlogs.clear();
@@ -141,7 +141,7 @@ class BlogProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final newblogs = await Blogservice().SearchBlogs(query);
+      final newblogs = await Blogservice().searchBlogs(query);
       debugPrint("🔁 Search blogs : ${newblogs?.length}");
 
       _searchedblogs.clear();
@@ -168,7 +168,7 @@ class BlogProvider extends ChangeNotifier {
   //add to fav
 
   Future<void> addToFavorite(String id) async {
-    final message = await Blogservice().AddToFavorite(id);
+    final message = await Blogservice().addToFavorite(id);
     debugPrint("Favorite message: $message");
 
     _favoriteMessage = message;
@@ -182,7 +182,7 @@ class BlogProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      List<BlogModel>? favblogs = await Blogservice().GetFavoriteBlogs();
+      List<BlogModel>? favblogs = await Blogservice().getFavoriteBlogs();
       _favoriteBlogs = favblogs ?? []; // Ensuring non-null list
     } catch (e) {
       _error = "Failed to fetch blogs: $e";
@@ -194,7 +194,7 @@ class BlogProvider extends ChangeNotifier {
 
   //delete fav blog
   Future<bool?> deleteFromFav(String id) async {
-    final success = await Blogservice().DeletefromFavorite(id);
+    final success = await Blogservice().deletefromFavorite(id);
     if (success!) {
       notifyListeners();
       await getfavBlogs();

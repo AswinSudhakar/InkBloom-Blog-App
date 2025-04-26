@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -34,18 +33,19 @@ class Blogservice {
 
         return blogs;
       } else {
-        print('error occured and statuscode failed:${response.statusCode}');
+        debugPrint(
+            'error occured and statuscode failed:${response.statusCode}');
       }
 
       // print('response url is :${Apis().baseurl}${Apis().blogurl}');
     } catch (e) {
-      print('errorrrr occured :$e');
+      debugPrint('errorrrr occured :$e');
     }
     return null;
   }
 
   //add blog
-  Future<String?> AddBlog(BlogModel blogmodel) async {
+  Future<String?> addBlog(BlogModel blogmodel) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     final token = pref.getString('token');
 
@@ -82,19 +82,20 @@ class Blogservice {
         final message = data['message'];
         getAllBlogs();
 
-        print(message);
+        debugPrint(message);
         return message;
       } else {
-        print('Registration failed with status code: ${response.statusCode}');
+        debugPrint(
+            'Registration failed with status code: ${response.statusCode}');
       }
     } catch (e) {
-      print("the message got back :=> $e");
+      debugPrint("the message got back :=> $e");
     }
     return null;
   }
 
   //edit blog
-  Future<String?> EditBlog(BlogModel blogmodel) async {
+  Future<String?> editBlog(BlogModel blogmodel) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     final token = pref.getString('token');
 
@@ -138,13 +139,14 @@ class Blogservice {
         final message = data['message'];
         getAllBlogs();
 
-        print(message);
+        debugPrint(message);
         return message;
       } else {
-        print('Registration failed with status code: ${response.statusCode}');
+        debugPrint(
+            'Registration failed with status code: ${response.statusCode}');
       }
     } catch (e) {
-      print("the message got backkkkkk :=> $e");
+      debugPrint("the message got backkkkkk :=> $e");
     }
     return null;
   }
@@ -161,21 +163,22 @@ class Blogservice {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer $token',
           });
-      print("📡 API CALL: Getting blogs by selected category...");
+      debugPrint("📡 API CALL: Getting blogs by selected category...");
 
       if (response.statusCode == 200) {
         final List<dynamic> responsebody = jsonDecode(response.body);
-        // print("🧪 Raw response: ${response.body}");
+        // debugPrint("🧪 Raw response: ${response.body}");
 
         final List<BlogModel> blogs =
             responsebody.map((json) => BlogModel.fromJson(json)).toList();
 
-        print(
+        debugPrint(
             'the blogs returned by userselected category ------>:${blogs.length}');
 
         return blogs;
       } else {
-        print('error occured and statuscode failed:${response.statusCode}');
+        debugPrint(
+            'error occured and statuscode failed:${response.statusCode}');
       }
     } catch (e) {
       debugPrint('$e');
@@ -219,7 +222,7 @@ class Blogservice {
   }
 
   //search blogs
-  Future<List<BlogModel>?> SearchBlogs(String query) async {
+  Future<List<BlogModel>?> searchBlogs(String query) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     final token = pref.getString('token');
 
@@ -248,7 +251,7 @@ class Blogservice {
   }
 
   //filter blogs by selected category
-  Future<List<BlogModel>?> FilterBlog(String category) async {
+  Future<List<BlogModel>?> filterBlog(String category) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     final token = pref.getString('token');
 
@@ -277,7 +280,7 @@ class Blogservice {
   }
 
   //add blog to favorites
-  Future<String?> AddToFavorite(String id) async {
+  Future<String?> addToFavorite(String id) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     final token = pref.getString('token');
     try {
@@ -301,7 +304,7 @@ class Blogservice {
   }
 
   //get all favorite blogs
-  Future<List<BlogModel>?> GetFavoriteBlogs() async {
+  Future<List<BlogModel>?> getFavoriteBlogs() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     final token = pref.getString('token');
     try {
@@ -323,7 +326,7 @@ class Blogservice {
   }
 
   //delete blog from Favorite
-  Future<bool?> DeletefromFavorite(String id) async {
+  Future<bool?> deletefromFavorite(String id) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     final token = pref.getString('token');
     try {

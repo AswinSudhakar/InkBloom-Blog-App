@@ -227,6 +227,7 @@
 // }
 
 import 'package:flutter/material.dart';
+import 'package:inkbloom/View/additionalscreen/loadingscreen.dart';
 import 'package:inkbloom/service/authservice.dart';
 import 'package:inkbloom/View/authentication/login.dart';
 
@@ -247,15 +248,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   bool _isPasswordVisible = false;
   bool _isConfirmPasswordVisible = false;
-  bool _isLoading = false;
 
   void _register() async {
     if (_registerKey.currentState!.validate()) {
       if (!mounted) return;
-      setState(() {
-        _isLoading = true;
-      });
-
+      setState(() {});
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Loadingscreen(),
+          ));
       Authservice authservice = Authservice();
       try {
         final user = await authservice.Register(
@@ -274,6 +276,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text("Registration failed. Try again.")),
           );
+          _usernameController.clear();
+          _emailController.clear();
+          _passwordController.clear();
+          _confirmPasswordController.clear();
+          Navigator.pop(context);
         }
       } catch (e) {
         if (!mounted) return;
@@ -281,9 +288,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
           SnackBar(content: Text("Error: ${e.toString()}")),
         );
       } finally {
-        setState(() {
-          _isLoading = false;
-        });
+        if (!mounted) return;
+        setState(() {});
       }
     }
   }
@@ -384,7 +390,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   _buildTextField(_passwordController,
                                       "Password", Icons.lock, true),
                                   _buildTextField(_confirmPasswordController,
-                                      "Confirm Password", Icons.lock, true),
+                                      "Confirm Password", Icons.lock, true,
+                                      isConfirmPassword: true),
                                 ],
                               ),
                             ),
@@ -420,56 +427,63 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   Widget _buildTextField(TextEditingController controller, String hint,
-      IconData icon, bool isPassword) {
+      IconData icon, bool isPassword,
+      {bool isConfirmPassword = false}) {
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         border: Border(bottom: BorderSide(color: Colors.grey.shade200)),
       ),
       child: TextFormField(
-        controller: controller,
-        obscureText: isPassword
-            ? (icon == Icons.lock
-                ? !_isPasswordVisible
-                : !_isConfirmPasswordVisible)
-            : false,
-        decoration: InputDecoration(
-          hintText: hint,
-          hintStyle: const TextStyle(color: Colors.grey),
-          border: InputBorder.none,
-          prefixIcon: Icon(icon, color: Colors.grey),
-          suffixIcon: isPassword
-              ? IconButton(
-                  icon: Icon(
-                    (icon == Icons.lock && !_isPasswordVisible) ||
-                            (icon != Icons.lock && !_isConfirmPasswordVisible)
-                        ? Icons.visibility_off
-                        : Icons.visibility,
-                    color: Colors.grey,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      if (icon == Icons.lock) {
-                        _isPasswordVisible = !_isPasswordVisible;
-                      } else {
-                        _isConfirmPasswordVisible = !_isConfirmPasswordVisible;
-                      }
-                    });
-                  },
-                )
-              : null,
-        ),
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return 'Please enter your $hint';
-          } else if (isPassword && value.length < 6) {
-            return 'Password must be at least 6 characters';
-          } else if (isPassword && value != _passwordController.text) {
-            return 'Passwords do not match';
-          }
-          return null;
-        },
-      ),
+          controller: controller,
+          obscureText: isPassword
+              ? (isConfirmPassword
+                  ? !_isConfirmPasswordVisible
+                  : !_isPasswordVisible)
+              : false,
+          decoration: InputDecoration(
+            hintText: hint,
+            hintStyle: const TextStyle(color: Colors.grey),
+            border: InputBorder.none,
+            prefixIcon: Icon(icon, color: Colors.grey),
+            suffixIcon: isPassword
+                ? IconButton(
+                    icon: Icon(
+                      (isConfirmPassword
+                              ? !_isConfirmPasswordVisible
+                              : !_isPasswordVisible)
+                          ? Icons.visibility_off
+                          : Icons.visibility,
+                      color: Colors.grey,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        if (isConfirmPassword) {
+                          _isConfirmPasswordVisible =
+                              !_isConfirmPasswordVisible;
+                        } else {
+                          _isPasswordVisible = !_isPasswordVisible;
+                        }
+                      });
+                    },
+                  )
+                : null,
+          ),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please enter your $hint';
+            } else if (hint == "Email" &&
+                !RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
+                    .hasMatch(value)) {
+              return 'Enter a valid email address';
+            } else if (isPassword && hint == "Password" && value.length < 6) {
+              return 'Password must be at least 6 characters';
+            } else if (hint == "Confirm Password" &&
+                value != _passwordController.text) {
+              return 'Passwords do not match';
+            }
+            return null;
+          }),
     );
   }
 
