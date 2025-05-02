@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:inkbloom/View/additionalscreen/loadingscreen.dart';
 import 'package:inkbloom/View/additionalscreen/loginloading.dart';
+import 'package:inkbloom/View/categoryseleection.dart';
+import 'package:inkbloom/ViewModel/userprovider.dart';
+import 'package:inkbloom/models/user/usermodel.dart';
 import 'package:inkbloom/service/authservice.dart';
 import 'package:inkbloom/View/blogscreens/home2.dart';
 import 'package:inkbloom/View/authentication/register.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -18,6 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _isPasswordVisible = false;
+  UserProfileModel user = UserProfileModel();
 
   void _login() async {
     Authservice authservice = Authservice();
@@ -37,10 +41,31 @@ class _LoginScreenState extends State<LoginScreen> {
         if (!mounted) return;
 
         if (user != null) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => HomeScreen2()),
-          );
+          final userprovider =
+              Provider.of<UserProvider>(context, listen: false);
+          await userprovider.fetchandUpdate();
+
+          final categories = userprovider.selectedCategories;
+          if (categories == null || categories.isEmpty) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (_) => CategoryScreen(),
+              ),
+            );
+          } else {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (_) => HomeScreen2(),
+              ),
+            );
+          }
+
+          // Navigator.pushReplacement(
+          //   context,
+          //   MaterialPageRoute(builder: (context) => HomeScreen2()),
+          // );
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
@@ -74,6 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context);
     return SafeArea(
       child: Scaffold(
         body: Stack(children: [

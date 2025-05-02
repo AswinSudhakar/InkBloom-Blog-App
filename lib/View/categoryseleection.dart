@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inkbloom/View/blogscreens/home2.dart';
 import 'package:inkbloom/ViewModel/blogprovider.dart';
 import 'package:inkbloom/ViewModel/categoryprovider.dart';
 import 'package:provider/provider.dart';
@@ -117,7 +118,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
             Provider.of<CategoryProvider>(context, listen: false)
                 .updateUserCategories(selectedcategories);
             print('Selected categories: $selectedcategories');
-            Navigator.pop(context, selectedcategories);
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HomeScreen2(),
+                ));
           },
           child: Text(
             'Submit',

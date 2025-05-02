@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:inkbloom/View/myaccount.dart';
 import 'package:inkbloom/ViewModel/userprovider.dart';
-import 'package:inkbloom/View/blogscreens/home2.dart';
 import 'package:provider/provider.dart';
 
 class Editprofile extends StatefulWidget {
