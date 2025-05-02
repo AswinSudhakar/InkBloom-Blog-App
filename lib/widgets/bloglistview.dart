@@ -78,19 +78,20 @@ class BlogListSection extends StatelessWidget {
                         Text(
                           blog.title ?? 'No Title',
                           style: const TextStyle(
-                            fontSize: 26,
-                            fontWeight: FontWeight.w600,
-                          ),
+                              fontSize: 26,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: 'CrimsonText-Bold'),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
                         const SizedBox(height: 5),
                         Text(
                           blog.content ?? '',
-                          maxLines: 4,
+                          maxLines: 3,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                            fontSize: 13,
+                            fontFamily: 'CrimsonText-SemiBoldItalic',
+                            fontSize: 18,
                             color: Colors.grey[700],
                           ),
                         ),
@@ -98,7 +99,8 @@ class BlogListSection extends StatelessWidget {
                         Text(
                           'Readtime: ${blog.readTime} Min',
                           style: TextStyle(
-                            fontSize: 15,
+                            fontFamily: 'CrimsonText-SemiBoldItalic',
+                            fontSize: 17,
                             color: Colors.grey[600],
                           ),
                         ),

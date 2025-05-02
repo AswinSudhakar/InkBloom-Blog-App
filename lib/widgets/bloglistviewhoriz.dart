@@ -60,7 +60,8 @@ class HorizontalBlogList extends StatelessWidget {
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
-                      fontSize: 16,
+                      fontSize: 18,
+                      fontFamily: 'CrimsonText-Bold',
                       shadows: [Shadow(blurRadius: 4, color: Colors.black)],
                     ),
                     maxLines: 2,

@@ -93,7 +93,10 @@ class _HomeScreen2State extends State<HomeScreen2> with RouteAware {
           backgroundColor: Colors.grey.withOpacity(.3),
           title: Text(
             'Explore',
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
+            style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.w600,
+                fontFamily: 'CrimsonText-Bold'),
           ),
           actions: [
             Container(
@@ -106,10 +109,11 @@ class _HomeScreen2State extends State<HomeScreen2> with RouteAware {
               ),
               child: TextField(
                 controller: _searchController,
-                style: const TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 17),
                 decoration: InputDecoration(
                   hintText: 'Search blogs...',
-                  hintStyle: TextStyle(color: Colors.black),
+                  hintStyle: TextStyle(
+                      color: Colors.black, fontFamily: 'CrimsonText-Bold'),
                   prefixIcon:
                       const Icon(Icons.search, size: 20, color: Colors.grey),
                   border: InputBorder.none,
@@ -184,10 +188,10 @@ class _HomeScreen2State extends State<HomeScreen2> with RouteAware {
                           child: const Text(
                             'Recommended',
                             style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                            ),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black,
+                                fontFamily: 'CrimsonText-Bold'),
                           ),
                         ),
                       ],
@@ -220,7 +224,12 @@ class _HomeScreen2State extends State<HomeScreen2> with RouteAware {
                           return Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 6),
                             child: ChoiceChip(
-                              label: Text(category),
+                              label: Text(
+                                category,
+                                style: TextStyle(
+                                    fontFamily: 'CrimsonText-Bold',
+                                    fontSize: 15),
+                              ),
                               selected: isSelected,
                               onSelected: (selected) {
                                 if (selected) {

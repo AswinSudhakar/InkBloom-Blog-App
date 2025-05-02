@@ -128,7 +128,9 @@ class _BlogDetailState extends State<BlogDetail> {
                             Text(
                               '${widget.blog.title}',
                               style: TextStyle(
-                                  fontSize: 30, fontWeight: FontWeight.bold),
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Tagesschrift-Regular'),
                             ),
                           ],
                         ),
@@ -156,10 +158,21 @@ class _BlogDetailState extends State<BlogDetail> {
                                   SizedBox(
                                     width: 10,
                                   ),
-                                  Text("Author: ${widget.blog.author}"),
+                                  Text(
+                                    "Author: ${widget.blog.author}",
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontFamily:
+                                            'CrimsonText-SemiBoldItalic'),
+                                  ),
                                 ],
                               ),
-                              Text("Read Time: ${widget.blog.readTime}  Min"),
+                              Text(
+                                "Read Time: ${widget.blog.readTime}  Min",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontFamily: 'CrimsonText-SemiBoldItalic'),
+                              )
                             ],
                           ),
                         ),
@@ -168,7 +181,10 @@ class _BlogDetailState extends State<BlogDetail> {
                         // Content
                         Text(
                           '${widget.blog.content}',
-                          style: TextStyle(fontSize: 16, height: 1.6),
+                          style: TextStyle(
+                              fontSize: 25,
+                              height: 1.6,
+                              fontFamily: 'CrimsonText-SemiBoldItalic'),
                         ),
                       ],
                     ),
