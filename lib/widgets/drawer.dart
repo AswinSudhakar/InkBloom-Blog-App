@@ -98,12 +98,14 @@ class _AppDrawerState extends State<AppDrawer> {
                       Text(
                         userProvider.name ?? "unknown",
                         style: TextStyle(
-                            fontFamily: 'CrimsonText-Bold', fontSize: 17),
+                            fontFamily: 'CrimsonText-SemiBoldItalic',
+                            fontSize: 19),
                       ),
                       Text(
                         userProvider.email ?? "unknown",
                         style: TextStyle(
-                            fontFamily: 'CrimsonText-Bold', fontSize: 17),
+                            fontFamily: 'CrimsonText-SemiBoldItalic',
+                            fontSize: 19),
                       )
                     ],
                   )

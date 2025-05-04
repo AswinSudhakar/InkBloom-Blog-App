@@ -331,7 +331,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     Text(
                       'Create Account',
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
+                        fontFamily: 'CrimsonText-Bold',
                         fontSize: 35,
                         color: Colors.white,
                       ),
@@ -409,7 +409,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               child: const Text(
                                 "Already have an account? Login",
                                 style: TextStyle(
-                                    color: Color.fromARGB(255, 59, 98, 116)),
+                                    fontSize: 18,
+                                    color: Color.fromARGB(255, 59, 98, 116),
+                                    fontFamily: 'CrimsonText-SemiBoldItalic'),
                               ),
                             ),
                           ],
@@ -443,7 +445,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
               : false,
           decoration: InputDecoration(
             hintText: hint,
-            hintStyle: const TextStyle(color: Colors.grey),
+            hintStyle: const TextStyle(
+                color: Colors.grey, fontFamily: 'CrimsonText-SemiBoldItalic'),
             border: InputBorder.none,
             prefixIcon: Icon(icon, color: Colors.grey),
             suffixIcon: isPassword
@@ -502,10 +505,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
         child: Text(
           text,
           style: const TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-          ),
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              fontFamily: 'CrimsonText-SemiBoldItalic'),
         ),
       ),
     );

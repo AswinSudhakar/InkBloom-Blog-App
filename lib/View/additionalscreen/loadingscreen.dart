@@ -25,7 +25,10 @@ class Loadingscreen extends StatelessWidget {
             alignment: Alignment(0, .5),
             child: Text(
               'Please wait...',
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
+              style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w600,
+                  fontFamily: 'CrimsonText-Bold'),
             ),
           )
         ],

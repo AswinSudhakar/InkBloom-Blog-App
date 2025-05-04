@@ -25,7 +25,10 @@ class Loginloading extends StatelessWidget {
             alignment: Alignment(0, .5),
             child: Text(
               'logging in...',
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
+              style: TextStyle(
+                  fontFamily: 'CrimsonText-Bold',
+                  fontSize: 30,
+                  fontWeight: FontWeight.w600),
             ),
           )
         ],

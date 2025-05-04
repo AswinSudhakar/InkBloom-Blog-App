@@ -472,9 +472,9 @@ class _AddBlogState extends State<AddBlog> {
                   const Text(
                     "Add Blog",
                     style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                    ),
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'CrimsonText-Bold'),
                   ),
                   SizedBox(
                     width: 50,
@@ -483,7 +483,10 @@ class _AddBlogState extends State<AddBlog> {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: Text("Cancel"))
+                      child: Text(
+                        "Cancel",
+                        style: TextStyle(fontFamily: 'CrimsonText-Bold'),
+                      ))
                 ],
               ),
               const SizedBox(height: 16),
@@ -531,6 +534,7 @@ class _AddBlogState extends State<AddBlog> {
                 decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.category),
                   hintText: 'Select Category',
+                  hintStyle: TextStyle(fontFamily: 'CrimsonText-Bold'),
                   border: OutlineInputBorder(),
                 ),
                 items: _categories.map((category) {
@@ -551,6 +555,7 @@ class _AddBlogState extends State<AddBlog> {
                 maxLines: 6,
                 decoration: const InputDecoration(
                   hintText: 'Content',
+                  hintStyle: TextStyle(fontFamily: 'CrimsonText-Bold'),
                   border: OutlineInputBorder(),
                   alignLabelWithHint: true,
                 ),
@@ -591,6 +596,7 @@ class _AddBlogState extends State<AddBlog> {
       keyboardType: isNumber ? TextInputType.number : TextInputType.text,
       decoration: InputDecoration(
         hintText: hintText,
+        hintStyle: TextStyle(fontFamily: 'CrimsonText-Bold'),
         prefixIcon: Icon(icon),
         border: const OutlineInputBorder(),
       ),

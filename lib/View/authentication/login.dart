@@ -136,18 +136,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       Text(
                         'Login',
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 35,
-                          color: Colors.white,
-                        ),
+                            fontSize: 35,
+                            color: Colors.white,
+                            fontFamily: 'CrimsonText-Bold'),
                       ),
                       Text(
                         'Welcome Back',
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30,
-                          color: Colors.white,
-                        ),
+                            fontSize: 30,
+                            color: Colors.white,
+                            fontFamily: 'CrimsonText-Bold'),
                       ),
                       SizedBox(height: 25),
                     ],
@@ -239,7 +237,8 @@ class _LoginScreenState extends State<LoginScreen> {
         obscureText: isPassword ? !_isPasswordVisible : false,
         decoration: InputDecoration(
           hintText: hint,
-          hintStyle: const TextStyle(color: Colors.grey),
+          hintStyle: const TextStyle(
+              color: Colors.grey, fontFamily: 'CrimsonText-SemiBoldItalic'),
           border: InputBorder.none,
           prefixIcon: Icon(icon, color: Colors.grey),
           suffixIcon: isPassword
@@ -283,10 +282,10 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Text(
           text,
           style: const TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-          ),
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              fontFamily: 'CrimsonText-SemiBoldItalic'),
         ),
       ),
     );
