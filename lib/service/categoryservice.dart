@@ -87,6 +87,7 @@ class Categoryservice {
       debugPrint('getting categories from ${Apis().baseurl}${Apis().category}');
 
       if (request.statusCode == 200) {
+        //it returns a list of dynamic so we need to convert it into list of string
         final dynamic decoded = jsonDecode(request.body);
         debugPrint('Decoded user categories: $decoded');
 

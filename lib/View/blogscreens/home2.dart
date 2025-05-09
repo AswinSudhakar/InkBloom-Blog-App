@@ -42,8 +42,9 @@ class _HomeScreen2State extends State<HomeScreen2> with RouteAware {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final provider = Provider.of<BlogProvider>(context, listen: false);
-      provider.fetchBlogs();
-      provider.fetchUserCategoryBlogs();
+      // provider.fetchBlogs();
+      // provider.fetchUserCategoryBlogs();
+      provider.refreshblogs();
     });
   }
 
