@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inkbloom/View/blogscreens/home2.dart';
 import 'package:inkbloom/ViewModel/blogprovider.dart';
 import 'package:inkbloom/widgets/bloglistview.dart';
 import 'package:provider/provider.dart';
@@ -21,26 +22,43 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final blogprovider = Provider.of<BlogProvider>(context);
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HomeScreen2(),
+                ));
+          },
+          icon: Icon(Icons.arrow_back),
+        ),
         centerTitle: true,
         title: Text(
           'Favourites',
-          style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
+          style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.w600,
+              fontFamily: 'CrimsonText-Bold'),
         ),
       ),
       body: Container(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(
-                height: 30,
-              ),
-              BlogListSection(
-                blogs: context.watch<BlogProvider>().favoriteBlogs,
-                isLoading: context.watch<BlogProvider>().isLoading,
-              )
-            ],
+        child: RefreshIndicator(
+          onRefresh: blogprovider.refreshfavoriites,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 30,
+                ),
+                BlogListSection(
+                  blogs: context.watch<BlogProvider>().favoriteBlogs,
+                  isLoading: context.watch<BlogProvider>().isLoading,
+                )
+              ],
+            ),
           ),
         ),
       ),

@@ -84,19 +84,23 @@ class Categoryservice {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
       });
-      print('getting categories from ${Apis().baseurl}${Apis().categoryall}');
+      debugPrint('getting categories from ${Apis().baseurl}${Apis().category}');
 
       if (request.statusCode == 200) {
-        final List<String> usercategories = jsonDecode(request.body);
+        final dynamic decoded = jsonDecode(request.body);
+        debugPrint('Decoded user categories: $decoded');
 
-        print('usercategory length is ${usercategories.length}');
-        return usercategories.isNotEmpty ? usercategories : null;
-      } else {
-        print('error occured and statuscode failed:${request.statusCode}');
-        return null;
+        if (decoded is List) {
+          final List<String> usercategories = List<String>.from(decoded);
+          debugPrint('Usercategory length is ${usercategories.length}');
+          return usercategories.isNotEmpty ? usercategories : null;
+        } else {
+          debugPrint('Unexpected response format: $decoded');
+          return null;
+        }
       }
     } catch (e) {
-      print(e);
+      debugPrint('$e');
       return null;
     }
   }

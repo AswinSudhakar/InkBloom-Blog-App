@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inkbloom/View/blogscreens/recommentedblogs.dart';
 
 import 'package:inkbloom/ViewModel/blogprovider.dart';
 import 'package:inkbloom/main.dart';
@@ -150,52 +151,74 @@ class _HomeScreen2State extends State<HomeScreen2> with RouteAware {
                   child: CircularProgressIndicator(),
                 ),
               )
-            : SingleChildScrollView(
-                child: Column(
+            : RefreshIndicator(
+                onRefresh: blogProvider.refreshblogs,
+                child: ListView(
+                  padding: const EdgeInsets.only(bottom: 20),
                   children: [
-                    SizedBox(
-                      height: 20,
-                    ),
+                    if (blogProvider.userprefblogs.isNotEmpty)
+                      Column(
+                        children: [
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 12, vertical: 6),
+                                decoration: BoxDecoration(
+                                  color: Colors.grey
+                                      .shade200, // Optional: match your theme
+                                  borderRadius: BorderRadius.circular(12),
+                                  border: Border.all(
+                                    color: Colors.grey
+                                        .withOpacity(.4), // Black border
+                                    width: 1.2,
+                                  ),
 
-                    /// 🔍 Search
-
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 12, vertical: 6),
-                          decoration: BoxDecoration(
-                            color: Colors
-                                .grey.shade200, // Optional: match your theme
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(
-                              color:
-                                  Colors.grey.withOpacity(.4), // Black border
-                              width: 1.2,
-                            ),
-
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.3),
-                                blurRadius: 8,
-                                offset: const Offset(0, 3), // Shadow position
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.3),
+                                      blurRadius: 8,
+                                      offset:
+                                          const Offset(0, 3), // Shadow position
+                                    ),
+                                  ],
+                                ),
+                                child: const Text(
+                                  'Recommended',
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black,
+                                      fontFamily: 'CrimsonText-Bold'),
+                                ),
                               ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              RecommentedBlogs(),
+                                        ));
+                                  },
+                                  child: Text(
+                                    'View All->',
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.black,
+                                        fontFamily: 'CrimsonText-Bold'),
+                                  ))
                             ],
                           ),
-                          child: const Text(
-                            'Recommended',
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black,
-                                fontFamily: 'CrimsonText-Bold'),
-                          ),
-                        ),
-                      ],
-                    ),
+                        ],
+                      ),
                     SizedBox(
                       height: 10,
                     ),

@@ -55,11 +55,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   top: 50,
                   child: IconButton(
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => HomeScreen2(),
-                          ));
+                      Navigator.pop(context);
                     },
                     icon: Icon(
                       Icons.arrow_back,

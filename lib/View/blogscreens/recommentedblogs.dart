@@ -1,42 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:inkbloom/ViewModel/blogprovider.dart';
-import 'package:inkbloom/ViewModel/userprovider.dart';
-
+import 'package:inkbloom/models/blog/blogmodel.dart';
 import 'package:inkbloom/widgets/bloglistview.dart';
 import 'package:provider/provider.dart';
 
-class Myblogs extends StatefulWidget {
-  const Myblogs({super.key});
+class RecommentedBlogs extends StatefulWidget {
+  const RecommentedBlogs({super.key});
 
   @override
-  State<Myblogs> createState() => _FavoriteScreenState();
+  State<RecommentedBlogs> createState() => _RecommentedBlogsState();
 }
 
-class _FavoriteScreenState extends State<Myblogs> {
-  @override
-  void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<BlogProvider>(context, listen: false).fetchBlogs();
-    });
-    super.initState();
-  }
-
+class _RecommentedBlogsState extends State<RecommentedBlogs> {
   @override
   Widget build(BuildContext context) {
-    final userProvider = Provider.of<UserProvider>(context);
-
+    final blogprovider = Provider.of<BlogProvider>(context);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'My Blogs',
+          'Recommented Blogs',
           style: TextStyle(
               fontSize: 30,
               fontWeight: FontWeight.w600,
               fontFamily: 'CrimsonText-Bold'),
         ),
       ),
-      body: SizedBox(
+      body: RefreshIndicator(
+        onRefresh: blogprovider.refreshuserpref,
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -44,9 +35,7 @@ class _FavoriteScreenState extends State<Myblogs> {
                 height: 30,
               ),
               BlogListSection(
-                blogs: context
-                    .watch<BlogProvider>()
-                    .getMyBlogs(userProvider.name!),
+                blogs: context.watch<BlogProvider>().userprefblogs,
                 isLoading: context.watch<BlogProvider>().isLoading,
               )
             ],

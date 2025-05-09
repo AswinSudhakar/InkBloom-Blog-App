@@ -13,6 +13,7 @@ class CategoryScreen extends StatefulWidget {
 
 class _CategoryScreenState extends State<CategoryScreen> {
   BlogProvider blogProvider = BlogProvider();
+  List<String>? alreadyselectedcategories = [];
   List<String> categories = [
     'Business',
     'Culture',
@@ -39,24 +40,30 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       final provider = Provider.of<CategoryProvider>(context, listen: false);
-      provider.updateUserCategories(
-          selectedcategories); // 👈 THIS is what triggers it
+      await provider.fetchusercategory();
+
+      setState(() {
+        selectedcategories.addAll(provider.usercategory);
+      });
     });
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    alreadyselectedcategories = context.watch<CategoryProvider>().usercategory;
+
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
         title: Text(
           'Select Your Favorite Categories',
           style: TextStyle(
-            fontWeight: FontWeight.w600,
-          ),
+              fontWeight: FontWeight.w600,
+              fontFamily: 'CrimsonText-SemiBoldItalic'),
         ),
         backgroundColor: Colors.grey.withOpacity(.3),
         foregroundColor: Colors.black,
@@ -93,6 +100,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     category,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
+                      fontFamily: 'CrimsonText-SemiBoldItalic',
                       color: isSelected ? Colors.white : Colors.black87,
                       fontSize: 16,
                     ),
@@ -103,32 +111,97 @@ class _CategoryScreenState extends State<CategoryScreen> {
           },
         ),
       ),
-      bottomNavigationBar: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.symmetric(vertical: 16),
-            backgroundColor: Colors.grey.shade300,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
+      // bottomNavigationBar: Container(
+      //   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+      //   child: ElevatedButton(
+      //     style: ElevatedButton.styleFrom(
+      //       padding: EdgeInsets.symmetric(vertical: 16),
+      //       backgroundColor: Colors.grey.shade300,
+      //       shape: RoundedRectangleBorder(
+      //         borderRadius: BorderRadius.circular(30),
+      //       ),
+      //       elevation: 5,
+      //     ),
+      //     onPressed: () {
+      //       Provider.of<CategoryProvider>(context, listen: false)
+      //           .updateUserCategories(selectedcategories);
+      //       print('Selected categories: $selectedcategories');
+      //       Navigator.push(
+      //           context,
+      //           MaterialPageRoute(
+      //             builder: (context) => HomeScreen2(),
+      //           ));
+      //     },
+      //     child: Text(
+      //       'Submit',
+      //       style: TextStyle(
+      //           fontSize: 18,
+      //           color: Colors.black,
+      //           fontFamily: 'CrimsonText-SemiBoldItalic'),
+      //     ),
+      //   ),
+      // ),
+
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        child: Row(
+          children: [
+            Expanded(
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context); // 👈 Cancels and goes back
+                },
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  backgroundColor: const Color.fromARGB(255, 153, 224, 226),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                ),
+                child: Text(
+                  'Cancel',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                    fontFamily: 'CrimsonText-SemiBoldItalic',
+                  ),
+                ),
+              ),
             ),
-            elevation: 5,
-          ),
-          onPressed: () {
-            Provider.of<CategoryProvider>(context, listen: false)
-                .updateUserCategories(selectedcategories);
-            print('Selected categories: $selectedcategories');
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => HomeScreen2(),
-                ));
-          },
-          child: Text(
-            'Submit',
-            style: TextStyle(
-                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
-          ),
+            SizedBox(width: 16),
+            Expanded(
+              child: ElevatedButton(
+                onPressed: selectedcategories.isEmpty
+                    ? null
+                    : () {
+                        Provider.of<CategoryProvider>(context, listen: false)
+                            .updateUserCategories(selectedcategories);
+                        debugPrint('Selected categories: $selectedcategories');
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => HomeScreen2()),
+                        );
+                      },
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  backgroundColor: Colors.grey.shade300,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                ),
+                child: Text(
+                  'Submit',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.black,
+                    fontFamily: 'CrimsonText-SemiBoldItalic',
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

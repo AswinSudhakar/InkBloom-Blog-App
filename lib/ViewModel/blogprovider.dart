@@ -201,4 +201,18 @@ class BlogProvider extends ChangeNotifier {
     }
     return success;
   }
+
+  Future<void> refreshblogs() async {
+    print("refresh page is called");
+    await fetchBlogs();
+    await fetchUserCategoryBlogs();
+  }
+
+  Future<void> refreshfavoriites() async {
+    await getfavBlogs();
+  }
+
+  Future<void> refreshuserpref() async {
+    await fetchUserCategoryBlogs();
+  }
 }
