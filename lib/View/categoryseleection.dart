@@ -223,7 +223,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             .updateUserCategories(selectedcategories);
                         debugPrint('Selected categories: $selectedcategories');
 
-                        Navigator.push(
+                        Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                               builder: (context) => HomeScreen2()),

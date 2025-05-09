@@ -445,7 +445,7 @@ class _AddBlogState extends State<AddBlog> {
         _selectedCategory = null;
       });
 
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const HomeScreen2()),
       );

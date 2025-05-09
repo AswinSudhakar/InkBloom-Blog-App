@@ -27,7 +27,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            Navigator.push(
+            Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                   builder: (context) => HomeScreen2(),
