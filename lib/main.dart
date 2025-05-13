@@ -24,6 +24,7 @@ void main() {
         ChangeNotifierProvider(
           create: (context) => CategoryProvider(),
         ),
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
       ],
       child: const MyApp(),
     ),
@@ -35,8 +36,27 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData lightTheme = ThemeData(
+      brightness: Brightness.light,
+      primarySwatch: Colors.grey,
+      scaffoldBackgroundColor: Colors.white,
+      appBarTheme: AppBarTheme(backgroundColor: Colors.grey),
+      // Add other theme properties
+    );
+
+    final ThemeData darkTheme = ThemeData(
+      brightness: Brightness.dark,
+      primarySwatch: Colors.grey,
+      scaffoldBackgroundColor: Colors.black,
+      appBarTheme: AppBarTheme(backgroundColor: Colors.grey),
+      // Add other theme properties
+    );
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return SafeArea(
       child: MaterialApp(
+        theme: lightTheme,
+        darkTheme: darkTheme,
+        themeMode: themeProvider.themeMode,
         navigatorObservers: [routeObserver],
         debugShowCheckedModeBanner: false,
         home: SplashScreen(),

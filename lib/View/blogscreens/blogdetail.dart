@@ -104,7 +104,7 @@ class _BlogDetailState extends State<BlogDetail> {
                 return Container(
                   padding: EdgeInsets.all(20),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Theme.of(context).cardColor,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(40),
                       topRight: Radius.circular(40),
@@ -136,43 +136,94 @@ class _BlogDetailState extends State<BlogDetail> {
                         ),
                         SizedBox(height: 20),
 
-                        // Author & Read Time
+                        // // Author & Read Time
+                        // Container(
+                        //   padding: EdgeInsets.all(5),
+                        //   decoration: BoxDecoration(
+                        //       color: Colors.grey.withOpacity(.4),
+                        //       borderRadius: BorderRadius.circular(20)),
+                        //   width: double.infinity,
+                        //   height: 40,
+                        //   child: Row(
+                        //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        //     children: [
+                        //       Row(
+                        //         children: [
+                        //           CircleAvatar(
+                        //             backgroundImage: widget.blog.avatar != null
+                        //                 ? NetworkImage(widget.blog.avatar!)
+                        //                 : NetworkImage(
+                        //                     "https://th.bing.com/th/id/OIP.rcmXeqCUOiCg54dfU4v9tgHaHa?rs=1&pid=ImgDetMain"),
+                        //             radius: 15,
+                        //           ),
+                        //           SizedBox(
+                        //             width: 10,
+                        //           ),
+                        //           Expanded(
+                        //             child: Text(
+                        //               "Author: ${widget.blog.author}",
+                        //               style: TextStyle(
+                        //                   fontSize: 20,
+                        //                   fontFamily:
+                        //                       'CrimsonText-SemiBoldItalic'),
+                        //             ),
+                        //           ),
+                        //         ],
+                        //       ),
+                        //       Text(
+                        //         "Read Time: ${widget.blog.readTime}  Min",
+                        //         style: TextStyle(
+                        //             fontSize: 20,
+                        //             fontFamily: 'CrimsonText-SemiBoldItalic'),
+                        //       )
+                        //     ],
+                        //   ),
+                        // ),
+
                         Container(
                           decoration: BoxDecoration(
-                              color: Colors.grey.withOpacity(.4),
-                              borderRadius: BorderRadius.circular(20)),
+                            color: Colors.grey.withOpacity(.4),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
                           width: double.infinity,
                           height: 40,
+                          padding: EdgeInsets.symmetric(horizontal: 10),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Row(
-                                children: [
-                                  CircleAvatar(
-                                    backgroundImage: widget.blog.avatar != null
-                                        ? NetworkImage(widget.blog.avatar!)
-                                        : NetworkImage(
-                                            "https://th.bing.com/th/id/OIP.rcmXeqCUOiCg54dfU4v9tgHaHa?rs=1&pid=ImgDetMain"),
-                                    radius: 15,
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    "Author: ${widget.blog.author}",
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontFamily:
-                                            'CrimsonText-SemiBoldItalic'),
-                                  ),
-                                ],
+                              Expanded(
+                                child: Row(
+                                  children: [
+                                    CircleAvatar(
+                                      backgroundImage: widget.blog.avatar !=
+                                              null
+                                          ? NetworkImage(widget.blog.avatar!)
+                                          : NetworkImage(
+                                              "https://th.bing.com/th/id/OIP.rcmXeqCUOiCg54dfU4v9tgHaHa?rs=1&pid=ImgDetMain"),
+                                      radius: 15,
+                                    ),
+                                    SizedBox(width: 10),
+                                    Expanded(
+                                      child: Text(
+                                        "Author: ${widget.blog.author}",
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontFamily:
+                                              'CrimsonText-SemiBoldItalic',
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                               Text(
-                                "Read Time: ${widget.blog.readTime}  Min",
+                                "Read Time: ${widget.blog.readTime} Min",
                                 style: TextStyle(
-                                    fontSize: 20,
-                                    fontFamily: 'CrimsonText-SemiBoldItalic'),
-                              )
+                                  fontSize: 16,
+                                  fontFamily: 'CrimsonText-SemiBoldItalic',
+                                ),
+                              ),
                             ],
                           ),
                         ),

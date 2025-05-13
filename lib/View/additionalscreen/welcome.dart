@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:inkbloom/View/authentication/register.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Welcome extends StatelessWidget {
   const Welcome({super.key});
@@ -32,7 +33,11 @@ class Welcome extends StatelessWidget {
               ],
             ),
             child: ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
+                final prefs = await SharedPreferences.getInstance();
+                await prefs.setBool(
+                    'welcome_shown', true); // Mark welcome as shown
+
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
