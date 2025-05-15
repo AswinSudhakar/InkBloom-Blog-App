@@ -315,33 +315,22 @@ class _EditBlogState extends State<EditBlog> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text(
+            "Edit Blog",
+            style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'CrimsonText-Bold'),
+          ),
+        ),
         backgroundColor: const Color(0xFFF9F9F9),
         body: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  const Text(
-                    "Edit Blog",
-                    style: TextStyle(
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'CrimsonText-Bold'),
-                  ),
-                  SizedBox(
-                    width: 50,
-                  ),
-                  ElevatedButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: Text("Cancel",
-                          style: TextStyle(fontFamily: 'CrimsonText-Bold')))
-                ],
-              ),
               const SizedBox(height: 16),
               GestureDetector(
                 onTap: _pickImage,
@@ -374,7 +363,9 @@ class _EditBlogState extends State<EditBlog> {
                               Icon(Icons.image, size: 50, color: Colors.grey),
                               SizedBox(height: 8),
                               Text("Tap to upload image",
-                                  style: TextStyle(color: Colors.grey)),
+                                  style: TextStyle(
+                                      color: Colors.grey,
+                                      fontFamily: 'CrimsonText-Bold')),
                             ],
                           ),
                         )
@@ -422,21 +413,44 @@ class _EditBlogState extends State<EditBlog> {
                 ),
               ),
               const SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton.icon(
-                  onPressed: () => _editBlog(widget.blog),
-                  icon: const Icon(Icons.save_rounded),
-                  label: const Text("Update Blog"),
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                    backgroundColor: Colors.grey,
-                    textStyle: const TextStyle(fontSize: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Expanded(
+                    child: ElevatedButton.icon(
+                      onPressed: () => _editBlog(widget.blog),
+                      icon: const Icon(Icons.save_rounded),
+                      label: const Text("Upload Blog"),
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        backgroundColor: Colors.black87,
+                        foregroundColor: Colors.white,
+                        textStyle: const TextStyle(fontSize: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        backgroundColor: Colors.grey.shade300,
+                        foregroundColor: Colors.black,
+                        textStyle: const TextStyle(fontSize: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      child: const Text('Cancel'),
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: 30),
             ],

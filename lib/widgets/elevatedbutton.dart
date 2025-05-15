@@ -1,46 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ElevatedButtonWidget extends StatelessWidget {
-  final String text;
-  final double width, height;
-  final double elevation;
-  final int backgroundColor;
-  final Color textColor;
-  final double fontSize;
-  final double borderRadius;
-  final VoidCallback tap;
-  final int borderColor;
-  const ElevatedButtonWidget(
-      {super.key,
-      required this.text,
-      required this.height,
-      required this.width,
-      required this.elevation,
-      required this.backgroundColor,
-      required this.fontSize,
-      required this.textColor,
-      required this.borderRadius,
-      required this.tap,
-      required this.borderColor});
+class CustomElevatedButton extends StatelessWidget {
+  final String label;
+  final VoidCallback onPressed;
+  final IconData? icon;
+  final Color backgroundColor;
+  final Color foregroundColor;
+
+  const CustomElevatedButton({
+    super.key,
+    required this.label,
+    required this.onPressed,
+    this.icon,
+    this.backgroundColor = Colors.black87,
+    this.foregroundColor = Colors.white,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: tap,
-      style: ButtonStyle(
-        shape: WidgetStateProperty.all(RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(borderRadius),
-            side: BorderSide(color: Color(borderColor), width: 2))),
-        minimumSize: WidgetStatePropertyAll(Size(width, height)),
-        elevation: WidgetStatePropertyAll(elevation),
-        backgroundColor: WidgetStatePropertyAll(Color(backgroundColor)),
-      ),
-      child: Text(
-        text,
-        style: TextStyle(
-          color: textColor,
-          fontSize: fontSize.sp,
+    return ElevatedButton.icon(
+      onPressed: onPressed,
+      icon: icon != null ? Icon(icon) : const SizedBox.shrink(),
+      label: Text(label),
+      style: ElevatedButton.styleFrom(
+        padding: const EdgeInsets.symmetric(vertical: 14),
+        backgroundColor: backgroundColor,
+        foregroundColor: foregroundColor,
+        textStyle: const TextStyle(fontSize: 16),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
         ),
       ),
     );

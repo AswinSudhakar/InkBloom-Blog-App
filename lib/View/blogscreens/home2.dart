@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:inkbloom/View/blogscreens/recommentedblogs.dart';
 
 import 'package:inkbloom/ViewModel/blogprovider.dart';
+import 'package:inkbloom/ViewModel/themeprovider.dart';
 import 'package:inkbloom/main.dart';
 import 'package:inkbloom/service/userprofile.dart';
 import 'package:inkbloom/widgets/bloglistview.dart';
@@ -89,6 +90,7 @@ class _HomeScreen2State extends State<HomeScreen2> with RouteAware {
 
   @override
   Widget build(BuildContext context) {
+    final themeprovider = Provider.of<ThemeProvider>(context);
     final blogProvider = context.watch<BlogProvider>();
     final blogsToShow = selectedCategory == "All"
         ? blogProvider.blogs
@@ -100,7 +102,7 @@ class _HomeScreen2State extends State<HomeScreen2> with RouteAware {
       child: Scaffold(
         drawer: AppDrawer(),
         appBar: AppBar(
-          backgroundColor: Colors.grey.withOpacity(.3),
+          // backgroundColor: Colors.white,
           title: Text(
             'Explore',
             style: TextStyle(
@@ -110,7 +112,11 @@ class _HomeScreen2State extends State<HomeScreen2> with RouteAware {
           ),
           actions: [
             AnimSearchBar(
-              color: Colors.grey.shade300,
+              searchIconColor:
+                  themeprovider.isDarkMode ? Colors.white : Colors.black,
+              textFieldColor: Colors.grey.shade300,
+              boxShadow: false,
+              color: themeprovider.isDarkMode ? Colors.black : Colors.white,
               width: 300,
               textController: _searchController,
               onSuffixTap: () {
@@ -195,38 +201,45 @@ class _HomeScreen2State extends State<HomeScreen2> with RouteAware {
                             height: 20,
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 12, vertical: 6),
-                                decoration: BoxDecoration(
-                                  color: Colors.grey
-                                      .shade200, // Optional: match your theme
-                                  borderRadius: BorderRadius.circular(12),
-                                  border: Border.all(
-                                    color: Colors.grey
-                                        .withOpacity(.4), // Black border
-                                    width: 1.2,
+                              Row(
+                                children: [
+                                  SizedBox(
+                                    width: 10,
                                   ),
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 6),
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey
+                                          .shade200, // Optional: match your theme
+                                      borderRadius: BorderRadius.circular(12),
+                                      border: Border.all(
+                                        color: Colors.grey
+                                            .withOpacity(.4), // Black border
+                                        width: 1.2,
+                                      ),
 
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.3),
-                                      blurRadius: 8,
-                                      offset:
-                                          const Offset(0, 3), // Shadow position
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.3),
+                                          blurRadius: 8,
+                                          offset: const Offset(
+                                              0, 3), // Shadow position
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                                child: const Text(
-                                  'Recommended',
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black,
-                                      fontFamily: 'CrimsonText-Bold'),
-                                ),
+                                    child: const Text(
+                                      'Recommended',
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.black,
+                                          fontFamily: 'CrimsonText-Bold'),
+                                    ),
+                                  ),
+                                ],
                               ),
                               SizedBox(
                                 width: 20,
@@ -244,7 +257,9 @@ class _HomeScreen2State extends State<HomeScreen2> with RouteAware {
                                     'View All->',
                                     style: TextStyle(
                                         fontSize: 14,
-                                        color: Colors.black,
+                                        color: themeprovider.isDarkMode
+                                            ? Colors.white
+                                            : Colors.black,
                                         fontFamily: 'CrimsonText-Bold'),
                                   ))
                             ],

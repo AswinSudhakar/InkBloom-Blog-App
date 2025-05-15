@@ -40,7 +40,12 @@ class MyApp extends StatelessWidget {
       brightness: Brightness.light,
       primarySwatch: Colors.grey,
       scaffoldBackgroundColor: Colors.white,
-      appBarTheme: AppBarTheme(backgroundColor: Colors.grey),
+      appBarTheme: AppBarTheme(backgroundColor: Colors.white),
+      textTheme: const TextTheme(
+        bodyLarge: TextStyle(color: Colors.black),
+        titleLarge: TextStyle(color: Colors.black87),
+      ),
+
       // Add other theme properties
     );
 
@@ -48,7 +53,11 @@ class MyApp extends StatelessWidget {
       brightness: Brightness.dark,
       primarySwatch: Colors.grey,
       scaffoldBackgroundColor: Colors.black,
-      appBarTheme: AppBarTheme(backgroundColor: Colors.grey),
+      appBarTheme: AppBarTheme(backgroundColor: Colors.black),
+      textTheme: const TextTheme(
+        bodyLarge: TextStyle(color: Colors.black),
+        titleLarge: TextStyle(color: Colors.black87),
+      ),
       // Add other theme properties
     );
     final themeProvider = Provider.of<ThemeProvider>(context);
