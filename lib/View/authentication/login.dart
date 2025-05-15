@@ -54,18 +54,14 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             );
           } else {
-            Navigator.pushReplacement(
+            Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
                 builder: (_) => HomeScreen2(),
               ),
+              (route) => false,
             );
           }
-
-          // Navigator.pushReplacement(
-          //   context,
-          //   MaterialPageRoute(builder: (context) => HomeScreen2()),
-          // );
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(

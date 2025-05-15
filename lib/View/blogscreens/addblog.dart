@@ -449,9 +449,10 @@ class _AddBlogState extends State<AddBlog> {
         _selectedCategory = null;
       });
 
-      Navigator.pushReplacement(
+      Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => const HomeScreen2()),
+        (route) => false,
       );
     }).catchError((error) {
       ScaffoldMessenger.of(context).showSnackBar(
