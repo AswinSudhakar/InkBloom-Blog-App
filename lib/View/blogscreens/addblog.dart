@@ -412,7 +412,9 @@ class _AddBlogState extends State<AddBlog> {
         readTime.isEmpty ||
         _selectedImage == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("All fields and image are required")),
+        const SnackBar(
+            content: Text("All fields and image are required",
+                style: TextStyle(fontFamily: 'CrimsonText-Bold'))),
       );
       return;
     }
@@ -431,7 +433,9 @@ class _AddBlogState extends State<AddBlog> {
 
     blogProvider.addBlog(newBlog).then((_) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Blog uploaded successfully")),
+        const SnackBar(
+            content: Text("Blog uploaded successfully",
+                style: TextStyle(fontFamily: 'CrimsonText-Bold'))),
       );
 
       blogProvider.fetchBlogs();
@@ -451,7 +455,9 @@ class _AddBlogState extends State<AddBlog> {
       );
     }).catchError((error) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Error: $error")),
+        SnackBar(
+            content: Text("Error: $error",
+                style: TextStyle(fontFamily: 'CrimsonText-Bold'))),
       );
     });
   }

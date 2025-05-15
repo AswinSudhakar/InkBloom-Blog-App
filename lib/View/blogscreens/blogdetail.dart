@@ -56,7 +56,9 @@ class _BlogDetailState extends State<BlogDetail> {
       final message = blogProvider.favoriteMessage ?? "Something went wrong";
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(message)),
+        SnackBar(
+            content: Text(message,
+                style: TextStyle(fontFamily: 'CrimsonText-Bold'))),
       );
 
       // Toggle heart color after successful action
@@ -70,7 +72,9 @@ class _BlogDetailState extends State<BlogDetail> {
       // final message = blogProvider.favoriteMessage ?? "Something went wrong";
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("removed from favorites")),
+        SnackBar(
+            content: Text("removed from favorites",
+                style: TextStyle(fontFamily: 'CrimsonText-Bold'))),
       );
 
       // Toggle heart color after successful action

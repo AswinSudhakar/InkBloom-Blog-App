@@ -26,6 +26,7 @@ class CategoryProvider extends ChangeNotifier {
     }
 
     notifyListeners();
+    return null;
   }
 
   Future<void> updateUserCategories(List<String> selectedCategories) async {

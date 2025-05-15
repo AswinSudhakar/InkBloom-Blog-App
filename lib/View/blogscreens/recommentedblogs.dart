@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:inkbloom/ViewModel/blogprovider.dart';
-import 'package:inkbloom/models/blog/blogmodel.dart';
 import 'package:inkbloom/widgets/bloglistview.dart';
 import 'package:provider/provider.dart';
 

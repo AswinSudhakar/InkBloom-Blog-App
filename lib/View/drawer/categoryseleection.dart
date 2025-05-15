@@ -80,32 +80,32 @@ class _CategoryScreenState extends State<CategoryScreen> {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            // Clear All Button
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    clearAllCategories();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(vertical: 16),
-                    backgroundColor: const Color.fromARGB(255, 212, 107, 107),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  child: Text(
-                    'Clear All',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.white,
-                      fontFamily: 'CrimsonText-SemiBoldItalic',
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            // // Clear All Button
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.start,
+            //   children: [
+            //     ElevatedButton(
+            //       onPressed: () {
+            //         clearAllCategories();
+            //       },
+            //       style: ElevatedButton.styleFrom(
+            //         padding: EdgeInsets.symmetric(vertical: 16),
+            //         backgroundColor: const Color.fromARGB(255, 212, 107, 107),
+            //         shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(10),
+            //         ),
+            //       ),
+            //       child: Text(
+            //         'Clear All',
+            //         style: TextStyle(
+            //           fontSize: 18,
+            //           color: Colors.white,
+            //           fontFamily: 'CrimsonText-SemiBoldItalic',
+            //         ),
+            //       ),
+            //     ),
+            //   ],
+            // ),
             SizedBox(
               height: 20,
             ),

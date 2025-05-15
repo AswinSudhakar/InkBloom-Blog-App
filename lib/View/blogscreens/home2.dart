@@ -1,3 +1,4 @@
+import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:inkbloom/View/blogscreens/recommentedblogs.dart';
 
@@ -27,6 +28,13 @@ class _HomeScreen2State extends State<HomeScreen2> with RouteAware {
   void didChangeDependencies() {
     super.didChangeDependencies();
     routeObserver.subscribe(this, ModalRoute.of(context)!);
+  }
+
+  @override
+  void didPopNext() {
+    // Called when coming back to this screen
+    fetchAndLoadUserData();
+    Provider.of<BlogProvider>(context, listen: false).refreshblogs();
   }
 
   @override
@@ -101,48 +109,71 @@ class _HomeScreen2State extends State<HomeScreen2> with RouteAware {
                 fontFamily: 'CrimsonText-Bold'),
           ),
           actions: [
-            Container(
-              width: 180,
-              height: 36,
-              decoration: BoxDecoration(
-                color: Colors.grey.shade50,
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: Colors.grey.shade300),
-              ),
-              child: TextField(
-                controller: _searchController,
-                style: const TextStyle(fontSize: 17),
-                decoration: InputDecoration(
-                  hintText: 'Search blogs...',
-                  hintStyle: TextStyle(
-                      color: Colors.black, fontFamily: 'CrimsonText-Bold'),
-                  prefixIcon:
-                      const Icon(Icons.search, size: 20, color: Colors.grey),
-                  border: InputBorder.none,
-                ),
-                onSubmitted: (query) {
-                  if (query.trim().isNotEmpty) {
-                    Provider.of<BlogProvider>(context, listen: false)
-                        .SearchBlogs(query);
-                    setState(() {
-                      selectedCategory = 'Search';
-                      _searchController.clear();
-                    });
-                  }
-                },
-
-                // onChanged: (query) {
-                //   if (query.length >= 3) {
-                //     Provider.of<BlogProvider>(context, listen: false)
-                //         .SearchBlogs(query);
-                //     setState(() => selectedCategory = 'Search');
-                //   }
-                // },
-              ),
-            ),
-            SizedBox(
-              width: 20,
+            AnimSearchBar(
+              color: Colors.grey.shade300,
+              width: 300,
+              textController: _searchController,
+              onSuffixTap: () {
+                setState(() {
+                  _searchController.clear();
+                });
+              },
+              onSubmitted: (query) {
+                if (query.trim().isNotEmpty) {
+                  Provider.of<BlogProvider>(context, listen: false)
+                      .SearchBlogs(query);
+                  setState(() {
+                    selectedCategory = 'Search';
+                    _searchController.clear();
+                  });
+                }
+              },
+              closeSearchOnSuffixTap: true,
+              helpText: 'Search...',
+              animationDurationInMilli: 400,
             )
+
+            // Container(
+            //   width: 180,
+            //   height: 36,
+            //   decoration: BoxDecoration(
+            //     color: Colors.grey.shade50,
+            //     borderRadius: BorderRadius.circular(12),
+            //     border: Border.all(color: Colors.grey.shade300),
+            //   ),
+            //   child: TextField(
+            //     controller: _searchController,
+            //     style: const TextStyle(fontSize: 17),
+            //     decoration: InputDecoration(
+            //       hintText: 'Search blogs...',
+            //       hintStyle: TextStyle(
+            //           color: Colors.black, fontFamily: 'CrimsonText-Bold'),
+            //       prefixIcon:
+            //           const Icon(Icons.search, size: 20, color: Colors.grey),
+            //       border: InputBorder.none,
+            //     ),
+            //     onSubmitted: (query) {
+            //       if (query.trim().isNotEmpty) {
+            //         Provider.of<BlogProvider>(context, listen: false)
+            //             .SearchBlogs(query);
+            //         setState(() {
+            //           selectedCategory = 'Search';
+            //           _searchController.clear();
+            //         });
+            //       }
+            //     },
+            //     onChanged: (query) {
+            //       if (query.length >= 3) {
+            //         Provider.of<BlogProvider>(context, listen: false)
+            //             .SearchBlogs(query);
+            //         setState(() => selectedCategory = 'Search');
+            //       }
+            //     },
+            //   ),
+            // ),
+            // SizedBox(
+            //   width: 20,
+            // )
           ],
         ),
         body: blogProvider.isLoading

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inkbloom/View/additionalscreen/loginloading.dart';
-import 'package:inkbloom/View/categoryseleection.dart';
+import 'package:inkbloom/View/drawer/categoryseleection.dart';
 import 'package:inkbloom/ViewModel/userprovider.dart';
 import 'package:inkbloom/models/user/usermodel.dart';
 import 'package:inkbloom/service/authservice.dart';
@@ -28,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (_loginkey.currentState!.validate()) {
       setState(() {});
 
-      Navigator.push(
+      Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => Loginloading(),
@@ -202,8 +202,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               _buildButton("Login", Colors.grey, _login),
                               const SizedBox(height: 20),
                               _buildButton("Register",
-                                  const Color.fromARGB(255, 59, 98, 116), () {
-                                Navigator.push(
+                                  const Color.fromARGB(255, 79, 118, 136), () {
+                                Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => RegisterScreen(),

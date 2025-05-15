@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:inkbloom/View/myaccount.dart';
+import 'package:inkbloom/View/drawer/myaccount.dart';
 import 'package:inkbloom/ViewModel/userprovider.dart';
 import 'package:provider/provider.dart';
 
@@ -53,12 +53,18 @@ class _ProfileScreenState extends State<Editprofile> {
 
     if (success == true) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Profile updated successfully!")),
+        SnackBar(
+            content: Text("Profile updated successfully!",
+                style: TextStyle(fontFamily: 'CrimsonText-Bold'))),
       );
       Navigator.pop(context);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Failed to update Profile!")),
+        SnackBar(
+            content: Text(
+          "Failed to update Profile!",
+          style: TextStyle(fontFamily: 'CrimsonText-Bold'),
+        )),
       );
     }
   }
@@ -79,7 +85,7 @@ class _ProfileScreenState extends State<Editprofile> {
                 Container(
                   height: 200,
                   decoration: BoxDecoration(
-                    color: Colors.blue.shade700,
+                    color: Colors.grey.withOpacity(.3),
                     borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(90),
                       bottomRight: Radius.circular(90),
@@ -91,7 +97,7 @@ class _ProfileScreenState extends State<Editprofile> {
                   top: 50,
                   child: IconButton(
                     onPressed: () {
-                      Navigator.push(
+                      Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                             builder: (context) => ProfileScreen(),
@@ -99,7 +105,7 @@ class _ProfileScreenState extends State<Editprofile> {
                     },
                     icon: Icon(
                       Icons.arrow_back,
-                      color: Colors.white,
+                      color: Colors.black,
                       size: 28,
                     ),
                   ),
@@ -169,7 +175,10 @@ class _ProfileScreenState extends State<Editprofile> {
                     padding: const EdgeInsets.all(10.0),
                     child: TextField(
                       controller: _nameController,
-                      decoration: InputDecoration(hintText: 'Full Name'),
+                      decoration: InputDecoration(
+                          hintText: 'Full Name',
+                          hintStyle: TextStyle(
+                              fontFamily: 'CrimsonText-SemiBoldItalic')),
                     ),
                   ),
 
@@ -192,7 +201,7 @@ class _ProfileScreenState extends State<Editprofile> {
                             },
                             style: ElevatedButton.styleFrom(
                               minimumSize: Size(100, 20),
-                              backgroundColor: Colors.blue,
+                              backgroundColor: Colors.grey.shade300,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
                               ),
@@ -200,8 +209,10 @@ class _ProfileScreenState extends State<Editprofile> {
                             ),
                             child: Text(
                               "Update",
-                              style:
-                                  TextStyle(fontSize: 18, color: Colors.white),
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.black,
+                                  fontFamily: 'CrimsonText-Bold'),
                             ),
                           ),
                           ElevatedButton(
@@ -210,7 +221,7 @@ class _ProfileScreenState extends State<Editprofile> {
                             },
                             style: ElevatedButton.styleFrom(
                               minimumSize: Size(100, 20),
-                              backgroundColor: Colors.blue,
+                              backgroundColor: Colors.grey.shade300,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
                               ),
@@ -218,8 +229,10 @@ class _ProfileScreenState extends State<Editprofile> {
                             ),
                             child: Text(
                               "Cancel",
-                              style:
-                                  TextStyle(fontSize: 18, color: Colors.white),
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.black,
+                                  fontFamily: 'CrimsonText-Bold'),
                             ),
                           ),
                         ],

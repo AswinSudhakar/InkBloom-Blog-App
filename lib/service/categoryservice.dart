@@ -38,8 +38,6 @@ class Categoryservice {
     }
   }
 
-  //update usercategories
-
   Future<String?> updateCategories(List<String> categories) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     final token = pref.getString('token');
@@ -104,5 +102,6 @@ class Categoryservice {
       debugPrint('$e');
       return null;
     }
+    return null;
   }
 }

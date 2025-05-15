@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-
-import 'package:inkbloom/View/editprofile.dart';
-import 'package:inkbloom/ViewModel/userprovider.dart';
 import 'package:inkbloom/View/blogscreens/home2.dart';
+
+import 'package:inkbloom/View/drawer/editprofile.dart';
+import 'package:inkbloom/ViewModel/userprovider.dart';
 import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -32,7 +32,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -43,7 +43,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Container(
                   height: 200,
                   decoration: BoxDecoration(
-                    color: Colors.blue.shade700,
+                    color: Colors.grey.withOpacity(.3),
                     borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(90),
                       bottomRight: Radius.circular(90),
@@ -55,11 +55,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   top: 50,
                   child: IconButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomeScreen2(),
+                          ));
                     },
                     icon: Icon(
                       Icons.arrow_back,
-                      color: Colors.white,
+                      color: Colors.black,
                       size: 28,
                     ),
                   ),
@@ -81,7 +85,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   fit: BoxFit.fill,
                                 )
                               : Container(
-                                  color: Colors.grey[300],
+                                  color: Colors.grey.withOpacity(.3),
                                   child: Icon(Icons.person, size: 40),
                                 ),
                         ),
@@ -118,7 +122,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ));
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue.shade700,
+                        backgroundColor: Colors.grey.shade300,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
@@ -126,7 +130,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                       child: Text(
                         "Edit Profile",
-                        style: TextStyle(fontSize: 18, color: Colors.white),
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontFamily: 'CrimsonText-Bold'),
                       ),
                     ),
                   ),
@@ -144,6 +151,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 class ProfileField extends StatelessWidget {
   final IconData icon;
   final String text;
+
   final bool isPassword;
 
   const ProfileField({
@@ -158,8 +166,10 @@ class ProfileField extends StatelessWidget {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: ListTile(
-        leading: Icon(icon, color: Colors.blue),
-        title: Text(text, style: TextStyle(fontSize: 16)),
+        leading: Icon(icon, color: Colors.grey),
+        title: Text(text,
+            style: TextStyle(
+                fontSize: 16, fontFamily: 'CrimsonText-SemiBoldItalic')),
         trailing: isPassword ? Icon(Icons.sync, color: Colors.grey) : null,
       ),
     );
