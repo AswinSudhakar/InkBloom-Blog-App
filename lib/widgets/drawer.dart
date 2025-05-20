@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:inkbloom/View/blogscreens/favoritescreen.dart';
-import 'package:inkbloom/View/blogscreens/myblogs.dart';
 import 'package:inkbloom/View/drawer/aboutus.dart';
 import 'package:inkbloom/View/drawer/categoryseleection.dart';
 import 'package:inkbloom/View/drawer/privacyandpolicy.dart';
 import 'package:inkbloom/View/drawer/settings.dart';
 import 'package:inkbloom/ViewModel/userprovider.dart';
-import 'package:inkbloom/View/blogscreens/addblog.dart';
-import 'package:inkbloom/View/drawer/myaccount.dart';
 import 'package:inkbloom/service/authservice.dart';
 import 'package:provider/provider.dart';
 

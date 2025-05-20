@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:inkbloom/View/blogscreens/home2.dart';
 import 'package:inkbloom/View/blogscreens/mainhome.dart';
 import 'package:inkbloom/ViewModel/blogprovider.dart';
 import 'package:inkbloom/widgets/bloglistview.dart';

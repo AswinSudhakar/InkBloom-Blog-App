@@ -586,7 +586,6 @@ class _AddBlogState extends State<AddBlog> {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: const Text('Cancel'),
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 14),
                         backgroundColor: Colors.grey.shade300,
@@ -596,6 +595,7 @@ class _AddBlogState extends State<AddBlog> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
+                      child: const Text('Cancel'),
                     ),
                   ),
                 ],
