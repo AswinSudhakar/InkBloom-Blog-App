@@ -180,6 +180,38 @@ class _HomeScreen2State extends State<HomeScreen2> with RouteAware {
             // SizedBox(
             //   width: 20,
             // )
+            ,
+            if (selectedCategory == 'Search')
+              SizedBox(
+                height: 50,
+                width: 150,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 10, top: 10),
+                  child: ElevatedButton.icon(
+                    onPressed: () {
+                      setState(() {
+                        selectedCategory = 'All';
+                      });
+                      _searchController.clear();
+                      blogProvider.refreshblogs();
+                    },
+                    icon: Icon(Icons.clear),
+                    label: Text('Clear Search'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.grey.withOpacity(.3),
+                      foregroundColor: Colors.white,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            SizedBox(
+              width: 5,
+            )
           ],
         ),
         body: blogProvider.isLoading
@@ -210,7 +242,7 @@ class _HomeScreen2State extends State<HomeScreen2> with RouteAware {
                                   ),
                                   Container(
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 10, vertical: 6),
+                                        horizontal: 10, vertical: 8),
                                     decoration: BoxDecoration(
                                       color: Colors.grey
                                           .shade200, // Optional: match your theme
@@ -233,7 +265,7 @@ class _HomeScreen2State extends State<HomeScreen2> with RouteAware {
                                     child: const Text(
                                       'Recommended',
                                       style: TextStyle(
-                                          fontSize: 14,
+                                          fontSize: 15,
                                           fontWeight: FontWeight.w500,
                                           color: Colors.black,
                                           fontFamily: 'CrimsonText-Bold'),
@@ -286,6 +318,7 @@ class _HomeScreen2State extends State<HomeScreen2> with RouteAware {
                     SizedBox(
                       height: 30,
                     ),
+
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(

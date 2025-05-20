@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:inkbloom/View/blogscreens/mainhome.dart';
 import 'package:inkbloom/View/drawer/myaccount.dart';
 import 'package:inkbloom/ViewModel/userprovider.dart';
 import 'package:provider/provider.dart';
@@ -57,7 +58,11 @@ class _ProfileScreenState extends State<Editprofile> {
             content: Text("Profile updated successfully!",
                 style: TextStyle(fontFamily: 'CrimsonText-Bold'))),
       );
-      Navigator.pop(context);
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => Mainhome()),
+        (route) => false,
+      );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

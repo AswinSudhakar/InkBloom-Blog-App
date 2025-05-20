@@ -4,6 +4,7 @@ import 'package:inkbloom/ViewModel/userprovider.dart';
 
 import 'package:inkbloom/widgets/bloglistview.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Myblogs extends StatefulWidget {
   const Myblogs({super.key});
@@ -46,7 +47,7 @@ class _FavoriteScreenState extends State<Myblogs> {
               BlogListSection(
                 blogs: context
                     .watch<BlogProvider>()
-                    .getMyBlogs(userProvider.name!),
+                    .getMyBlogs(userProvider.name ?? 'Unknown'),
                 isLoading: context.watch<BlogProvider>().isLoading,
               )
             ],

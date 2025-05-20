@@ -24,7 +24,6 @@ void main() {
         ChangeNotifierProvider(
           create: (context) => CategoryProvider(),
         ),
-        ChangeNotifierProvider(create: (_) => ThemeProvider()),
       ],
       child: const MyApp(),
     ),
@@ -40,26 +39,36 @@ class MyApp extends StatelessWidget {
       brightness: Brightness.light,
       primarySwatch: Colors.grey,
       scaffoldBackgroundColor: Colors.white,
+      iconTheme: IconThemeData(color: Colors.black),
       appBarTheme: AppBarTheme(backgroundColor: Colors.white),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: Colors.white,
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Colors.black54,
+      ),
       textTheme: const TextTheme(
         bodyLarge: TextStyle(color: Colors.black),
         titleLarge: TextStyle(color: Colors.black87),
       ),
-
-      // Add other theme properties
     );
 
     final ThemeData darkTheme = ThemeData(
       brightness: Brightness.dark,
       primarySwatch: Colors.grey,
       scaffoldBackgroundColor: Colors.black,
+      iconTheme: IconThemeData(color: Colors.white),
       appBarTheme: AppBarTheme(backgroundColor: Colors.black),
-      textTheme: const TextTheme(
-        bodyLarge: TextStyle(color: Colors.black),
-        titleLarge: TextStyle(color: Colors.black87),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: Colors.black,
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white60,
       ),
-      // Add other theme properties
+      textTheme: const TextTheme(
+        bodyLarge: TextStyle(color: Colors.white),
+        titleLarge: TextStyle(color: Colors.white70),
+      ),
     );
+
     final themeProvider = Provider.of<ThemeProvider>(context);
     return SafeArea(
       child: MaterialApp(

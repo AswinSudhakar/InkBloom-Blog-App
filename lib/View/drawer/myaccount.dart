@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inkbloom/View/blogscreens/home2.dart';
+import 'package:inkbloom/View/blogscreens/mainhome.dart';
 
 import 'package:inkbloom/View/drawer/editprofile.dart';
 import 'package:inkbloom/ViewModel/userprovider.dart';
@@ -58,7 +59,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => HomeScreen2(),
+                            builder: (context) => Mainhome(),
                           ));
                     },
                     icon: Icon(

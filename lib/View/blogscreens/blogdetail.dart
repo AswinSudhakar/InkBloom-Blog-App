@@ -367,6 +367,7 @@ class _BlogDetailState extends State<BlogDetail> {
                         IconButton(
                           onPressed: () {
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              width: 300,
                               content: Text(
                                   'Created at: ${widget.blog.createdAt!.split('T').first}'),
                             ));

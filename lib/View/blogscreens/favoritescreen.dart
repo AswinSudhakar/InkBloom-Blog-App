@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inkbloom/View/blogscreens/home2.dart';
+import 'package:inkbloom/View/blogscreens/mainhome.dart';
 import 'package:inkbloom/ViewModel/blogprovider.dart';
 import 'package:inkbloom/widgets/bloglistview.dart';
 import 'package:provider/provider.dart';
@@ -30,7 +31,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => HomeScreen2(),
+                  builder: (context) => Mainhome(),
                 ));
           },
           icon: Icon(Icons.arrow_back),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:inkbloom/View/blogscreens/favoritescreen.dart';
 import 'package:inkbloom/View/blogscreens/myblogs.dart';
+import 'package:inkbloom/View/drawer/aboutus.dart';
 import 'package:inkbloom/View/drawer/categoryseleection.dart';
+import 'package:inkbloom/View/drawer/privacyandpolicy.dart';
 import 'package:inkbloom/View/drawer/settings.dart';
 import 'package:inkbloom/ViewModel/userprovider.dart';
 import 'package:inkbloom/View/blogscreens/addblog.dart';
@@ -112,48 +114,35 @@ class _AppDrawerState extends State<AppDrawer> {
                 ],
               ),
             ),
-            ListTile(
-              leading: const Icon(Icons.add),
-              title: const Text(
-                "Add Blog",
-                style: TextStyle(fontFamily: 'CrimsonText-Bold', fontSize: 21),
-              ),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const AddBlog()),
-                );
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.account_box),
-              title: const Text(
-                "My Account",
-                style: TextStyle(fontFamily: 'CrimsonText-Bold', fontSize: 21),
-              ),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ProfileScreen()),
-                );
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.my_library_books),
-              title: const Text(
-                "My Blogs",
-                style: TextStyle(fontFamily: 'CrimsonText-Bold', fontSize: 21),
-              ),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Myblogs()),
-                );
-              },
-            ),
+
+            // ListTile(
+            //   leading: const Icon(Icons.account_box),
+            //   title: const Text(
+            //     "My Account",
+            //     style: TextStyle(fontFamily: 'CrimsonText-Bold', fontSize: 21),
+            //   ),
+            //   onTap: () {
+            //     Navigator.pop(context);
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(builder: (context) => ProfileScreen()),
+            //     );
+            //   },
+            // ),
+            // ListTile(
+            //   leading: const Icon(Icons.my_library_books),
+            //   title: const Text(
+            //     "My Blogs",
+            //     style: TextStyle(fontFamily: 'CrimsonText-Bold', fontSize: 21),
+            //   ),
+            //   onTap: () {
+            //     Navigator.pop(context);
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(builder: (context) => Myblogs()),
+            //     );
+            //   },
+            // ),
             ListTile(
               leading: const Icon(Icons.category),
               title: const Text(
@@ -169,20 +158,7 @@ class _AppDrawerState extends State<AppDrawer> {
                 );
               },
             ),
-            ListTile(
-              leading: const Icon(Icons.favorite),
-              title: const Text(
-                "Favorites",
-                style: TextStyle(fontFamily: 'CrimsonText-Bold', fontSize: 21),
-              ),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const FavoriteScreen()),
-                );
-              },
-            ),
+
             ListTile(
               leading: const Icon(Icons.settings),
               title: const Text(
@@ -193,6 +169,34 @@ class _AppDrawerState extends State<AppDrawer> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => SettingsScreen()),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.privacy_tip),
+              title: const Text(
+                "Privacy&Policy",
+                style: TextStyle(fontFamily: 'CrimsonText-Bold', fontSize: 21),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const PrivacyPolicyPage()),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.details),
+              title: const Text(
+                "About Us",
+                style: TextStyle(fontFamily: 'CrimsonText-Bold', fontSize: 21),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const AboutUsPage()),
                 );
               },
             ),

@@ -222,9 +222,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:inkbloom/View/blogscreens/mainhome.dart';
 import 'package:inkbloom/models/blog/blogmodel.dart';
 import 'package:inkbloom/ViewModel/blogprovider.dart';
-import 'package:inkbloom/View/blogscreens/home2.dart';
+
 import 'package:provider/provider.dart';
 
 class EditBlog extends StatefulWidget {
@@ -292,7 +293,7 @@ class _EditBlogState extends State<EditBlog> {
 
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const HomeScreen2()),
+        MaterialPageRoute(builder: (context) => const Mainhome()),
       );
     }).catchError((error) {
       ScaffoldMessenger.of(context).showSnackBar(
