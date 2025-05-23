@@ -16,10 +16,10 @@ class HomeScreen2 extends StatefulWidget {
   const HomeScreen2({super.key});
 
   @override
-  State<HomeScreen2> createState() => _HomeScreen2State();
+  State<HomeScreen2> createState() => _HomeScreenState();
 }
 
-class _HomeScreen2State extends State<HomeScreen2> with RouteAware {
+class _HomeScreenState extends State<HomeScreen2> with RouteAware {
   String? name;
   String? email;
   String? avatar;
@@ -33,7 +33,6 @@ class _HomeScreen2State extends State<HomeScreen2> with RouteAware {
 
   @override
   void didPopNext() {
-    // Called when coming back to this screen
     fetchAndLoadUserData();
     Provider.of<BlogProvider>(context, listen: false).refreshblogs();
   }
@@ -51,8 +50,6 @@ class _HomeScreen2State extends State<HomeScreen2> with RouteAware {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final provider = Provider.of<BlogProvider>(context, listen: false);
-      // provider.fetchBlogs();
-      // provider.fetchUserCategoryBlogs();
       provider.refreshblogs();
     });
   }
@@ -74,7 +71,6 @@ class _HomeScreen2State extends State<HomeScreen2> with RouteAware {
   }
 
   final categories = [
-    // "Recommended",
     "All",
     "Business",
     "Culture",
@@ -102,22 +98,23 @@ class _HomeScreen2State extends State<HomeScreen2> with RouteAware {
       child: Scaffold(
         drawer: AppDrawer(),
         appBar: AppBar(
-          // backgroundColor: Colors.white,
+          elevation: 0,
           title: Text(
             'Explore',
             style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.w600,
-                fontFamily: 'CrimsonText-Bold'),
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'CrimsonText-Bold',
+            ),
           ),
           actions: [
             AnimSearchBar(
               searchIconColor:
                   themeprovider.isDarkMode ? Colors.white : Colors.black,
-              textFieldColor: Colors.grey.shade300,
+              textFieldColor: Colors.grey.shade200,
               boxShadow: false,
               color: themeprovider.isDarkMode ? Colors.black : Colors.white,
-              width: 300,
+              width: 280,
               textController: _searchController,
               onSuffixTap: () {
                 setState(() {
@@ -135,83 +132,33 @@ class _HomeScreen2State extends State<HomeScreen2> with RouteAware {
                 }
               },
               closeSearchOnSuffixTap: true,
-              helpText: 'Search...',
-              animationDurationInMilli: 400,
-            )
-
-            // Container(
-            //   width: 180,
-            //   height: 36,
-            //   decoration: BoxDecoration(
-            //     color: Colors.grey.shade50,
-            //     borderRadius: BorderRadius.circular(12),
-            //     border: Border.all(color: Colors.grey.shade300),
-            //   ),
-            //   child: TextField(
-            //     controller: _searchController,
-            //     style: const TextStyle(fontSize: 17),
-            //     decoration: InputDecoration(
-            //       hintText: 'Search blogs...',
-            //       hintStyle: TextStyle(
-            //           color: Colors.black, fontFamily: 'CrimsonText-Bold'),
-            //       prefixIcon:
-            //           const Icon(Icons.search, size: 20, color: Colors.grey),
-            //       border: InputBorder.none,
-            //     ),
-            //     onSubmitted: (query) {
-            //       if (query.trim().isNotEmpty) {
-            //         Provider.of<BlogProvider>(context, listen: false)
-            //             .SearchBlogs(query);
-            //         setState(() {
-            //           selectedCategory = 'Search';
-            //           _searchController.clear();
-            //         });
-            //       }
-            //     },
-            //     onChanged: (query) {
-            //       if (query.length >= 3) {
-            //         Provider.of<BlogProvider>(context, listen: false)
-            //             .SearchBlogs(query);
-            //         setState(() => selectedCategory = 'Search');
-            //       }
-            //     },
-            //   ),
-            // ),
-            // SizedBox(
-            //   width: 20,
-            // )
-            ,
+              helpText: 'Search blogs...',
+              animationDurationInMilli: 300,
+            ),
             if (selectedCategory == 'Search')
-              SizedBox(
-                height: 50,
-                width: 150,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 10, top: 10),
-                  child: ElevatedButton.icon(
-                    onPressed: () {
-                      setState(() {
-                        selectedCategory = 'All';
-                      });
-                      _searchController.clear();
-                      blogProvider.refreshblogs();
-                    },
-                    icon: Icon(Icons.clear),
-                    label: Text('Clear Search'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.grey.withOpacity(.3),
-                      foregroundColor: Colors.white,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    setState(() {
+                      selectedCategory = 'All';
+                    });
+                    _searchController.clear();
+                    blogProvider.refreshblogs();
+                  },
+                  icon: Icon(Icons.clear),
+                  label: Text('Clear'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.grey.withOpacity(0.7),
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
                   ),
                 ),
               ),
-            SizedBox(
-              width: 5,
-            )
+            SizedBox(width: 10),
           ],
         ),
         body: blogProvider.isLoading
@@ -224,163 +171,109 @@ class _HomeScreen2State extends State<HomeScreen2> with RouteAware {
             : RefreshIndicator(
                 onRefresh: blogProvider.refreshblogs,
                 child: ListView(
-                  padding: const EdgeInsets.only(bottom: 20),
+                  padding: const EdgeInsets.only(bottom: 20, top: 10),
                   children: [
                     if (blogProvider.userprefblogs.isNotEmpty)
-                      Column(
-                        children: [
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10, vertical: 8),
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey
-                                          .shade200, // Optional: match your theme
-                                      borderRadius: BorderRadius.circular(12),
-                                      border: Border.all(
-                                        color: Colors.grey
-                                            .withOpacity(.4), // Black border
-                                        width: 1.2,
-                                      ),
-
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.3),
-                                          blurRadius: 8,
-                                          offset: const Offset(
-                                              0, 3), // Shadow position
-                                        ),
-                                      ],
-                                    ),
-                                    child: const Text(
-                                      'Recommended',
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.black,
-                                          fontFamily: 'CrimsonText-Bold'),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              TextButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              RecommentedBlogs(),
-                                        ));
-                                  },
-                                  child: Text(
-                                    'View All->',
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        color: themeprovider.isDarkMode
-                                            ? Colors.white
-                                            : Colors.black,
-                                        fontFamily: 'CrimsonText-Bold'),
-                                  ))
-                            ],
-                          ),
-                        ],
-                      ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: 10,
-                          ),
-                          HorizontalBlogList(
-                            blogs: context.watch<BlogProvider>().userprefblogs,
-                            isLoading: context.watch<BlogProvider>().isLoading,
-                          )
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: categories.map((category) {
-                          final isSelected = category == selectedCategory;
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 6),
-                            child: ChoiceChip(
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Chip(
+                              elevation: 3,
+                              shadowColor: Colors.grey.shade400,
                               label: Text(
-                                category,
+                                'Recommended',
                                 style: TextStyle(
-                                    fontFamily: 'CrimsonText-Bold',
-                                    fontSize: 15),
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: 'CrimsonText-Bold',
+                                ),
                               ),
-                              selected: isSelected,
-                              onSelected: (selected) {
-                                if (selected) {
-                                  setState(() {
-                                    selectedCategory = category;
-                                  });
-
-                                  final blogProvider =
-                                      Provider.of<BlogProvider>(context,
-                                          listen: false);
-
-                                  if (category == "All" &&
-                                      blogProvider.blogs.isEmpty) {
-                                    blogProvider.fetchBlogs();
-                                  } else if (category == "Recommended") {
-                                    blogProvider.fetchUserCategoryBlogs();
-                                  } else {
-                                    blogProvider.filterCategoryBlogs(category);
-                                  }
-                                }
-                              },
-                              selectedColor: Colors.black,
-                              elevation: 4,
-                              shadowColor: Colors.black12,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12)),
-                              labelStyle: TextStyle(
-                                  color:
-                                      isSelected ? Colors.white : Colors.black),
-                              backgroundColor: Colors.grey[300],
+                              backgroundColor: Colors.grey.shade300,
                             ),
-                          );
-                        }).toList(),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => RecommentedBlogs()),
+                                );
+                              },
+                              child: Text(
+                                'View All →',
+                                style: TextStyle(
+                                  fontFamily: 'CrimsonText-Bold',
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    SizedBox(height: 10),
+                    HorizontalBlogList(
+                      blogs: context.watch<BlogProvider>().userprefblogs,
+                      isLoading: context.watch<BlogProvider>().isLoading,
+                    ),
+                    SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: categories.map((category) {
+                            final isSelected = category == selectedCategory;
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 6),
+                              child: ChoiceChip(
+                                label: Text(
+                                  category,
+                                  style:
+                                      TextStyle(fontFamily: 'CrimsonText-Bold'),
+                                ),
+                                selected: isSelected,
+                                onSelected: (selected) {
+                                  if (selected) {
+                                    setState(() {
+                                      selectedCategory = category;
+                                    });
+                                    final blogProvider =
+                                        Provider.of<BlogProvider>(context,
+                                            listen: false);
+                                    if (category == "All" &&
+                                        blogProvider.blogs.isEmpty) {
+                                      blogProvider.fetchBlogs();
+                                    } else if (category == "Recommended") {
+                                      blogProvider.fetchUserCategoryBlogs();
+                                    } else {
+                                      blogProvider
+                                          .filterCategoryBlogs(category);
+                                    }
+                                  }
+                                },
+                                selectedColor: Colors.black,
+                                backgroundColor: Colors.grey.shade300,
+                                elevation: 3,
+                                shadowColor: Colors.grey.shade400,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                labelStyle: TextStyle(
+                                  color:
+                                      isSelected ? Colors.white : Colors.black,
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                        ),
                       ),
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
-
+                    SizedBox(height: 10),
                     BlogListSection(
                       blogs: blogsToShow,
                       isLoading: blogProvider.isLoading,
-                    )
-
-                    // BlogListSection(
-                    //   blogs: context.watch<BlogProvider>().blogs,
-                    //   isLoading: context.watch<BlogProvider>().isLoading,
-                    // )
+                    ),
                   ],
                 ),
               ),
