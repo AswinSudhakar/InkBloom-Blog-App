@@ -45,7 +45,7 @@ class BlogProvider extends ChangeNotifier {
   List<BlogModel> getMyBlogs(String currentUserName) {
     return _blogs
         .where((blog) =>
-            blog.author!.trim().toLowerCase() ==
+            blog.author?.trim().toLowerCase() ==
             currentUserName.trim().toLowerCase())
         .toList();
   }

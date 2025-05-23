@@ -141,7 +141,6 @@ class BlogListSection extends StatelessWidget {
                             style: const TextStyle(
                               fontSize: 16,
                               fontFamily: 'CrimsonText-SemiBoldItalic',
-                              color: Colors.black87,
                             ),
                           ),
                           const SizedBox(height: 4),

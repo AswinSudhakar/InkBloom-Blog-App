@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inkbloom/View/additionalscreen/loginloading.dart';
+import 'package:inkbloom/View/blogscreens/mainhome.dart';
 import 'package:inkbloom/View/drawer/categoryseleection.dart';
 import 'package:inkbloom/ViewModel/userprovider.dart';
 import 'package:inkbloom/models/user/usermodel.dart';
@@ -21,18 +22,15 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _isPasswordVisible = false;
+  bool _isloading = false;
   UserProfileModel user = UserProfileModel();
 
   void _login() async {
     Authservice authservice = Authservice();
     if (_loginkey.currentState!.validate()) {
-      setState(() {});
-
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => Loginloading(),
-          ));
+      setState(() {
+        _isloading = true;
+      });
 
       try {
         final user = await authservice.login(
@@ -57,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                builder: (_) => HomeScreen2(),
+                builder: (_) => Mainhome(),
               ),
               (route) => false,
             );
@@ -81,7 +79,9 @@ class _LoginScreenState extends State<LoginScreen> {
       } finally {
         if (!mounted) return;
 
-        setState(() {});
+        setState(() {
+          _isloading = false;
+        });
       }
     }
   }
@@ -95,19 +95,28 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (_isloading) {
+      return Scaffold(
+        backgroundColor: Colors.white,
+        body: Center(
+          child: Lottie.asset('assets/animations/lottieeee.json'),
+        ),
+      );
+    }
+
     final userProvider = Provider.of<UserProvider>(context);
     return SafeArea(
       child: Scaffold(
         body: Stack(children: [
-          Align(
-            alignment: Alignment(0, 0),
-            child: Lottie.asset(
-              'assets/animations/loading.json',
-              width: 200,
-              height: 200,
-              fit: BoxFit.contain,
-            ),
-          ),
+          // Align(
+          //   alignment: Alignment(0, 0),
+          //   child: Lottie.asset(
+          //     'assets/animations/loading.json',
+          //     width: 200,
+          //     height: 200,
+          //     fit: BoxFit.contain,
+          //   ),
+          // ),
           Container(
             width: double.infinity,
             decoration: BoxDecoration(

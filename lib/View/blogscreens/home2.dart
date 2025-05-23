@@ -1,7 +1,7 @@
 import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:inkbloom/View/blogscreens/recommentedblogs.dart';
-
+import 'package:lottie/lottie.dart';
 import 'package:inkbloom/ViewModel/blogprovider.dart';
 import 'package:inkbloom/ViewModel/themeprovider.dart';
 import 'package:inkbloom/main.dart';
@@ -162,11 +162,18 @@ class _HomeScreenState extends State<HomeScreen2> with RouteAware {
           ],
         ),
         body: blogProvider.isLoading
-            ? const Center(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 100),
-                  child: CircularProgressIndicator(),
+            ? Center(
+                child: Lottie.asset(
+                  'assets/animations/lottieeee.json',
+                  width: 200,
+                  height: 200,
+                  fit: BoxFit.contain,
                 ),
+                // Padding(
+                //   padding: EdgeInsets.symmetric(vertical: 100),
+                //   child:
+                //   CircularProgressIndicator(),
+                // ),
               )
             : RefreshIndicator(
                 onRefresh: blogProvider.refreshblogs,
@@ -185,6 +192,7 @@ class _HomeScreenState extends State<HomeScreen2> with RouteAware {
                               label: Text(
                                 'Recommended',
                                 style: TextStyle(
+                                  color: Colors.black,
                                   fontWeight: FontWeight.w600,
                                   fontFamily: 'CrimsonText-Bold',
                                 ),
@@ -202,6 +210,7 @@ class _HomeScreenState extends State<HomeScreen2> with RouteAware {
                               child: Text(
                                 'View All →',
                                 style: TextStyle(
+                                  color: Colors.black,
                                   fontFamily: 'CrimsonText-Bold',
                                   fontSize: 14,
                                 ),

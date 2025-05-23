@@ -48,6 +48,8 @@ dependencies:
   lottie: ^3.3.1
   anim_search_bar: ^2.0.3
   connectivity_plus: ^5.0.2
+  url_launcher: ^6.1.7
+  font_awesome_flutter: ^10.7.0
 
 dev_dependencies:
   flutter_test:

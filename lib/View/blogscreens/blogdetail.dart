@@ -90,12 +90,40 @@ class _BlogDetailState extends State<BlogDetail> {
             SizedBox(
               height: 350,
               width: double.infinity,
+
               child: Image.network(
                 widget.blog.imageUrl?.isNotEmpty == true
                     ? widget.blog.imageUrl!
                     : 'https://th.bing.com/th/id/OIP.etbTey4SJkpyu9XPJZSxTAHaHa?w=164&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7',
                 fit: BoxFit.cover,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return Center(
+                    child: CircularProgressIndicator(
+                      value: loadingProgress.expectedTotalBytes != null
+                          ? loadingProgress.cumulativeBytesLoaded /
+                              loadingProgress.expectedTotalBytes!
+                          : null,
+                    ),
+                  );
+                },
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    color: Colors.grey.shade300,
+                    child: Center(
+                      child: Icon(Icons.broken_image,
+                          size: 60, color: Colors.grey),
+                    ),
+                  );
+                },
               ),
+
+              // child: Image.network(
+              //   widget.blog.imageUrl?.isNotEmpty == true
+              //       ? widget.blog.imageUrl!
+              //       : 'https://th.bing.com/th/id/OIP.etbTey4SJkpyu9XPJZSxTAHaHa?w=164&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7',
+              //   fit: BoxFit.cover,
+              // ),
             ),
 
             // Scrollable Foreground

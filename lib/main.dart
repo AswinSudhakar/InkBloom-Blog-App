@@ -37,6 +37,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData lightTheme = ThemeData(
       brightness: Brightness.light,
+      // primaryColor: Colors.black,
       primarySwatch: Colors.grey,
       scaffoldBackgroundColor: Colors.white,
       iconTheme: IconThemeData(color: Colors.black),
