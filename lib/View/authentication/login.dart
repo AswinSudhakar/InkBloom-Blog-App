@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:inkbloom/View/additionalscreen/loginloading.dart';
 import 'package:inkbloom/View/blogscreens/mainhome.dart';
 import 'package:inkbloom/View/drawer/categoryseleection.dart';
 import 'package:inkbloom/ViewModel/userprovider.dart';
 import 'package:inkbloom/models/user/usermodel.dart';
 import 'package:inkbloom/service/authservice.dart';
-import 'package:inkbloom/View/blogscreens/home2.dart';
 import 'package:inkbloom/View/authentication/register.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';

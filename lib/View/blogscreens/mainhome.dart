@@ -6,7 +6,6 @@ import 'package:inkbloom/View/blogscreens/favoritescreen.dart';
 import 'package:inkbloom/View/blogscreens/home2.dart';
 import 'package:inkbloom/View/blogscreens/myblogs.dart';
 import 'package:inkbloom/View/drawer/myaccount.dart';
-import 'package:inkbloom/View/test/hometest.dart';
 import 'package:inkbloom/service/connectivityservice.dart';
 
 class Mainhome extends StatefulWidget {

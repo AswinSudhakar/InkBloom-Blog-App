@@ -106,7 +106,7 @@ class BlogProvider extends ChangeNotifier {
   //delete blog
   Future<bool?> Deleteblog(BlogModel blogModel) async {
     final success = await Blogservice().deleteBlog(blogModel);
-    if (success!) {
+    if (success == true) {
       notifyListeners();
       await fetchBlogs();
     }

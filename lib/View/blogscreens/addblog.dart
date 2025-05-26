@@ -357,6 +357,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:inkbloom/View/blogscreens/mainhome.dart';
 import 'package:inkbloom/models/blog/blogmodel.dart';
 import 'package:inkbloom/ViewModel/blogprovider.dart';
+import 'package:inkbloom/widgets/toastmessage.dart';
 
 import 'package:provider/provider.dart';
 
@@ -433,10 +434,13 @@ class _AddBlogState extends State<AddBlog> {
     final blogProvider = Provider.of<BlogProvider>(context, listen: false);
 
     blogProvider.addBlog(newBlog).then((_) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-            content: Text("Blog uploaded successfully",
-                style: TextStyle(fontFamily: 'CrimsonText-Bold'))),
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   const SnackBar(
+      //       content: Text("Blog uploaded successfully",
+      //           style: TextStyle(fontFamily: 'CrimsonText-Bold'))),
+      // );
+      CustomToastMessagee.show(
+        message: 'Blog updated successfully',
       );
 
       blogProvider.fetchBlogs();

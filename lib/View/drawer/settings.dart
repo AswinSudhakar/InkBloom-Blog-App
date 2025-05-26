@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:inkbloom/widgets/toastmessage.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:inkbloom/ViewModel/themeprovider.dart';
 import 'package:provider/provider.dart';
@@ -72,6 +73,7 @@ class SettingsScreen extends StatelessWidget {
                 secondary: Icon(Icons.dark_mode),
                 value: themeProvider.themeMode == ThemeMode.dark,
                 onChanged: (value) {
+                  CustomToastMessagee.show(message: 'Theme Changed');
                   themeProvider.toggleTheme();
                 },
               ),
@@ -89,10 +91,13 @@ class SettingsScreen extends StatelessWidget {
                   SharedPreferences pref =
                       await SharedPreferences.getInstance();
                   await pref.clear();
-
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('App data cleared')),
+                  CustomToastMessagee.show(
+                    message: 'App Data Cleared',
                   );
+
+                  // ScaffoldMessenger.of(context).showSnackBar(
+                  //   SnackBar(content: Text('App data cleared')),
+                  // );
                   exit(0);
                 },
               ),

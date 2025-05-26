@@ -56,7 +56,7 @@ class BlogListSection extends StatelessWidget {
               borderRadius: BorderRadius.circular(16),
             ),
             clipBehavior: Clip.antiAlias,
-            child: Container(
+            child: SizedBox(
               height: 190,
               child: Row(
                 children: [
