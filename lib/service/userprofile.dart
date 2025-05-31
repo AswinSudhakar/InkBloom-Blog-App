@@ -94,6 +94,7 @@ class ProfileService {
 //     return false;
 //   }
 // }
+
   Future<bool?> editUserProfile(String username, dynamic image) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     _token = pref.getString('token');

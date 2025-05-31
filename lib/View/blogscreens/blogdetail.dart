@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inkbloom/View/additionalscreen/latest/authordetails.dart';
 import 'package:inkbloom/View/blogscreens/editblog.dart';
 import 'package:inkbloom/ViewModel/blogprovider.dart';
 
@@ -225,29 +226,40 @@ class _BlogDetailState extends State<BlogDetail> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Expanded(
-                                child: Row(
-                                  children: [
-                                    CircleAvatar(
-                                      backgroundImage: widget.blog.avatar !=
-                                              null
-                                          ? NetworkImage(widget.blog.avatar!)
-                                          : NetworkImage(
-                                              "https://th.bing.com/th/id/OIP.rcmXeqCUOiCg54dfU4v9tgHaHa?rs=1&pid=ImgDetMain"),
-                                      radius: 15,
-                                    ),
-                                    SizedBox(width: 10),
-                                    Expanded(
-                                      child: Text(
-                                        "Author: ${widget.blog.author}",
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontFamily:
-                                              'CrimsonText-SemiBoldItalic',
+                                child: InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => AuthorProfle(
+                                            blog: widget.blog,
+                                          ),
+                                        ));
+                                  },
+                                  child: Row(
+                                    children: [
+                                      CircleAvatar(
+                                        backgroundImage: widget.blog.avatar !=
+                                                null
+                                            ? NetworkImage(widget.blog.avatar!)
+                                            : NetworkImage(
+                                                "https://th.bing.com/th/id/OIP.rcmXeqCUOiCg54dfU4v9tgHaHa?rs=1&pid=ImgDetMain"),
+                                        radius: 15,
+                                      ),
+                                      SizedBox(width: 10),
+                                      Expanded(
+                                        child: Text(
+                                          "Author: ${widget.blog.author}",
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontFamily:
+                                                'CrimsonText-SemiBoldItalic',
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                               Text(

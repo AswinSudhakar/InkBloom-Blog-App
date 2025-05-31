@@ -195,7 +195,7 @@ class BlogProvider extends ChangeNotifier {
   //delete fav blog
   Future<bool?> deleteFromFav(String id) async {
     final success = await Blogservice().deletefromFavorite(id);
-    if (success!) {
+    if (success == true) {
       notifyListeners();
       await getfavBlogs();
     }
