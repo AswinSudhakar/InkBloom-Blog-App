@@ -377,6 +377,47 @@ class _AddBlogState extends State<AddBlog> {
   final TextEditingController _contentController = TextEditingController();
   final TextEditingController _readtimeController = TextEditingController();
 
+  bool _hasUnsavedChanges() {
+    return _titleController.text.isNotEmpty ||
+        _topicController.text.isNotEmpty ||
+        _contentController.text.isNotEmpty ||
+        _readtimeController.text.isNotEmpty ||
+        _selectedImage != null ||
+        _selectedCategory != null;
+  }
+
+  Future<bool> _onBackPressed() async {
+    if (_hasUnsavedChanges()) {
+      bool? discard = await showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Discard changes?'),
+          content: const Text(
+              'You have unsaved changes. Are you sure you want to leave?'),
+          actions: [
+            TextButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: const Text('Cancel')),
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(true);
+                  _titleController.clear();
+                  _topicController.clear();
+                  _contentController.clear();
+                  _readtimeController.clear();
+                  _selectedImage = null;
+                  _selectedCategory = null;
+                  setState(() {});
+                },
+                child: const Text('Discard')),
+          ],
+        ),
+      );
+      return discard ?? false;
+    }
+    return true;
+  }
+
   final List<String> _categories = [
     'Technology',
     'Business',
@@ -454,10 +495,9 @@ class _AddBlogState extends State<AddBlog> {
         _selectedCategory = null;
       });
 
-      Navigator.pushAndRemoveUntil(
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const Mainhome()),
-        (route) => false,
       );
     }).catchError((error) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -470,146 +510,172 @@ class _AddBlogState extends State<AddBlog> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text(
-            "Add Blog",
-            style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'CrimsonText-Bold'),
+    return Builder(builder: (context) {
+      return WillPopScope(
+        onWillPop: () => _onBackPressed(),
+        // canPop: true,
+        // onPopInvoked: (didPop) async {
+        //   if (didPop) return;
+        //   bool shouldPop = await _onBackPressed();
+        //   if (shouldPop) Navigator.of(context).pop();
+        // },
+        child: Scaffold(
+          appBar: AppBar(
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () async {
+                bool shouldPop = await _onBackPressed();
+                if (shouldPop) {
+                  Navigator.of(context).pop();
+                }
+              },
+            ),
+            centerTitle: true,
+            title: const Text(
+              "Add Blog",
+              style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'CrimsonText-Bold'),
+            ),
           ),
-        ),
-        backgroundColor: const Color(0xFFF9F9F9),
-        body: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                width: 50,
-              ),
-              const SizedBox(height: 16),
-              GestureDetector(
-                onTap: _pickImage,
-                child: Container(
-                  width: double.infinity,
-                  height: 180,
-                  decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    borderRadius: BorderRadius.circular(15),
-                    image: _selectedImage != null
-                        ? DecorationImage(
-                            image: FileImage(File(_selectedImage!.path)),
-                            fit: BoxFit.cover,
+          backgroundColor: Theme.of(context).colorScheme.onPrimary,
+          body: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: 50,
+                ),
+                const SizedBox(height: 16),
+                GestureDetector(
+                  onTap: _pickImage,
+                  child: Container(
+                    width: double.infinity,
+                    height: 180,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.onBackground,
+                      borderRadius: BorderRadius.circular(15),
+                      image: _selectedImage != null
+                          ? DecorationImage(
+                              image: FileImage(File(_selectedImage!.path)),
+                              fit: BoxFit.cover,
+                            )
+                          : null,
+                    ),
+                    child: _selectedImage == null
+                        ? const Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.image, size: 50, color: Colors.grey),
+                                SizedBox(height: 8),
+                                Text("Tap to upload image",
+                                    style: TextStyle(
+                                        color: Colors.grey,
+                                        fontFamily: 'CrimsonText-Bold')),
+                              ],
+                            ),
                           )
                         : null,
                   ),
-                  child: _selectedImage == null
-                      ? const Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.image, size: 50, color: Colors.grey),
-                              SizedBox(height: 8),
-                              Text("Tap to upload image",
-                                  style: TextStyle(
-                                      color: Colors.grey,
-                                      fontFamily: 'CrimsonText-Bold')),
-                            ],
+                ),
+                const SizedBox(height: 20),
+                _buildInputField(_titleController, "Title", Icons.title),
+                const SizedBox(height: 10),
+                _buildInputField(_topicController, "Topic", Icons.topic),
+                const SizedBox(height: 10),
+                _buildInputField(
+                    _readtimeController, "Read Time (min)", Icons.timer,
+                    isNumber: true),
+                const SizedBox(height: 10),
+                DropdownButtonFormField<String>(
+                  value: _selectedCategory,
+                  decoration: const InputDecoration(
+                    prefixIcon: Icon(Icons.category),
+                    hintText: 'Select Category',
+                    hintStyle: TextStyle(fontFamily: 'CrimsonText-Bold'),
+                    border: OutlineInputBorder(),
+                  ),
+                  items: _categories.map((category) {
+                    return DropdownMenuItem<String>(
+                      value: category,
+                      child: Text(category),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedCategory = value;
+                    });
+                  },
+                ),
+                const SizedBox(height: 10),
+                TextField(
+                  style:
+                      TextStyle(color: Theme.of(context).colorScheme.primary),
+                  controller: _contentController,
+                  maxLines: 6,
+                  decoration: const InputDecoration(
+                    hintText: 'Content',
+                    hintStyle: TextStyle(fontFamily: 'CrimsonText-Bold'),
+                    border: OutlineInputBorder(),
+                    alignLabelWithHint: true,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Expanded(
+                      child: ElevatedButton.icon(
+                        onPressed: _uploadBlog,
+                        icon: const Icon(Icons.cloud_upload_rounded),
+                        label: const Text("Upload Blog"),
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 14),
+                          backgroundColor:
+                              Theme.of(context).colorScheme.onBackground,
+                          foregroundColor:
+                              Theme.of(context).colorScheme.primary,
+                          textStyle: const TextStyle(fontSize: 16),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
                           ),
-                        )
-                      : null,
-                ),
-              ),
-              const SizedBox(height: 20),
-              _buildInputField(_titleController, "Title", Icons.title),
-              const SizedBox(height: 10),
-              _buildInputField(_topicController, "Topic", Icons.topic),
-              const SizedBox(height: 10),
-              _buildInputField(
-                  _readtimeController, "Read Time (min)", Icons.timer,
-                  isNumber: true),
-              const SizedBox(height: 10),
-              DropdownButtonFormField<String>(
-                value: _selectedCategory,
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.category),
-                  hintText: 'Select Category',
-                  hintStyle: TextStyle(fontFamily: 'CrimsonText-Bold'),
-                  border: OutlineInputBorder(),
-                ),
-                items: _categories.map((category) {
-                  return DropdownMenuItem<String>(
-                    value: category,
-                    child: Text(category),
-                  );
-                }).toList(),
-                onChanged: (value) {
-                  setState(() {
-                    _selectedCategory = value;
-                  });
-                },
-              ),
-              const SizedBox(height: 10),
-              TextField(
-                controller: _contentController,
-                maxLines: 6,
-                decoration: const InputDecoration(
-                  hintText: 'Content',
-                  hintStyle: TextStyle(fontFamily: 'CrimsonText-Bold'),
-                  border: OutlineInputBorder(),
-                  alignLabelWithHint: true,
-                ),
-              ),
-              const SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Expanded(
-                    child: ElevatedButton.icon(
-                      onPressed: _uploadBlog,
-                      icon: const Icon(Icons.cloud_upload_rounded),
-                      label: const Text("Upload Blog"),
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 14),
-                        backgroundColor: Colors.black87,
-                        foregroundColor: Colors.white,
-                        textStyle: const TextStyle(fontSize: 16),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
                         ),
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 14),
-                        backgroundColor: Colors.grey.shade300,
-                        foregroundColor: Colors.black,
-                        textStyle: const TextStyle(fontSize: 16),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          bool shouldPop = await _onBackPressed();
+                          if (shouldPop) {
+                            Navigator.of(context).pop();
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 14),
+                          backgroundColor:
+                              Theme.of(context).colorScheme.onError,
+                          foregroundColor: Colors.black,
+                          textStyle: const TextStyle(fontSize: 16),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
                         ),
+                        child: const Text('Cancel'),
                       ),
-                      child: const Text('Cancel'),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 30),
-            ],
+                  ],
+                ),
+                const SizedBox(height: 30),
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   Widget _buildInputField(
@@ -619,6 +685,7 @@ class _AddBlogState extends State<AddBlog> {
     bool isNumber = false,
   }) {
     return TextField(
+      style: TextStyle(color: Theme.of(context).colorScheme.primary),
       controller: controller,
       keyboardType: isNumber ? TextInputType.number : TextInputType.text,
       decoration: InputDecoration(
@@ -629,4 +696,38 @@ class _AddBlogState extends State<AddBlog> {
       ),
     );
   }
+
+  // Future<bool> _confirmDiscard() async {
+  //   final hasunsaveddata = _titleController.text.isNotEmpty ||
+  //       _topicController.text.isNotEmpty ||
+  //       _readtimeController.text.isNotEmpty ||
+  //       _contentController.text.isNotEmpty ||
+  //       _selectedCategory != null ||
+  //       _selectedImage != null;
+
+  //   if (!hasunsaveddata) {
+  //     return true;
+  //   }
+
+  //   final shouldDiscard = await showDialog(
+  //     context: context,
+  //     builder: (context) => AlertDialog(
+  //       title: const Text('Discard Changes?'),
+  //       content: const Text('You Have Unsaved Changes, Do You Wantn To Leave?'),
+  //       actions: [
+  //         TextButton(
+  //             onPressed: () {
+  //               Navigator.of(context).pop(false);
+  //             },
+  //             child: Text('Cancel')),
+  //         TextButton(
+  //             onPressed: () {
+  //               Navigator.of(context).pop(true);
+  //             },
+  //             child: Text('Discard'))
+  //       ],
+  //     ),
+  //   );
+  //   return shouldDiscard ?? false;
+  // }
 }

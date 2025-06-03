@@ -32,7 +32,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -63,7 +63,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     },
                     icon: Icon(
                       Icons.arrow_back,
-                      color: Colors.black,
+                      color: Theme.of(context).colorScheme.primary,
                       size: 28,
                     ),
                   ),
@@ -122,7 +122,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ));
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.grey.shade300,
+                        elevation: 12,
+                        backgroundColor:
+                            Theme.of(context).colorScheme.onBackground,
+                        foregroundColor:
+                            Theme.of(context).colorScheme.onPrimary,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
@@ -132,7 +136,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         "Edit Profile",
                         style: TextStyle(
                             fontSize: 18,
-                            color: Colors.black,
+                            color: Theme.of(context).colorScheme.primary,
                             fontFamily: 'CrimsonText-Bold'),
                       ),
                     ),

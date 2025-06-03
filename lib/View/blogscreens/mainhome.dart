@@ -88,6 +88,8 @@ class _MainhomeState extends State<Mainhome> {
   }
 
   int _currentindex = 0;
+  final List<int> navigationstack = [0];
+
   List<Widget> body = [
     HomeScreen2(),
     ProfileScreen(),
@@ -97,29 +99,51 @@ class _MainhomeState extends State<Mainhome> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: IndexedStack(
-          index: _currentindex,
-          children: body,
+    return WillPopScope(
+      onWillPop: () async {
+        if (navigationstack.length > 1) {
+          setState(() {
+            navigationstack.removeLast();
+            _currentindex = navigationstack.last;
+          });
+          return false;
+        }
+        return true;
+      },
+      child: Scaffold(
+        body: Center(
+          child: IndexedStack(
+            index: _currentindex,
+            children: body,
+          ),
         ),
+        bottomNavigationBar: BottomNavigationBar(
+            currentIndex: _currentindex,
+            onTap: (int index) {
+              if (index == 2) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AddBlog(),
+                    ));
+              } else {
+                setState(() {
+                  _currentindex = index;
+                  navigationstack.add(index);
+                });
+              }
+            },
+            items: [
+              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.person), label: 'Account'),
+              BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Add Blog'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.favorite), label: 'Favorite'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.my_library_books), label: 'My Blogs')
+            ]),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _currentindex,
-          onTap: (int index) {
-            setState(() {
-              _currentindex = index;
-            });
-          },
-          items: [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Account'),
-            BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Add Blog'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.favorite), label: 'Favorite'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.my_library_books), label: 'My Blogs')
-          ]),
     );
   }
 }

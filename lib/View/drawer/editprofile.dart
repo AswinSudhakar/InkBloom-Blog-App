@@ -79,7 +79,7 @@ class _ProfileScreenState extends State<Editprofile> {
     final userProvider = Provider.of<UserProvider>(context);
 
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      // backgroundColor: Colors.grey[200],
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -110,7 +110,7 @@ class _ProfileScreenState extends State<Editprofile> {
                     },
                     icon: Icon(
                       Icons.arrow_back,
-                      color: Colors.black,
+                      // color: Colors.black,
                       size: 28,
                     ),
                   ),
@@ -206,7 +206,7 @@ class _ProfileScreenState extends State<Editprofile> {
                             },
                             style: ElevatedButton.styleFrom(
                               minimumSize: Size(100, 20),
-                              backgroundColor: Colors.grey.shade300,
+                              // backgroundColor: Colors.grey.shade300,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
                               ),
@@ -216,7 +216,7 @@ class _ProfileScreenState extends State<Editprofile> {
                               "Update",
                               style: TextStyle(
                                   fontSize: 18,
-                                  color: Colors.black,
+                                  // color: Colors.black,
                                   fontFamily: 'CrimsonText-Bold'),
                             ),
                           ),
@@ -226,7 +226,7 @@ class _ProfileScreenState extends State<Editprofile> {
                             },
                             style: ElevatedButton.styleFrom(
                               minimumSize: Size(100, 20),
-                              backgroundColor: Colors.grey.shade300,
+                              // backgroundColor: Colors.grey.shade300,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
                               ),
@@ -236,7 +236,7 @@ class _ProfileScreenState extends State<Editprofile> {
                               "Cancel",
                               style: TextStyle(
                                   fontSize: 18,
-                                  color: Colors.black,
+                                  // color: Colors.black,
                                   fontFamily: 'CrimsonText-Bold'),
                             ),
                           ),

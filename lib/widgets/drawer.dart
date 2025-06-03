@@ -58,7 +58,7 @@ class _AppDrawerState extends State<AppDrawer> {
           children: [
             Container(
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
-              color: Colors.grey.shade200,
+              color: Theme.of(context).colorScheme.onBackground,
               width: double.infinity,
               child: Column(
                 children: [

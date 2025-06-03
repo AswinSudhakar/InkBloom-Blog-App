@@ -330,7 +330,7 @@ class _EditBlogState extends State<EditBlog> {
                 fontFamily: 'CrimsonText-Bold'),
           ),
         ),
-        backgroundColor: const Color(0xFFF9F9F9),
+        backgroundColor: Theme.of(context).colorScheme.onPrimary,
         body: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
           child: Column(
@@ -343,7 +343,7 @@ class _EditBlogState extends State<EditBlog> {
                   width: double.infinity,
                   height: 180,
                   decoration: BoxDecoration(
-                    color: Colors.grey[200],
+                    color: Theme.of(context).colorScheme.onBackground,
                     borderRadius: BorderRadius.circular(15),
                     image: _selectedImage != null
                         ? DecorationImage(
@@ -408,6 +408,7 @@ class _EditBlogState extends State<EditBlog> {
               ),
               const SizedBox(height: 10),
               TextField(
+                style: TextStyle(color: Theme.of(context).colorScheme.primary),
                 controller: _contentController,
                 maxLines: 6,
                 decoration: const InputDecoration(
@@ -428,8 +429,9 @@ class _EditBlogState extends State<EditBlog> {
                       label: const Text("Upload Blog"),
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 14),
-                        backgroundColor: Colors.black87,
-                        foregroundColor: Colors.white,
+                        backgroundColor:
+                            Theme.of(context).colorScheme.onBackground,
+                        foregroundColor: Theme.of(context).colorScheme.primary,
                         textStyle: const TextStyle(fontSize: 16),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -445,7 +447,7 @@ class _EditBlogState extends State<EditBlog> {
                       },
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 14),
-                        backgroundColor: Colors.grey.shade300,
+                        backgroundColor: Theme.of(context).colorScheme.onError,
                         foregroundColor: Colors.black,
                         textStyle: const TextStyle(fontSize: 16),
                         shape: RoundedRectangleBorder(
@@ -472,6 +474,7 @@ class _EditBlogState extends State<EditBlog> {
     bool isNumber = false,
   }) {
     return TextField(
+      style: TextStyle(color: Theme.of(context).colorScheme.primary),
       controller: controller,
       keyboardType: isNumber ? TextInputType.number : TextInputType.text,
       decoration: InputDecoration(

@@ -36,11 +36,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData lightTheme = ThemeData(
+      colorScheme: ColorScheme.light(
+        primary: Colors.grey,
+        onPrimary: Colors.white,
+        background: Colors.white,
+        onBackground: Colors.grey.withOpacity(.3),
+        surface: Colors.grey.shade100,
+        onSurface: Colors.black87,
+      ),
       brightness: Brightness.light,
       // primaryColor: Colors.black,
       primarySwatch: Colors.grey,
       scaffoldBackgroundColor: Colors.white,
-      iconTheme: IconThemeData(color: Colors.black),
+      iconTheme: IconThemeData(color: Colors.grey),
       appBarTheme: AppBarTheme(backgroundColor: Colors.white),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: Colors.white,
@@ -54,10 +62,20 @@ class MyApp extends StatelessWidget {
     );
 
     final ThemeData darkTheme = ThemeData(
+      colorScheme: ColorScheme.dark(
+        error: const Color.fromARGB(255, 147, 58, 58),
+        onError: Colors.grey.shade500, //cancel
+        primary: Colors.grey, //text color
+        onPrimary: Colors.black, //main theme
+        background: Colors.black, //light grey theme
+        onBackground: Colors.grey.withOpacity(.3),
+        surface: Colors.grey.shade900,
+        onSurface: Colors.white70,
+      ),
       brightness: Brightness.dark,
       primarySwatch: Colors.grey,
       scaffoldBackgroundColor: Colors.black,
-      iconTheme: IconThemeData(color: Colors.white),
+      iconTheme: IconThemeData(color: Colors.grey),
       appBarTheme: AppBarTheme(backgroundColor: Colors.black),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: Colors.black,

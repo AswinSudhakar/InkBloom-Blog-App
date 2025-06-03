@@ -47,6 +47,10 @@ class _HomeScreenState extends State<HomeScreen2> with RouteAware {
   void initState() {
     super.initState();
     fetchAndLoadUserData();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<BlogProvider>(context, listen: false)
+          .fetchUserCategoryBlogs();
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final provider = Provider.of<BlogProvider>(context, listen: false);
@@ -86,6 +90,10 @@ class _HomeScreenState extends State<HomeScreen2> with RouteAware {
 
   @override
   Widget build(BuildContext context) {
+    final userprefblog = BlogProvider().userprefblogs;
+    final displayedblogs =
+        userprefblog.length > 5 ? userprefblog.take(5).toList() : userprefblog;
+
     final themeprovider = Provider.of<ThemeProvider>(context);
     final blogProvider = context.watch<BlogProvider>();
     final blogsToShow = selectedCategory == "All"
@@ -199,29 +207,31 @@ class _HomeScreenState extends State<HomeScreen2> with RouteAware {
                               ),
                               backgroundColor: Colors.grey.shade300,
                             ),
-                            TextButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => RecommentedBlogs()),
-                                );
-                              },
-                              child: Text(
-                                'View All →',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontFamily: 'CrimsonText-Bold',
-                                  fontSize: 14,
+                            if (userprefblog.length > 5)
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            RecommentedBlogs()),
+                                  );
+                                },
+                                child: Text(
+                                  'View All →',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: 'CrimsonText-Bold',
+                                    fontSize: 14,
+                                  ),
                                 ),
                               ),
-                            ),
                           ],
                         ),
                       ),
                     SizedBox(height: 10),
                     HorizontalBlogList(
-                      blogs: context.watch<BlogProvider>().userprefblogs,
+                      blogs: displayedblogs,
                       isLoading: context.watch<BlogProvider>().isLoading,
                     ),
                     SizedBox(height: 20),
