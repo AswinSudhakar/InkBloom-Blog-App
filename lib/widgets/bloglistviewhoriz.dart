@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inkbloom/View/blogscreens/blogdetail.dart';
+import 'package:inkbloom/View/blogscreens/recommentedblogs.dart';
 import 'package:inkbloom/models/blog/blogmodel.dart';
 
 class HorizontalBlogList extends StatelessWidget {
@@ -26,15 +27,57 @@ class HorizontalBlogList extends StatelessWidget {
         ),
       );
     }
+    final showViewAllCard = blogs.length > 4;
+    final displayedBlogs = showViewAllCard ? blogs.take(4).toList() : blogs;
 
     return SizedBox(
       height: 200,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 12),
-        itemCount: blogs.length,
+        itemCount: displayedBlogs.length + (showViewAllCard ? 1 : 0),
         separatorBuilder: (_, __) => const SizedBox(width: 12),
         itemBuilder: (context, index) {
+//
+//
+
+          if (showViewAllCard && index == displayedBlogs.length) {
+            // "View All" Card
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => RecommentedBlogs()),
+                );
+              },
+              child: Container(
+                width: 240,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(18),
+                  color: Colors.grey.shade300,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.15),
+                      blurRadius: 6,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                alignment: Alignment.center,
+                child: const Text(
+                  'View All →',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'CrimsonText-Bold',
+                  ),
+                ),
+              ),
+            );
+          }
+
+//
+          //
           final blog = blogs[index];
 
           return GestureDetector(

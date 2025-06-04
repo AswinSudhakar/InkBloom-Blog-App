@@ -62,10 +62,17 @@ class _MainhomeState extends State<Mainhome> {
           actions: [
             TextButton(
               onPressed: () async {
-                bool connected = await _checkRealInternet();
-                if (connected) {
-                  Navigator.of(context, rootNavigator: true).pop();
-                  _isDialogVisible = false;
+                try {
+                  bool connected = await _checkRealInternet();
+                  if (connected) {
+                    if (context.mounted) {
+                      Navigator.of(context, rootNavigator: true).pop();
+                      _isDialogVisible = false;
+                    }
+                  }
+                } catch (e, stack) {
+                  print("Error in Retry button: $e");
+                  print(stack);
                 }
               },
               child: const Text('Retry'),

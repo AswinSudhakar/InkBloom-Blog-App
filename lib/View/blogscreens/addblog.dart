@@ -592,16 +592,35 @@ class _AddBlogState extends State<AddBlog> {
                 const SizedBox(height: 10),
                 DropdownButtonFormField<String>(
                   value: _selectedCategory,
-                  decoration: const InputDecoration(
-                    prefixIcon: Icon(Icons.category),
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.category),
                     hintText: 'Select Category',
-                    hintStyle: TextStyle(fontFamily: 'CrimsonText-Bold'),
-                    border: OutlineInputBorder(),
+                    hintStyle: TextStyle(
+                      fontFamily: 'CrimsonText-Bold',
+                      color: Theme.of(context).colorScheme.onSecondary,
+                    ),
+                    border: const OutlineInputBorder(),
                   ),
+                  style: TextStyle(
+                    // 🔥 This styles the selected item text
+                    fontFamily: 'CrimsonText-Bold',
+                    fontSize: 16,
+                    color: Theme.of(context).colorScheme.onSecondary,
+                  ),
+                  dropdownColor:
+                      Theme.of(context).colorScheme.surface, // optional
                   items: _categories.map((category) {
                     return DropdownMenuItem<String>(
                       value: category,
-                      child: Text(category),
+                      child: Text(
+                        category,
+                        style: TextStyle(
+                          // 🔥 This styles the dropdown items
+                          fontFamily: 'CrimsonText-Bold',
+                          fontSize: 16,
+                          color: Theme.of(context).colorScheme.onSecondary,
+                        ),
+                      ),
                     );
                   }).toList(),
                   onChanged: (value) {
@@ -635,7 +654,7 @@ class _AddBlogState extends State<AddBlog> {
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(vertical: 14),
                           backgroundColor:
-                              Theme.of(context).colorScheme.onBackground,
+                              Theme.of(context).colorScheme.onSurface,
                           foregroundColor:
                               Theme.of(context).colorScheme.primary,
                           textStyle: const TextStyle(fontSize: 16),

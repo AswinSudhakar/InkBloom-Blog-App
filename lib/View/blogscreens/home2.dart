@@ -47,10 +47,10 @@ class _HomeScreenState extends State<HomeScreen2> with RouteAware {
   void initState() {
     super.initState();
     fetchAndLoadUserData();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<BlogProvider>(context, listen: false)
-          .fetchUserCategoryBlogs();
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   Provider.of<BlogProvider>(context, listen: false)
+    //       .fetchUserCategoryBlogs();
+    // });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final provider = Provider.of<BlogProvider>(context, listen: false);
@@ -207,31 +207,31 @@ class _HomeScreenState extends State<HomeScreen2> with RouteAware {
                               ),
                               backgroundColor: Colors.grey.shade300,
                             ),
-                            if (userprefblog.length > 5)
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            RecommentedBlogs()),
-                                  );
-                                },
-                                child: Text(
-                                  'View All →',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontFamily: 'CrimsonText-Bold',
-                                    fontSize: 14,
-                                  ),
-                                ),
-                              ),
+                            // if (userprefblog.length > 5)
+                            //   TextButton(
+                            //     onPressed: () {
+                            //       Navigator.push(
+                            //         context,
+                            //         MaterialPageRoute(
+                            //             builder: (context) =>
+                            //                 RecommentedBlogs()),
+                            //       );
+                            //     },
+                            //     child: Text(
+                            //       'View All →',
+                            //       style: TextStyle(
+                            //         color: Colors.black,
+                            //         fontFamily: 'CrimsonText-Bold',
+                            //         fontSize: 14,
+                            //       ),
+                            //     ),
+                            //   ),
                           ],
                         ),
                       ),
                     SizedBox(height: 10),
                     HorizontalBlogList(
-                      blogs: displayedblogs,
+                      blogs: context.watch<BlogProvider>().userprefblogs,
                       isLoading: context.watch<BlogProvider>().isLoading,
                     ),
                     SizedBox(height: 20),

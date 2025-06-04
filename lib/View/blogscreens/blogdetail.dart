@@ -5,6 +5,7 @@ import 'package:inkbloom/ViewModel/blogprovider.dart';
 
 import 'package:inkbloom/models/blog/blogmodel.dart';
 import 'package:inkbloom/service/userprofile.dart';
+import 'package:inkbloom/widgets/expandabletext.dart';
 import 'package:inkbloom/widgets/toastmessage.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -275,12 +276,17 @@ class _BlogDetailState extends State<BlogDetail> {
                         SizedBox(height: 30),
 
                         // Content
-                        Text(
-                          '${widget.blog.content}',
-                          style: TextStyle(
-                              fontSize: 25,
-                              height: 1.6,
-                              fontFamily: 'CrimsonText-SemiBoldItalic'),
+                        // Text(
+                        //   '${widget.blog.content}',
+                        //   style: TextStyle(
+                        //       fontSize: 25,
+                        //       height: 1.6,
+                        //       fontFamily: 'CrimsonText-SemiBoldItalic'),
+                        // ),
+
+                        StepwiseExpandableText(
+                          text: widget.blog.content!,
+                          linesPerStep: 15,
                         ),
                       ],
                     ),
