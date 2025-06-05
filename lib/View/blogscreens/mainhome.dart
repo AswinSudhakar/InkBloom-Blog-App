@@ -57,8 +57,18 @@ class _MainhomeState extends State<Mainhome> {
       barrierDismissible: false,
       builder: (_) {
         return AlertDialog(
-          title: const Text('No Internet'),
-          content: const Text('You have lost internet connection.'),
+          title: Text(
+            'No Internet',
+            style: TextStyle(
+                fontFamily: 'CrimsonText-Bold',
+                color: Theme.of(context).colorScheme.onPrimary),
+          ),
+          content: Text(
+            'You have lost internet connection.',
+            style: TextStyle(
+                color: Theme.of(context).colorScheme.onPrimary,
+                fontFamily: 'CrimsonText-Bold'),
+          ),
           actions: [
             TextButton(
               onPressed: () async {
@@ -75,11 +85,21 @@ class _MainhomeState extends State<Mainhome> {
                   print(stack);
                 }
               },
-              child: const Text('Retry'),
+              child: Text(
+                'Retry',
+                style: TextStyle(
+                    fontFamily: 'CrimsonText-Bold',
+                    color: Theme.of(context).colorScheme.onPrimary),
+              ),
             ),
             TextButton(
               onPressed: () => exit(0),
-              child: const Text('Exit'),
+              child: Text(
+                'Exit',
+                style: TextStyle(
+                    fontFamily: 'CrimsonText-Bold',
+                    color: Theme.of(context).colorScheme.onPrimary),
+              ),
             ),
           ],
         );

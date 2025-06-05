@@ -79,7 +79,7 @@ class _ProfileScreenState extends State<Editprofile> {
     final userProvider = Provider.of<UserProvider>(context);
 
     return Scaffold(
-      // backgroundColor: Colors.grey[200],
+      backgroundColor: Theme.of(context).colorScheme.primary,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -110,7 +110,7 @@ class _ProfileScreenState extends State<Editprofile> {
                     },
                     icon: Icon(
                       Icons.arrow_back,
-                      // color: Colors.black,
+                      color: Theme.of(context).colorScheme.onSurface,
                       size: 28,
                     ),
                   ),
@@ -143,7 +143,8 @@ class _ProfileScreenState extends State<Editprofile> {
                               _pickImage();
                             },
                             child: CircleAvatar(
-                              backgroundColor: Colors.grey[300],
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.background,
                               backgroundImage: _pickedImage != null
                                   ? FileImage(_pickedImage!)
                                   : (userProvider.profileimage != null &&
@@ -154,8 +155,13 @@ class _ProfileScreenState extends State<Editprofile> {
                               child: userProvider.profileimage == null ||
                                       userProvider.profileimage!.isEmpty
                                   ? (_pickedImage == null
-                                      ? Icon(Icons.camera_alt,
-                                          size: 40, color: Colors.grey[800])
+                                      ? Icon(
+                                          Icons.camera_alt,
+                                          size: 40,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onSurface,
+                                        )
                                       : null)
                                   : null,
                             )),
@@ -176,14 +182,63 @@ class _ProfileScreenState extends State<Editprofile> {
                 children: [
                   SizedBox(height: 20),
 
+                  // Padding(
+                  //   padding: const EdgeInsets.all(10.0),
+                  //   child: TextField(
+                  //     style: TextStyle(
+                  //         ),
+                  //     controller: _nameController,
+                  //     decoration: InputDecoration(
+                  //         hintText: 'Full Name',
+                  //         hintStyle: TextStyle(
+                  //             fontFamily: 'CrimsonText-SemiBoldItalic')),
+                  //   ),
+                  // ),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: TextField(
                       controller: _nameController,
+                      cursorColor: Theme.of(context)
+                          .colorScheme
+                          .onPrimary, // makes cursor visible
+                      style: TextStyle(
+                        fontFamily: 'CrimsonText-SemiBoldItalic',
+                        fontSize: 16,
+                        color: Theme.of(context).colorScheme.onBackground,
+                      ),
                       decoration: InputDecoration(
-                          hintText: 'Full Name',
-                          hintStyle: TextStyle(
-                              fontFamily: 'CrimsonText-SemiBoldItalic')),
+                        hintText: 'Full Name',
+                        hintStyle: TextStyle(
+                          fontFamily: 'CrimsonText-SemiBoldItalic',
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSurface
+                              .withOpacity(0.6),
+                        ),
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onPrimary, // default border color
+                            width: 1.5,
+                          ),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onPrimary, // highlight border
+                            width: 2,
+                          ),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
                     ),
                   ),
 
@@ -206,7 +261,8 @@ class _ProfileScreenState extends State<Editprofile> {
                             },
                             style: ElevatedButton.styleFrom(
                               minimumSize: Size(100, 20),
-                              // backgroundColor: Colors.grey.shade300,
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.background,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
                               ),
@@ -216,7 +272,8 @@ class _ProfileScreenState extends State<Editprofile> {
                               "Update",
                               style: TextStyle(
                                   fontSize: 18,
-                                  // color: Colors.black,
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary,
                                   fontFamily: 'CrimsonText-Bold'),
                             ),
                           ),
@@ -236,7 +293,8 @@ class _ProfileScreenState extends State<Editprofile> {
                               "Cancel",
                               style: TextStyle(
                                   fontSize: 18,
-                                  // color: Colors.black,
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary,
                                   fontFamily: 'CrimsonText-Bold'),
                             ),
                           ),

@@ -197,6 +197,7 @@ class _HomeScreenState extends State<HomeScreen2> with RouteAware {
                             Chip(
                               elevation: 3,
                               shadowColor: Colors.grey.shade400,
+                              side: BorderSide.none,
                               label: Text(
                                 'Recommended',
                                 style: TextStyle(
@@ -252,6 +253,7 @@ class _HomeScreenState extends State<HomeScreen2> with RouteAware {
                                       TextStyle(fontFamily: 'CrimsonText-Bold'),
                                 ),
                                 selected: isSelected,
+                                side: BorderSide.none,
                                 onSelected: (selected) {
                                   if (selected) {
                                     setState(() {

@@ -330,7 +330,7 @@ class _EditBlogState extends State<EditBlog> {
                 fontFamily: 'CrimsonText-Bold'),
           ),
         ),
-        backgroundColor: Theme.of(context).colorScheme.onPrimary,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         body: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
           child: Column(
@@ -388,16 +388,54 @@ class _EditBlogState extends State<EditBlog> {
               const SizedBox(height: 10),
               DropdownButtonFormField<String>(
                 value: _selectedCategory,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   prefixIcon: Icon(Icons.category),
                   hintText: 'Select Category',
-                  hintStyle: TextStyle(fontFamily: 'CrimsonText-Bold'),
+                  hintStyle: TextStyle(
+                    fontFamily: 'CrimsonText-Bold',
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
                   border: OutlineInputBorder(),
+                  alignLabelWithHint: true,
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onPrimary, // light border when idle
+                      width: 1.5,
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onPrimary, // stronger border on focus
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                 ),
+                style: TextStyle(
+                  // 🔥 This styles the selected item text
+                  fontFamily: 'CrimsonText-Bold',
+                  fontSize: 16,
+                  color: Theme.of(context).colorScheme.onSecondary,
+                ),
+                dropdownColor:
+                    Theme.of(context).colorScheme.surface, // optional
                 items: _categories.map((category) {
                   return DropdownMenuItem<String>(
                     value: category,
-                    child: Text(category),
+                    child: Text(
+                      category,
+                      style: TextStyle(
+                        // 🔥 This styles the dropdown items
+                        fontFamily: 'CrimsonText-Bold',
+                        fontSize: 16,
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
+                    ),
                   );
                 }).toList(),
                 onChanged: (value) {
@@ -408,14 +446,35 @@ class _EditBlogState extends State<EditBlog> {
               ),
               const SizedBox(height: 10),
               TextField(
-                style: TextStyle(color: Theme.of(context).colorScheme.primary),
+                style: TextStyle(
+                    fontFamily: 'CrimsonText-Bold',
+                    color: Theme.of(context).colorScheme.onPrimary),
                 controller: _contentController,
                 maxLines: 6,
-                decoration: const InputDecoration(
+                cursorColor: Theme.of(context).colorScheme.onPrimary,
+                decoration: InputDecoration(
                   hintText: 'Content',
                   hintStyle: TextStyle(fontFamily: 'CrimsonText-Bold'),
                   border: OutlineInputBorder(),
                   alignLabelWithHint: true,
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onPrimary, // light border when idle
+                      width: 1.5,
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onPrimary, // stronger border on focus
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                 ),
               ),
               const SizedBox(height: 20),
@@ -447,7 +506,7 @@ class _EditBlogState extends State<EditBlog> {
                       },
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 14),
-                        backgroundColor: Theme.of(context).colorScheme.onError,
+                        backgroundColor: Theme.of(context).colorScheme.error,
                         foregroundColor: Colors.black,
                         textStyle: const TextStyle(fontSize: 16),
                         shape: RoundedRectangleBorder(
@@ -474,14 +533,36 @@ class _EditBlogState extends State<EditBlog> {
     bool isNumber = false,
   }) {
     return TextField(
-      style: TextStyle(color: Theme.of(context).colorScheme.primary),
+      style: TextStyle(
+        color: Theme.of(context).colorScheme.onPrimary,
+        fontFamily: 'CrimsonText-Bold',
+      ),
       controller: controller,
+      cursorColor: Theme.of(context).colorScheme.onPrimary,
       keyboardType: isNumber ? TextInputType.number : TextInputType.text,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: TextStyle(fontFamily: 'CrimsonText-Bold'),
         prefixIcon: Icon(icon),
-        border: const OutlineInputBorder(),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Theme.of(context)
+                .colorScheme
+                .onPrimary, // light border when idle
+            width: 1.5,
+          ),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Theme.of(context)
+                .colorScheme
+                .onPrimary, // stronger border on focus
+            width: 2,
+          ),
+          borderRadius: BorderRadius.circular(12),
+        ),
       ),
     );
   }

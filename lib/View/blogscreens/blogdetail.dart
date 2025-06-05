@@ -86,7 +86,7 @@ class _BlogDetailState extends State<BlogDetail> {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         body: Stack(
           children: [
             // Background Image Section
@@ -165,6 +165,8 @@ class _BlogDetailState extends State<BlogDetail> {
                               style: TextStyle(
                                   fontSize: 30,
                                   fontWeight: FontWeight.bold,
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary,
                                   fontFamily: 'Tagesschrift-Regular'),
                             ),
                           ],
@@ -254,6 +256,9 @@ class _BlogDetailState extends State<BlogDetail> {
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
                                             fontSize: 16,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onPrimary,
                                             fontFamily:
                                                 'CrimsonText-SemiBoldItalic',
                                           ),
@@ -267,6 +272,8 @@ class _BlogDetailState extends State<BlogDetail> {
                                 "Read Time: ${widget.blog.readTime} Min",
                                 style: TextStyle(
                                   fontSize: 16,
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary,
                                   fontFamily: 'CrimsonText-SemiBoldItalic',
                                 ),
                               ),
@@ -300,9 +307,12 @@ class _BlogDetailState extends State<BlogDetail> {
               top: 40,
               left: 20,
               child: CircleAvatar(
-                backgroundColor: Colors.black.withOpacity(0.5),
+                backgroundColor: Theme.of(context).colorScheme.primary,
                 child: IconButton(
-                  icon: Icon(Icons.arrow_back, color: Colors.white),
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
                   onPressed: () => Navigator.pop(context),
                 ),
               ),
@@ -311,11 +321,13 @@ class _BlogDetailState extends State<BlogDetail> {
               top: 40,
               right: 20,
               child: CircleAvatar(
-                backgroundColor: Color.fromARGB(128, 0, 0, 0),
+                // backgroundColor: Color.fromARGB(128, 0, 0, 0),
+                backgroundColor: Theme.of(context).colorScheme.primary,
+
                 child: IconButton(
                   icon: Icon(
                     isClicked ? Icons.favorite : Icons.favorite_border,
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.onPrimary,
                   ),
                   onPressed: () async {
                     final blogProvider = context.read<BlogProvider>();

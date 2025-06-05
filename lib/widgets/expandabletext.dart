@@ -32,10 +32,10 @@ class _StepwiseExpandableTextState extends State<StepwiseExpandableText> {
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = const TextStyle(
+    final textStyle = TextStyle(
       fontSize: 22,
       fontFamily: 'CrimsonText-SemiBoldItalic',
-      color: Colors.black,
+      color: Theme.of(context).colorScheme.onPrimary,
     );
 
     final textSpan = TextSpan(
@@ -70,7 +70,12 @@ class _StepwiseExpandableTextState extends State<StepwiseExpandableText> {
           if (_canExpand)
             TextButton(
               onPressed: _increaseLines,
-              child: const Text('Read More'),
+              child: Text(
+                'Read More...',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
+              ),
             ),
         ],
       ),

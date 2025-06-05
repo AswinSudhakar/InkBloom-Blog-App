@@ -37,13 +37,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData lightTheme = ThemeData(
       colorScheme: ColorScheme.light(
-          primary: Colors.grey,
-          onPrimary: Colors.white,
-          background: Colors.white,
-          onBackground: Colors.grey.withOpacity(.3),
+          error: const Color.fromARGB(255, 230, 146, 140),
+          onError: Colors.grey.shade500, //cancel
+          primary: Colors.white,
+          onPrimary: Colors.black,
+          background: Colors.grey,
+          onBackground: Colors.black,
           surface: Colors.grey.shade100,
-          onSurface: Colors.black87,
-          onSecondary: Colors.black),
+          onSurface: Colors.black,
+          onErrorContainer: const Color.fromARGB(255, 153, 224, 226),
+          onSecondary: Colors.grey),
       brightness: Brightness.light,
       // primaryColor: Colors.black,
       primarySwatch: Colors.grey,
@@ -63,19 +66,19 @@ class MyApp extends StatelessWidget {
 
     final ThemeData darkTheme = ThemeData(
       colorScheme: ColorScheme.dark(
-          error: const Color.fromARGB(255, 147, 58, 58),
+          error: const Color.fromARGB(255, 230, 146, 140),
           onError: Colors.grey.shade500, //cancel
-          primary: Colors.grey, //text color
-          onPrimary: Colors.black, //main theme
-          background: Colors.black, //light grey theme
-          onBackground: Colors.grey.withOpacity(.3),
+          primary: Colors.black, //text color
+          onPrimary: Colors.white, //main theme
+          background: Colors.grey.withOpacity(.3), //light grey theme
+          onBackground: Colors.white,
           surface: Colors.grey.shade900,
-          onSurface: Colors.white70,
+          onSurface: Colors.white,
           onSecondary: Colors.grey),
       brightness: Brightness.dark,
       primarySwatch: Colors.grey,
       scaffoldBackgroundColor: Colors.black,
-      iconTheme: IconThemeData(color: Colors.grey),
+      iconTheme: IconThemeData(color: Colors.white),
       appBarTheme: AppBarTheme(backgroundColor: Colors.black),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: Colors.black,

@@ -63,7 +63,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     },
                     icon: Icon(
                       Icons.arrow_back,
-                      color: Theme.of(context).colorScheme.primary,
+                      color: Theme.of(context).colorScheme.onPrimary,
                       size: 28,
                     ),
                   ),
@@ -123,10 +123,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       },
                       style: ElevatedButton.styleFrom(
                         elevation: 12,
-                        backgroundColor:
-                            Theme.of(context).colorScheme.onBackground,
-                        foregroundColor:
-                            Theme.of(context).colorScheme.onPrimary,
+                        backgroundColor: Theme.of(context).colorScheme.surface,
+                        // foregroundColor:
+                        //     Theme.of(context).colorScheme.onPrimary,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
@@ -136,7 +135,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         "Edit Profile",
                         style: TextStyle(
                             fontSize: 18,
-                            color: Theme.of(context).colorScheme.primary,
+                            color: Theme.of(context).colorScheme.onPrimary,
                             fontFamily: 'CrimsonText-Bold'),
                       ),
                     ),
@@ -170,7 +169,10 @@ class ProfileField extends StatelessWidget {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: ListTile(
-        leading: Icon(icon, color: Colors.grey),
+        leading: Icon(
+          icon,
+          color: Theme.of(context).colorScheme.onPrimary,
+        ),
         title: Text(text,
             style: TextStyle(
                 fontSize: 16, fontFamily: 'CrimsonText-SemiBoldItalic')),

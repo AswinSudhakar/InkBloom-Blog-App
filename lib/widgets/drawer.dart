@@ -58,7 +58,7 @@ class _AppDrawerState extends State<AppDrawer> {
           children: [
             Container(
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
-              color: Theme.of(context).colorScheme.onBackground,
+              color: Theme.of(context).colorScheme.surface,
               width: double.infinity,
               child: Column(
                 children: [
@@ -115,7 +115,7 @@ class _AppDrawerState extends State<AppDrawer> {
                     userProvider.email ?? "No Email",
                     style: TextStyle(
                         fontSize: 14,
-                        color: Colors.grey[600],
+                        // color: Colors.grey[600],
                         fontFamily: 'CrimsonText-Bold'),
                   ),
                 ],
@@ -166,10 +166,10 @@ class _AppDrawerState extends State<AppDrawer> {
     required VoidCallback onTap,
   }) {
     return ListTile(
-      leading: Icon(icon, color: Colors.grey),
+      leading: Icon(icon, color: Theme.of(context).colorScheme.onSurface),
       title: Text(
         text,
-        style: const TextStyle(
+        style: TextStyle(
           fontFamily: 'CrimsonText-Bold',
           fontSize: 18,
         ),

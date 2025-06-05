@@ -64,11 +64,20 @@ class _CategoryScreenState extends State<CategoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: Theme.of(context).colorScheme.primary,
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              Icons.arrow_back,
+              color: Theme.of(context).colorScheme.onPrimary,
+            )),
         title: Text(
           'Select Your Favorite Categories',
           style: TextStyle(
+              color: Theme.of(context).colorScheme.onPrimary,
               fontWeight: FontWeight.w600,
               fontFamily: 'CrimsonText-SemiBoldItalic'),
         ),
@@ -198,7 +207,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 },
                 style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.symmetric(vertical: 16),
-                  backgroundColor: const Color.fromARGB(255, 153, 224, 226),
+                  backgroundColor: Theme.of(context).colorScheme.error,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
@@ -207,7 +216,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   'Cancel',
                   style: TextStyle(
                     fontSize: 18,
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.onPrimary,
                     fontFamily: 'CrimsonText-SemiBoldItalic',
                   ),
                 ),
