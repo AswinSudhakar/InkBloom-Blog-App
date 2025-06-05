@@ -87,6 +87,76 @@ class _BlogDetailState extends State<BlogDetail> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.primary,
+        bottomNavigationBar: (widget.blog.author == name ||
+                widget.blog.author == email)
+            ? SizedBox(
+                height: 50, // adjust height here
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => EditBlog(blog: widget.blog),
+                            ));
+                      },
+                      icon: Icon(Icons.edit),
+                    ),
+                    IconButton(
+                      onPressed: () async {
+                        final success = await Provider.of<BlogProvider>(context,
+                                listen: false)
+                            .Deleteblog(widget.blog);
+
+                        if (success == true) {
+                          if (mounted) {
+                            Navigator.pop(context);
+                            // ScaffoldMessenger.of(context).showSnackBar(
+                            //   SnackBar(
+                            //       content:
+                            //           Text('Blog deleted successfully')),
+                            // );
+                            CustomToastMessagee.show(
+                                message: 'Blog Deleted Successfully',
+                                color: Colors.red);
+                          }
+                        } else {
+                          // ScaffoldMessenger.of(context).showSnackBar(
+                          //   SnackBar(
+                          //       content: Text('Failed to delete blog')),
+                          // );
+
+                          CustomToastMessagee.show(
+                              message: 'Failed to delete blog',
+                              color: Colors.red);
+                        }
+                      },
+                      icon: Icon(Icons.delete),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Created at: ${widget.blog.createdAt!.split('T').first}',
+                            ),
+                            width: 300, // ✅ Allowed only with floating behavior
+                            behavior:
+                                SnackBarBehavior.floating, // ✅ Must be set
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ), // Optional: looks better when floating
+                          ),
+                        );
+                      },
+                      icon: Icon(Icons.info),
+                    )
+                  ],
+                ),
+              )
+            : null,
         body: Stack(
           children: [
             // Background Image Section
@@ -317,6 +387,7 @@ class _BlogDetailState extends State<BlogDetail> {
                 ),
               ),
             ),
+
             Positioned(
               top: 40,
               right: 20,
@@ -371,95 +442,95 @@ class _BlogDetailState extends State<BlogDetail> {
               ),
             ),
 
-            if (widget.blog.author == name || widget.blog.author == email)
-              Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 30),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.grey.withOpacity(.4)),
-                      width: 300,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          // IconButton(
-                          //   onPressed: () {
-                          //     addToFav(context, widget.blog.id!);
-                          //   },
-                          //   icon: Icon(
-                          //     Icons.favorite,
-                          //     color: isFav,
-                          //   ),
-                          // ),
+            // if (widget.blog.author == name || widget.blog.author == email)
+            //   Align(
+            //       alignment: Alignment.bottomCenter,
+            //       child: Padding(
+            //         padding: const EdgeInsets.only(bottom: 30),
+            //         child: Container(
+            //           decoration: BoxDecoration(
+            //               borderRadius: BorderRadius.circular(20),
+            //               color: Colors.grey.withOpacity(.4)),
+            //           width: 300,
+            //           child: Row(
+            //             mainAxisAlignment: MainAxisAlignment.spaceAround,
+            //             children: [
+            //               // IconButton(
+            //               //   onPressed: () {
+            //               //     addToFav(context, widget.blog.id!);
+            //               //   },
+            //               //   icon: Icon(
+            //               //     Icons.favorite,
+            //               //     color: isFav,
+            //               //   ),
+            //               // ),
 
-                          IconButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        EditBlog(blog: widget.blog),
-                                  ));
-                            },
-                            icon: Icon(Icons.edit),
-                          ),
-                          IconButton(
-                            onPressed: () async {
-                              final success = await Provider.of<BlogProvider>(
-                                      context,
-                                      listen: false)
-                                  .Deleteblog(widget.blog);
+            //               IconButton(
+            //                 onPressed: () {
+            //                   Navigator.push(
+            //                       context,
+            //                       MaterialPageRoute(
+            //                         builder: (context) =>
+            //                             EditBlog(blog: widget.blog),
+            //                       ));
+            //                 },
+            //                 icon: Icon(Icons.edit),
+            //               ),
+            //               IconButton(
+            //                 onPressed: () async {
+            //                   final success = await Provider.of<BlogProvider>(
+            //                           context,
+            //                           listen: false)
+            //                       .Deleteblog(widget.blog);
 
-                              if (success == true) {
-                                if (mounted) {
-                                  Navigator.pop(context);
-                                  // ScaffoldMessenger.of(context).showSnackBar(
-                                  //   SnackBar(
-                                  //       content:
-                                  //           Text('Blog deleted successfully')),
-                                  // );
-                                  CustomToastMessagee.show(
-                                      message: 'Blog Deleted Successfully',
-                                      color: Colors.red);
-                                }
-                              } else {
-                                // ScaffoldMessenger.of(context).showSnackBar(
-                                //   SnackBar(
-                                //       content: Text('Failed to delete blog')),
-                                // );
+            //                   if (success == true) {
+            //                     if (mounted) {
+            //                       Navigator.pop(context);
+            //                       // ScaffoldMessenger.of(context).showSnackBar(
+            //                       //   SnackBar(
+            //                       //       content:
+            //                       //           Text('Blog deleted successfully')),
+            //                       // );
+            //                       CustomToastMessagee.show(
+            //                           message: 'Blog Deleted Successfully',
+            //                           color: Colors.red);
+            //                     }
+            //                   } else {
+            //                     // ScaffoldMessenger.of(context).showSnackBar(
+            //                     //   SnackBar(
+            //                     //       content: Text('Failed to delete blog')),
+            //                     // );
 
-                                CustomToastMessagee.show(
-                                    message: 'Failed to delete blog',
-                                    color: Colors.red);
-                              }
-                            },
-                            icon: Icon(Icons.delete),
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    'Created at: ${widget.blog.createdAt!.split('T').first}',
-                                  ),
-                                  width:
-                                      300, // ✅ Allowed only with floating behavior
-                                  behavior: SnackBarBehavior
-                                      .floating, // ✅ Must be set
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                  ), // Optional: looks better when floating
-                                ),
-                              );
-                            },
-                            icon: Icon(Icons.info),
-                          )
-                        ],
-                      ),
-                    ),
-                  )),
+            //                     CustomToastMessagee.show(
+            //                         message: 'Failed to delete blog',
+            //                         color: Colors.red);
+            //                   }
+            //                 },
+            //                 icon: Icon(Icons.delete),
+            //               ),
+            //               IconButton(
+            //                 onPressed: () {
+            //                   ScaffoldMessenger.of(context).showSnackBar(
+            //                     SnackBar(
+            //                       content: Text(
+            //                         'Created at: ${widget.blog.createdAt!.split('T').first}',
+            //                       ),
+            //                       width:
+            //                           300, // ✅ Allowed only with floating behavior
+            //                       behavior: SnackBarBehavior
+            //                           .floating, // ✅ Must be set
+            //                       shape: RoundedRectangleBorder(
+            //                         borderRadius: BorderRadius.circular(12),
+            //                       ), // Optional: looks better when floating
+            //                     ),
+            //                   );
+            //                 },
+            //                 icon: Icon(Icons.info),
+            //               )
+            //             ],
+            //           ),
+            //         ),
+            //       )),
           ],
         ),
       ),

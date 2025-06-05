@@ -3,6 +3,7 @@ import 'package:inkbloom/ViewModel/blogprovider.dart';
 import 'package:inkbloom/ViewModel/userprovider.dart';
 
 import 'package:inkbloom/widgets/bloglistview.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 class Myblogs extends StatefulWidget {
@@ -24,7 +25,7 @@ class _FavoriteScreenState extends State<Myblogs> {
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context);
-
+    final blogprovider = Provider.of<BlogProvider>(context);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -36,23 +37,31 @@ class _FavoriteScreenState extends State<Myblogs> {
               fontFamily: 'CrimsonText-Bold'),
         ),
       ),
-      body: SizedBox(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(
-                height: 30,
+      body: blogprovider.isLoading
+          ? Center(
+              child: Lottie.asset(
+              'assets/animations/lottieeee.json',
+              width: 200,
+              height: 200,
+              fit: BoxFit.contain,
+            ))
+          : SizedBox(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 30,
+                    ),
+                    BlogListSection(
+                      blogs: context
+                          .watch<BlogProvider>()
+                          .getMyBlogs(userProvider.name ?? 'Unknown'),
+                      isLoading: context.watch<BlogProvider>().isLoading,
+                    )
+                  ],
+                ),
               ),
-              BlogListSection(
-                blogs: context
-                    .watch<BlogProvider>()
-                    .getMyBlogs(userProvider.name ?? 'Unknown'),
-                isLoading: context.watch<BlogProvider>().isLoading,
-              )
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }
