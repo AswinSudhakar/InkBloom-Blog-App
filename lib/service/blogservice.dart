@@ -22,6 +22,7 @@ class Blogservice {
         'Authorization': 'Bearer $token',
       });
       // print('Fetching blogs from: ${Apis().baseurl}${Apis().blogurl}');
+      debugPrint("📡 API CALL: Getting all blogs ...");
 
       if (response.statusCode == 200) {
         final List<dynamic> responsebody = jsonDecode(response.body);
@@ -54,6 +55,7 @@ class Blogservice {
         'POST',
         Uri.parse("${Apis().baseurl}${Apis().blogurl}"),
       );
+      debugPrint("📡 API CALL: Add blog...");
 
       request.headers['Authorization'] = 'Bearer $token';
       request.headers['Content-Type'] = 'multipart/form-data';
@@ -104,7 +106,9 @@ class Blogservice {
         'PATCH',
         Uri.parse("${Apis().baseurl}${Apis().blogurl}${blogmodel.id}"),
       );
-      debugPrint('The editing request url is $request');
+
+      debugPrint("📡 API CALL: Edit Blog...");
+      // debugPrint('The editing request url is $request');
 
       request.headers['Authorization'] = 'Bearer $token';
       request.headers['Content-Type'] = 'multipart/form-data';
@@ -200,6 +204,7 @@ class Blogservice {
           'Authorization': 'Bearer $token',
         },
       );
+      debugPrint("📡 API CALL: Delete Blog...");
 
       debugPrint('DELETE request sent to: $url');
       debugPrint('Status code: ${response.statusCode}');
@@ -233,6 +238,7 @@ class Blogservice {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer $token',
           });
+      debugPrint("📡 API CALL: Edit Blog...");
 
       if (request.statusCode == 200) {
         final List<dynamic> responsebody = jsonDecode(request.body);
@@ -262,6 +268,7 @@ class Blogservice {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer $token',
           });
+      debugPrint("📡 API CALL: filter Blog by $category...");
 
       if (request.statusCode == 200) {
         final List<dynamic> responsebody = jsonDecode(request.body);
@@ -290,6 +297,9 @@ class Blogservice {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer $token',
           });
+
+      debugPrint("📡 API CALL: Add Blog To Favorite...");
+
       if (request.statusCode == 200) {
         final requestbody = await jsonDecode(request.body);
         debugPrint("The blog added to favorites $requestbody");
@@ -313,6 +323,8 @@ class Blogservice {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
       });
+
+      debugPrint("📡 API CALL: Get all Favorite Blogs...");
       if (request.statusCode == 200) {
         List<dynamic> requestbody = jsonDecode(request.body);
         final List<BlogModel> blogs =
@@ -336,6 +348,7 @@ class Blogservice {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer $token',
           });
+      debugPrint("📡 API CALL: Delete Blog From Favorites...");
 
       if (request.statusCode == 200) {
         final reqbody = jsonDecode(request.body);
