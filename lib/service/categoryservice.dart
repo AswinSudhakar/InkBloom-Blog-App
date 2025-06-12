@@ -10,11 +10,9 @@ class Categoryservice {
   final client = http.Client();
 
   //get all categories
-
   Future<List<String>?> getallCAtegory() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     final token = pref.getString('token');
-
     try {
       final request = await client
           .get(Uri.parse("${Apis().baseurl}${Apis().categoryall}"), headers: {
@@ -22,10 +20,8 @@ class Categoryservice {
         'Authorization': 'Bearer $token',
       });
       print('getting categories from ${Apis().baseurl}${Apis().categoryall}');
-
       if (request.statusCode == 200) {
         final List<String> categories = jsonDecode(request.body);
-
         print('category length is ${categories.length}');
         return categories.isNotEmpty ? categories : null;
       } else {
@@ -37,6 +33,8 @@ class Categoryservice {
       return null;
     }
   }
+
+//Update CAtegory
 
   Future<String?> updateCategories(List<String> categories) async {
     SharedPreferences pref = await SharedPreferences.getInstance();

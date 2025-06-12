@@ -1,6 +1,7 @@
 import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:inkbloom/View/blogscreens/recommentedblogs.dart';
+import 'package:inkbloom/View/blogscreens/searchscreen.dart';
 import 'package:lottie/lottie.dart';
 import 'package:inkbloom/ViewModel/blogprovider.dart';
 import 'package:inkbloom/ViewModel/themeprovider.dart';
@@ -116,33 +117,48 @@ class _HomeScreenState extends State<HomeScreen2> with RouteAware {
             ),
           ),
           actions: [
-            AnimSearchBar(
-              searchIconColor:
-                  themeprovider.isDarkMode ? Colors.white : Colors.black,
-              textFieldColor: Colors.grey.shade200,
-              boxShadow: false,
-              color: themeprovider.isDarkMode ? Colors.black : Colors.white,
-              width: 280,
-              textController: _searchController,
-              onSuffixTap: () {
-                setState(() {
-                  _searchController.clear();
-                });
-              },
-              onSubmitted: (query) {
-                if (query.trim().isNotEmpty) {
-                  Provider.of<BlogProvider>(context, listen: false)
-                      .SearchBlogs(query);
-                  setState(() {
-                    selectedCategory = 'Search';
-                    _searchController.clear();
-                  });
-                }
-              },
-              closeSearchOnSuffixTap: true,
-              helpText: 'Search blogs...',
-              animationDurationInMilli: 300,
-            ),
+            InkWell(
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Searchscreen(),
+                    )),
+                child: Icon(Icons.search)),
+            // InkWell(
+            //     onTap: () => Navigator.push(
+            //         context,
+            //         MaterialPageRoute(
+            //           builder: (context) => Searchscreen(),
+            //         )),
+            //     child: Icon(Icons.search)
+            // AnimSearchBar(
+            //   searchIconColor:
+            //       themeprovider.isDarkMode ? Colors.white : Colors.black,
+            //   textFieldColor: Colors.grey.shade200,
+            //   boxShadow: false,
+            //   color: themeprovider.isDarkMode ? Colors.black : Colors.white,
+            //   width: 280,
+            //   textController: _searchController,
+            //   onSuffixTap: () {
+            //     setState(() {
+            //       _searchController.clear();
+            //     });
+            //   },
+            //   onSubmitted: (query) {
+            //     if (query.trim().isNotEmpty) {
+            //       Provider.of<BlogProvider>(context, listen: false)
+            //           .SearchBlogs(query);
+            //       setState(() {
+            //         selectedCategory = 'Search';
+            //         _searchController.clear();
+            //       });
+            //     }
+            //   },
+            //   closeSearchOnSuffixTap: true,
+            //   helpText: 'Search blogs...',
+            //   animationDurationInMilli: 300,
+            // ),
+            // ),
             if (selectedCategory == 'Search')
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),

@@ -26,7 +26,11 @@ class BlogListSection extends StatelessWidget {
       return const Center(
         child: Text(
           'No blogs found',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w400,
+            fontFamily: 'CrimsonText-Bold',
+          ),
         ),
       );
     }
