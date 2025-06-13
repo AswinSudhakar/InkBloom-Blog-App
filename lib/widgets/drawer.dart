@@ -152,11 +152,6 @@ class _AppDrawerState extends State<AppDrawer> {
                     text: "Logout",
                     onTap: () => authservice.logOut(context),
                   ),
-                  _buildDrawerItem(
-                    icon: Icons.newspaper,
-                    text: "Logout",
-                    onTap: () => _navigateTo(context, Shimmerloading(context)),
-                  ),
                 ],
               ),
             ),
