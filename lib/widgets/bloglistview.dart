@@ -82,9 +82,17 @@ class BlogListSection extends StatelessWidget {
                             return Container(
                               width: 120,
                               color: Colors.grey[300],
-                              child: const Center(
-                                  child: CircularProgressIndicator(
-                                      strokeWidth: 2)),
+                              child: Center(
+                                child: CircularProgressIndicator(
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary,
+                                  value: loadingProgress.expectedTotalBytes !=
+                                          null
+                                      ? loadingProgress.cumulativeBytesLoaded /
+                                          loadingProgress.expectedTotalBytes!
+                                      : null,
+                                ),
+                              ),
                             );
                           },
                           errorBuilder: (context, error, stackTrace) {

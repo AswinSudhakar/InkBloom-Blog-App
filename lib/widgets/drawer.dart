@@ -5,6 +5,7 @@ import 'package:inkbloom/View/drawer/privacyandpolicy.dart';
 import 'package:inkbloom/View/drawer/settings.dart';
 import 'package:inkbloom/ViewModel/userprovider.dart';
 import 'package:inkbloom/service/authservice.dart';
+import 'package:inkbloom/widgets/shimmer.dart';
 import 'package:provider/provider.dart';
 
 class AppDrawer extends StatefulWidget {
@@ -150,6 +151,11 @@ class _AppDrawerState extends State<AppDrawer> {
                     icon: Icons.logout,
                     text: "Logout",
                     onTap: () => authservice.logOut(context),
+                  ),
+                  _buildDrawerItem(
+                    icon: Icons.newspaper,
+                    text: "Logout",
+                    onTap: () => _navigateTo(context, Shimmerloading(context)),
                   ),
                 ],
               ),

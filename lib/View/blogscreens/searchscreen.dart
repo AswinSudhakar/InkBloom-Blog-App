@@ -5,6 +5,7 @@ import 'package:inkbloom/ViewModel/themeprovider.dart';
 import 'package:inkbloom/test.dart';
 
 import 'package:inkbloom/widgets/bloglistview.dart';
+import 'package:inkbloom/widgets/shimmer.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
@@ -79,14 +80,21 @@ class _SearchscreenState extends State<Searchscreen> {
           actions: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Theme.of(context)
+                      .colorScheme
+                      .onPrimary, // Background color
+                  borderRadius: BorderRadius.circular(12), // Rounded corners
+                ),
                 height: 40,
                 width: 300,
                 child: TextField(
                   style: TextStyle(
                     fontFamily: 'CrimsonText-Bold',
+                    color: Theme.of(context).colorScheme.primary,
                   ),
-                  cursorColor: Theme.of(context).colorScheme.onPrimary,
+                  cursorColor: Theme.of(context).colorScheme.primary,
                   focusNode: _focusnode,
                   controller: _searchController,
                   onSubmitted: (query) {
@@ -102,6 +110,7 @@ class _SearchscreenState extends State<Searchscreen> {
                       hintText: 'Search Here...',
                       hintStyle: TextStyle(
                         fontFamily: 'CrimsonText-Bold',
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                       suffixIcon: _isFocused
                           ? IconButton(
@@ -123,7 +132,7 @@ class _SearchscreenState extends State<Searchscreen> {
         ),
         body: hassearched
             ? blogProvider.isLoading
-                ? Center(child: buildShimmerList())
+                ? Center(child: Shimmerloading(context))
                 : SingleChildScrollView(
                     child: Column(
                       children: [

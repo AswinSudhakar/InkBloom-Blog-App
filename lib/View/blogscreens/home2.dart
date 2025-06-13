@@ -2,6 +2,7 @@ import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:inkbloom/View/blogscreens/recommentedblogs.dart';
 import 'package:inkbloom/View/blogscreens/searchscreen.dart';
+import 'package:inkbloom/widgets/shimmer.dart';
 import 'package:lottie/lottie.dart';
 import 'package:inkbloom/ViewModel/blogprovider.dart';
 import 'package:inkbloom/ViewModel/themeprovider.dart';
@@ -186,19 +187,13 @@ class _HomeScreenState extends State<HomeScreen2> with RouteAware {
           ],
         ),
         body: blogProvider.isLoading
-            ? Center(
-                child: Lottie.asset(
-                  'assets/animations/lottieeee.json',
-                  width: 200,
-                  height: 200,
-                  fit: BoxFit.contain,
-                ),
+            ? Center(child: Shimmerloading(context)
                 // Padding(
                 //   padding: EdgeInsets.symmetric(vertical: 100),
                 //   child:
                 //   CircularProgressIndicator(),
                 // ),
-              )
+                )
             : RefreshIndicator(
                 onRefresh: blogProvider.refreshblogs,
                 child: ListView(
@@ -207,51 +202,45 @@ class _HomeScreenState extends State<HomeScreen2> with RouteAware {
                     if (blogProvider.userprefblogs.isNotEmpty)
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        child: Column(
+                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Chip(
-                              elevation: 3,
-                              shadowColor: Colors.grey.shade400,
-                              side: BorderSide.none,
-                              label: Text(
-                                'Recommended',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: 'CrimsonText-Bold',
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  width: 20,
                                 ),
-                              ),
-                              backgroundColor: Colors.grey.shade300,
+                                Chip(
+                                  elevation: 3,
+                                  shadowColor: Colors.grey.shade400,
+                                  side: BorderSide.none,
+                                  label: Text(
+                                    'Recommended',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: 'CrimsonText-Bold',
+                                    ),
+                                  ),
+                                  backgroundColor: Colors.grey.shade300,
+                                ),
+                              ],
                             ),
-                            // if (userprefblog.length > 5)
-                            //   TextButton(
-                            //     onPressed: () {
-                            //       Navigator.push(
-                            //         context,
-                            //         MaterialPageRoute(
-                            //             builder: (context) =>
-                            //                 RecommentedBlogs()),
-                            //       );
-                            //     },
-                            //     child: Text(
-                            //       'View All →',
-                            //       style: TextStyle(
-                            //         color: Colors.black,
-                            //         fontFamily: 'CrimsonText-Bold',
-                            //         fontSize: 14,
-                            //       ),
-                            //     ),
-                            //   ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            HorizontalBlogList(
+                              blogs:
+                                  context.watch<BlogProvider>().userprefblogs,
+                              isLoading:
+                                  context.watch<BlogProvider>().isLoading,
+                            ),
+                            SizedBox(height: 10),
+                            SizedBox(height: 20),
                           ],
                         ),
                       ),
-                    SizedBox(height: 10),
-                    HorizontalBlogList(
-                      blogs: context.watch<BlogProvider>().userprefblogs,
-                      isLoading: context.watch<BlogProvider>().isLoading,
-                    ),
-                    SizedBox(height: 20),
                     Padding(
                       padding: const EdgeInsets.only(left: 10),
                       child: SingleChildScrollView(

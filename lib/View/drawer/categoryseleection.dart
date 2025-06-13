@@ -89,113 +89,128 @@ class _CategoryScreenState extends State<CategoryScreen> {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            // // Clear All Button
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.start,
-            //   children: [
-            //     ElevatedButton(
-            //       onPressed: () {
-            //         clearAllCategories();
-            //       },
-            //       style: ElevatedButton.styleFrom(
-            //         padding: EdgeInsets.symmetric(vertical: 16),
-            //         backgroundColor: const Color.fromARGB(255, 212, 107, 107),
-            //         shape: RoundedRectangleBorder(
-            //           borderRadius: BorderRadius.circular(10),
-            //         ),
-            //       ),
-            //       child: Text(
-            //         'Clear All',
-            //         style: TextStyle(
-            //           fontSize: 18,
-            //           color: Colors.white,
-            //           fontFamily: 'CrimsonText-SemiBoldItalic',
-            //         ),
-            //       ),
-            //     ),
-            //   ],
-            // ),
             SizedBox(
               height: 20,
             ),
-            Expanded(
-              child: GridView.builder(
-                itemCount: categories.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, // 2 columns
-                  mainAxisSpacing: 12,
-                  crossAxisSpacing: 12,
-                  childAspectRatio: 2.5,
-                ),
-                itemBuilder: (context, index) {
-                  final category = categories[index];
-                  final isSelected = selectedcategories.contains(category);
 
-                  return GestureDetector(
-                    onTap: () => oncategoryTappped(category),
-                    child: Card(
-                      elevation: 3,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        side: BorderSide(
-                          color:
-                              isSelected ? Colors.grey : Colors.grey.shade300,
-                          width: 2,
-                        ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: categories.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 12,
+                        crossAxisSpacing: 12,
+                        childAspectRatio: 2.5,
                       ),
-                      color: isSelected
-                          ? Colors.grey.withOpacity(0.8)
-                          : Colors.white,
-                      child: Center(
-                        child: Text(
-                          category,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'CrimsonText-SemiBoldItalic',
-                            color: isSelected ? Colors.white : Colors.black87,
-                            fontSize: 16,
+                      itemBuilder: (context, index) {
+                        final category = categories[index];
+                        final isSelected =
+                            selectedcategories.contains(category);
+
+                        return GestureDetector(
+                          onTap: () => oncategoryTappped(category),
+                          child: Card(
+                            elevation: 3,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              side: BorderSide(
+                                color: isSelected
+                                    ? Colors.grey
+                                    : Colors.grey.shade300,
+                                width: 2,
+                              ),
+                            ),
+                            color: isSelected
+                                ? Colors.grey.withOpacity(0.8)
+                                : Colors.white,
+                            child: Center(
+                              child: Text(
+                                category,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'CrimsonText-SemiBoldItalic',
+                                  color: isSelected
+                                      ? Colors.white
+                                      : Colors.black87,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
                           ),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    TextButton(
+                      onPressed: clearAllCategories,
+                      child: const Text(
+                        'Clear All Categories',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.red,
+                          fontFamily: 'CrimsonText-SemiBoldItalic',
                         ),
                       ),
                     ),
-                  );
-                },
+                    const SizedBox(height: 20),
+                  ],
+                ),
               ),
             ),
+
+            // Expanded(
+            //   child: GridView.builder(
+            //     itemCount: categories.length,
+            //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            //       crossAxisCount: 2, // 2 columns
+            //       mainAxisSpacing: 12,
+            //       crossAxisSpacing: 12,
+            //       childAspectRatio: 2.5,
+            //     ),
+            //     itemBuilder: (context, index) {
+            //       final category = categories[index];
+            //       final isSelected = selectedcategories.contains(category);
+
+            //       return GestureDetector(
+            //         onTap: () => oncategoryTappped(category),
+            //         child: Card(
+            //           elevation: 3,
+            //           shape: RoundedRectangleBorder(
+            //             borderRadius: BorderRadius.circular(20),
+            //             side: BorderSide(
+            //               color:
+            //                   isSelected ? Colors.grey : Colors.grey.shade300,
+            //               width: 2,
+            //             ),
+            //           ),
+            //           color: isSelected
+            //               ? Colors.grey.withOpacity(0.8)
+            //               : Colors.white,
+            //           child: Center(
+            //             child: Text(
+            //               category,
+            //               style: TextStyle(
+            //                 fontWeight: FontWeight.bold,
+            //                 fontFamily: 'CrimsonText-SemiBoldItalic',
+            //                 color: isSelected ? Colors.white : Colors.black87,
+            //                 fontSize: 16,
+            //               ),
+            //             ),
+            //           ),
+            //         ),
+            //       );
+            //     },
+            //   ),
+            // ),
           ],
         ),
       ),
-      // bottomNavigationBar: Container(
-      //   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-      //   child: ElevatedButton(
-      //     style: ElevatedButton.styleFrom(
-      //       padding: EdgeInsets.symmetric(vertical: 16),
-      //       backgroundColor: Colors.grey.shade300,
-      //       shape: RoundedRectangleBorder(
-      //         borderRadius: BorderRadius.circular(30),
-      //       ),
-      //       elevation: 5,
-      //     ),
-      //     onPressed: () {
-      //       Provider.of<CategoryProvider>(context, listen: false)
-      //           .updateUserCategories(selectedcategories);
-      //       print('Selected categories: $selectedcategories');
-      //       Navigator.push(
-      //           context,
-      //           MaterialPageRoute(
-      //             builder: (context) => HomeScreen2(),
-      //           ));
-      //     },
-      //     child: Text(
-      //       'Submit',
-      //       style: TextStyle(
-      //           fontSize: 18,
-      //           color: Colors.black,
-      //           fontFamily: 'CrimsonText-SemiBoldItalic'),
-      //     ),
-      //   ),
-      // ),
-
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
         child: Row(

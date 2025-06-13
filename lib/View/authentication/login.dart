@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:inkbloom/View/blogscreens/mainhome.dart';
 import 'package:inkbloom/View/drawer/categoryseleection.dart';
+import 'package:inkbloom/View/drawer/categorystart.dart';
 import 'package:inkbloom/ViewModel/userprovider.dart';
 import 'package:inkbloom/models/user/usermodel.dart';
 import 'package:inkbloom/service/authservice.dart';
@@ -46,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (_) => CategoryScreen(),
+                builder: (_) => CategoryScreenstart(),
               ),
             );
           } else {

@@ -173,6 +173,7 @@ class _BlogDetailState extends State<BlogDetail> {
                   if (loadingProgress == null) return child;
                   return Center(
                     child: CircularProgressIndicator(
+                      color: Theme.of(context).colorScheme.onPrimary,
                       value: loadingProgress.expectedTotalBytes != null
                           ? loadingProgress.cumulativeBytesLoaded /
                               loadingProgress.expectedTotalBytes!

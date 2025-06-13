@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:inkbloom/ViewModel/blogprovider.dart';
 import 'package:inkbloom/widgets/bloglistview.dart';
+import 'package:inkbloom/widgets/shimmer.dart';
 import 'package:provider/provider.dart';
 
 class RecommentedBlogs extends StatefulWidget {
@@ -25,22 +26,24 @@ class _RecommentedBlogsState extends State<RecommentedBlogs> {
               fontFamily: 'CrimsonText-Bold'),
         ),
       ),
-      body: RefreshIndicator(
-        onRefresh: blogprovider.refreshuserpref,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(
-                height: 30,
+      body: blogprovider.isLoading
+          ? Center(child: Shimmerloading(context))
+          : RefreshIndicator(
+              onRefresh: blogprovider.refreshuserpref,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 30,
+                    ),
+                    BlogListSection(
+                      blogs: context.watch<BlogProvider>().userprefblogs,
+                      isLoading: context.watch<BlogProvider>().isLoading,
+                    )
+                  ],
+                ),
               ),
-              BlogListSection(
-                blogs: context.watch<BlogProvider>().userprefblogs,
-                isLoading: context.watch<BlogProvider>().isLoading,
-              )
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }

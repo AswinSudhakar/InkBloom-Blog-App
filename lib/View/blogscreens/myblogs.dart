@@ -3,6 +3,7 @@ import 'package:inkbloom/ViewModel/blogprovider.dart';
 import 'package:inkbloom/ViewModel/userprovider.dart';
 
 import 'package:inkbloom/widgets/bloglistview.dart';
+import 'package:inkbloom/widgets/shimmer.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
@@ -38,13 +39,7 @@ class _FavoriteScreenState extends State<Myblogs> {
         ),
       ),
       body: blogprovider.isLoading
-          ? Center(
-              child: Lottie.asset(
-              'assets/animations/lottieeee.json',
-              width: 200,
-              height: 200,
-              fit: BoxFit.contain,
-            ))
+          ? Center(child: Shimmerloading(context))
           : SizedBox(
               child: SingleChildScrollView(
                 child: Column(

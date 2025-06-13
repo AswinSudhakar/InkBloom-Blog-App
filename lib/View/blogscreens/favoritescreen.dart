@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:inkbloom/View/blogscreens/mainhome.dart';
 import 'package:inkbloom/ViewModel/blogprovider.dart';
 import 'package:inkbloom/widgets/bloglistview.dart';
+import 'package:inkbloom/widgets/shimmer.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
@@ -46,13 +47,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         ),
       ),
       body: blogprovider.isLoading
-          ? Center(
-              child: Lottie.asset(
-              'assets/animations/lottieeee.json',
-              width: 200,
-              height: 200,
-              fit: BoxFit.contain,
-            ))
+          ? Center(child: Shimmerloading(context))
           : Container(
               child: RefreshIndicator(
                 onRefresh: blogprovider.refreshfavoriites,
