@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:inkbloom/api/api.dart';
+import 'package:inkbloom/service/helper/authhelper.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -11,8 +12,9 @@ class Categoryservice {
 
   //get all categories
   Future<List<String>?> getallCAtegory() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    final token = pref.getString('token');
+    // SharedPreferences pref = await SharedPreferences.getInstance();
+    // final token = pref.getString('token');
+    final token = await AuthHelper.getToken();
     try {
       final request = await client
           .get(Uri.parse("${Apis().baseurl}${Apis().categoryall}"), headers: {
@@ -37,8 +39,9 @@ class Categoryservice {
 //Update CAtegory
 
   Future<String?> updateCategories(List<String> categories) async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    final token = pref.getString('token');
+    // SharedPreferences pref = await SharedPreferences.getInstance();
+    // final token = pref.getString('token');
+    final token = await AuthHelper.getToken();
     final Map<String, dynamic> body = {
       "selected_categories": categories,
     };
@@ -71,8 +74,9 @@ class Categoryservice {
   //get User categories
 
   Future<List<String>?> getuserCAtegory() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    final token = pref.getString('token');
+    // SharedPreferences pref = await SharedPreferences.getInstance();
+    // final token = pref.getString('token');
+    final token = await AuthHelper.getToken();
 
     try {
       final request = await client

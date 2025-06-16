@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:inkbloom/ViewModel/themeprovider.dart';
-import 'package:provider/provider.dart';
 
 class CustomToastMessagee {
   static void show({

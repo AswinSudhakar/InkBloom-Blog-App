@@ -48,7 +48,7 @@ class Authservice {
     return null;
   }
 
-  Future<String?> Register(
+  Future<String?> register(
       String username, String email, String password) async {
     final Map<String, dynamic> body = {
       "name": username,

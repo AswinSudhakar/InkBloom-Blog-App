@@ -64,7 +64,7 @@ class _MainhomeState extends State<Mainhome> {
                 color: Theme.of(context).colorScheme.onPrimary),
           ),
           content: Text(
-            'You have lost internet connection.',
+            'You have lost internet connection❗',
             style: TextStyle(
                 color: Theme.of(context).colorScheme.onPrimary,
                 fontFamily: 'CrimsonText-Bold'),

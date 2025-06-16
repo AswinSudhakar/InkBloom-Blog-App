@@ -260,7 +260,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ));
       Authservice authservice = Authservice();
       try {
-        final user = await authservice.Register(
+        final user = await authservice.register(
           _usernameController.text,
           _emailController.text,
           _passwordController.text,
@@ -437,6 +437,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
         border: Border(bottom: BorderSide(color: Colors.grey.shade200)),
       ),
       child: TextFormField(
+          style: TextStyle(
+              color: Colors.grey, fontFamily: 'CrimsonText-SemiBoldItalic'),
           controller: controller,
           obscureText: isPassword
               ? (isConfirmPassword

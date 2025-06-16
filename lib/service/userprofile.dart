@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:inkbloom/api/api.dart';
 import 'package:inkbloom/models/user/usermodel.dart';
+import 'package:inkbloom/service/helper/authhelper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final String pbaseurl = 'https://simple-blogging.onrender.com';
@@ -15,6 +17,7 @@ class ProfileService {
   Future<UserProfileModel?> getUserProfile() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     _token = pref.getString('token');
+
     try {
       final response = await client.get(
           Uri.parse('https://simple-blogging.onrender.com/users/profile'),
@@ -37,7 +40,7 @@ class ProfileService {
         } else {
           avatar = ""; // Default to empty if null
         }
-        print("Profile Image URL: $avatar");
+        debugPrint("Profile Image URL: $avatar");
         // Update the userProfile instance with the corrected image URL
 
         await pref.setString('name', userprofile.name ?? 'Guest');
@@ -49,60 +52,24 @@ class ProfileService {
         await pref.setStringList(
             'selected_categories', userprofile.selectedCategories ?? []);
 
-        print(userprofile);
+        debugPrint('$userprofile');
         return userprofile;
       }
     } catch (e) {
-      print(e);
+      debugPrint('$e');
     }
     return null;
   }
 
-// Future<bool?> editUserProfile(String username, File? avatar) async {
-//   SharedPreferences pref = await SharedPreferences.getInstance();
-//   final token = pref.getString('token');
-//   final uri = Uri.parse("${Apis().baseurl}${Apis().profile}");
-
-//   try {
-//     final request = http.MultipartRequest("PUT", uri);
-//     request.headers['Authorization'] = 'Bearer $token';
-
-//     request.fields['name'] = username;
-
-//     if (avatar != null) {
-//       request.files.add(
-//         await http.MultipartFile.fromPath('profile_image', avatar.path),
-//       );
-//     }
-
-//     final response = await request.send();
-
-//     if (response.statusCode == 200 || response.statusCode == 201) {
-//       print('User Data Updated successfully.');
-//       final responseBody = await response.stream.bytesToString();
-//       final data = json.decode(responseBody);
-//       print(data);
-//       return true;
-//     } else {
-//       print('Profile update failed: ${response.statusCode}');
-//       final errorBody = await response.stream.bytesToString();
-//       print('Response: $errorBody');
-//       return false;
-//     }
-//   } catch (e) {
-//     print('Error during profile update: $e');
-//     return false;
-//   }
-// }
-
   Future<bool?> editUserProfile(String username, dynamic image) async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    _token = pref.getString('token');
+    // SharedPreferences pref = await SharedPreferences.getInstance();
+    // _token = pref.getString('token');
+    final token = await AuthHelper.getToken();
 
     try {
       final uri = Uri.parse("${Apis().baseurl}${Apis().profile}");
       var request = http.MultipartRequest('PUT', uri);
-      request.headers['Authorization'] = 'Bearer $_token';
+      request.headers['Authorization'] = 'Bearer $token';
 
       request.fields['name'] = username;
 
@@ -119,50 +86,16 @@ class ProfileService {
       final response = await request.send();
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        print("Profile updated successfully");
+        debugPrint("Profile updated successfully");
         return true;
       } else {
         final responseBody = await response.stream.bytesToString();
-        print('Update failed: ${response.statusCode} - $responseBody');
+        debugPrint('Update failed: ${response.statusCode} - $responseBody');
       }
     } catch (e) {
-      print("Error during profile update: $e");
+      debugPrint("Error during profile update: $e");
     }
 
     return false;
   }
-
-  // //edit the user category
-  // Future<void> editUserCAtegory(List<String> categories) async {
-  //   SharedPreferences pref = await SharedPreferences.getInstance();
-  //   _token = pref.getString('token');
-  //   final Map<String, dynamic> body = {
-  //     "selected_categories": categories,
-  //   };
-
-  //   try {
-  //     final response =
-  //         await client.put(Uri.parse("${Apis().baseurl}${Apis().category}"),
-  //             headers: {
-  //               'Content-Type': 'application/json',
-  //               'Authorization': 'Bearer $_token',
-  //             },
-  //             body: jsonEncode(body));
-
-  //     if (response.statusCode == 200 || response.statusCode == 201) {
-  //       print('User Data Updated successfully.');
-  //       final data = json.decode(response.body);
-
-  //       final message = data['message'];
-  //       // print(message);
-  //       return message;
-  //     } else {
-  //       print('profile Update failed with status code: ${response.statusCode}');
-  //       print('Response: ${response.body}');
-  //     }
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  //   return;
-  // }
 }

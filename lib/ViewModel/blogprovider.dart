@@ -1,7 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:inkbloom/models/blog/blogmodel.dart';
-import 'package:inkbloom/service/blogservice.dart';
+import 'package:inkbloom/service/blog/blog_search_service.dart';
+import 'package:inkbloom/service/blog/blogservice.dart';
+import 'package:inkbloom/service/blog/favorite_service.dart';
 
 class BlogProvider extends ChangeNotifier {
   List<BlogModel> _blogs = [];
@@ -141,7 +143,7 @@ class BlogProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final newblogs = await Blogservice().searchBlogs(query);
+      final newblogs = await BlogSearchService().searchBlogs(query);
       debugPrint("🔁 Search blogs : ${newblogs?.length}");
 
       _searchedblogs.clear();
@@ -168,7 +170,7 @@ class BlogProvider extends ChangeNotifier {
   //add to fav
 
   Future<void> addToFavorite(String id) async {
-    final message = await Blogservice().addToFavorite(id);
+    final message = await FavoriteService().addToFavorite(id);
     debugPrint("Favorite message: $message");
 
     _favoriteMessage = message;
@@ -182,7 +184,7 @@ class BlogProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      List<BlogModel>? favblogs = await Blogservice().getFavoriteBlogs();
+      List<BlogModel>? favblogs = await FavoriteService().getFavoriteBlogs();
       _favoriteBlogs = favblogs ?? []; // Ensuring non-null list
     } catch (e) {
       _error = "Failed to fetch blogs: $e";
@@ -194,7 +196,7 @@ class BlogProvider extends ChangeNotifier {
 
   //delete fav blog
   Future<bool?> deleteFromFav(String id) async {
-    final success = await Blogservice().deletefromFavorite(id);
+    final success = await FavoriteService().deletefromFavorite(id);
     if (success == true) {
       notifyListeners();
       await getfavBlogs();

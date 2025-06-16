@@ -82,21 +82,33 @@ class _SearchscreenState extends State<Searchscreen> {
               padding: const EdgeInsets.all(8.0),
               child: Container(
                 decoration: BoxDecoration(
-                  color: Theme.of(context)
-                      .colorScheme
-                      .onPrimary, // Background color
-                  borderRadius: BorderRadius.circular(12), // Rounded corners
+                  color: Colors.grey.withOpacity(.4), // Background color
+                  borderRadius: BorderRadius.circular(8), // Rounded corners
                 ),
                 height: 40,
                 width: 300,
                 child: TextField(
                   style: TextStyle(
                     fontFamily: 'CrimsonText-Bold',
-                    color: Theme.of(context).colorScheme.primary,
+                    color: Theme.of(context).colorScheme.onPrimary,
                   ),
-                  cursorColor: Theme.of(context).colorScheme.primary,
+                  cursorColor: Theme.of(context).colorScheme.onPrimary,
                   focusNode: _focusnode,
                   controller: _searchController,
+                  onChanged: (query) {
+                    if (query.length > 3) {
+                      setState(() {
+                        hassearched = true; // 👈 Add this line
+                      });
+                      Provider.of<BlogProvider>(context, listen: false)
+                          .SearchBlogs(query);
+                    } else {
+                      setState(() {
+                        hassearched =
+                            false; // 👈 hide results for short queries
+                      });
+                    }
+                  },
                   onSubmitted: (query) {
                     setState(() {
                       hassearched = true;
@@ -110,7 +122,7 @@ class _SearchscreenState extends State<Searchscreen> {
                       hintText: 'Search Here...',
                       hintStyle: TextStyle(
                         fontFamily: 'CrimsonText-Bold',
-                        color: Theme.of(context).colorScheme.primary,
+                        color: Theme.of(context).colorScheme.onPrimary,
                       ),
                       suffixIcon: _isFocused
                           ? IconButton(

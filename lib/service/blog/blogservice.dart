@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:inkbloom/api/api.dart';
 import 'package:inkbloom/models/blog/blogmodel.dart';
+import 'package:inkbloom/service/helper/authhelper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Blogservice {
@@ -11,9 +12,10 @@ class Blogservice {
 
   //Get all Blogs
   Future<List<BlogModel>?> getAllBlogs() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    final token = pref.getString('token');
+    // SharedPreferences pref = await SharedPreferences.getInstance();
+    // final token = pref.getString('token');
     // print('the token is :$token');
+    final token = await AuthHelper.getToken();
 
     try {
       final response = await client
@@ -47,8 +49,9 @@ class Blogservice {
 
   //add blog
   Future<String?> addBlog(BlogModel blogmodel) async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    final token = pref.getString('token');
+    // SharedPreferences pref = await SharedPreferences.getInstance();
+    // final token = pref.getString('token');
+    final token = await AuthHelper.getToken();
 
     try {
       var request = http.MultipartRequest(
@@ -98,8 +101,9 @@ class Blogservice {
 
   //edit blog
   Future<String?> editBlog(BlogModel blogmodel) async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    final token = pref.getString('token');
+    // SharedPreferences pref = await SharedPreferences.getInstance();
+    // final token = pref.getString('token');
+    final token = await AuthHelper.getToken();
 
     try {
       var request = http.MultipartRequest(
@@ -157,8 +161,10 @@ class Blogservice {
 
   //get the blogs by user category
   Future<List<BlogModel>?> getBlogsByuserCategory() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    final token = pref.getString('token');
+    // SharedPreferences pref = await SharedPreferences.getInstance();
+    // final token = pref.getString('token');
+    final token = await AuthHelper.getToken();
+
     try {
       final response = await client.get(
           Uri.parse(
@@ -192,8 +198,9 @@ class Blogservice {
 
   //delete blog
   Future<bool?> deleteBlog(BlogModel blogModel) async {
-    final SharedPreferences pref = await SharedPreferences.getInstance();
-    final token = pref.getString('token');
+    // final SharedPreferences pref = await SharedPreferences.getInstance();
+    // final token = pref.getString('token');
+    final token = await AuthHelper.getToken();
 
     final url = Uri.parse("${Apis().baseurl}${Apis().blogurl}${blogModel.id}");
     try {
@@ -226,40 +233,42 @@ class Blogservice {
     return null;
   }
 
-  //search blogs
-  Future<List<BlogModel>?> searchBlogs(String query) async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    final token = pref.getString('token');
+  // //search blogs
+  // Future<List<BlogModel>?> searchBlogs(String query) async {
+  //   // SharedPreferences pref = await SharedPreferences.getInstance();
+  //   // final token = pref.getString('token');
+  //   final token = await AuthHelper.getToken();
 
-    try {
-      final request = await client.get(
-          Uri.parse("${Apis().baseurl}${Apis().blogurl}search?query=$query"),
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer $token',
-          });
-      debugPrint("📡 API CALL: Edit Blog...");
+  //   try {
+  //     final request = await client.get(
+  //         Uri.parse("${Apis().baseurl}${Apis().blogurl}search?query=$query"),
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //           'Authorization': 'Bearer $token',
+  //         });
+  //     debugPrint("📡 API CALL: Edit Blog...");
 
-      if (request.statusCode == 200) {
-        final List<dynamic> responsebody = jsonDecode(request.body);
-        debugPrint("🧪 Raw response: ${request.body}");
+  //     if (request.statusCode == 200) {
+  //       final List<dynamic> responsebody = jsonDecode(request.body);
+  //       debugPrint("🧪 Raw response: ${request.body}");
 
-        final List<BlogModel> blogs =
-            responsebody.map((json) => BlogModel.fromJson(json)).toList();
-        return blogs;
-      } else {
-        debugPrint('error occured and statuscode failed:${request.statusCode}');
-      }
-    } catch (e) {
-      debugPrint('$e');
-    }
-    return null;
-  }
+  //       final List<BlogModel> blogs =
+  //           responsebody.map((json) => BlogModel.fromJson(json)).toList();
+  //       return blogs;
+  //     } else {
+  //       debugPrint('error occured and statuscode failed:${request.statusCode}');
+  //     }
+  //   } catch (e) {
+  //     debugPrint('$e');
+  //   }
+  //   return null;
+  // }
 
   //filter blogs by selected category
   Future<List<BlogModel>?> filterBlog(String category) async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    final token = pref.getString('token');
+    // SharedPreferences pref = await SharedPreferences.getInstance();
+    // final token = pref.getString('token');
+    final token = await AuthHelper.getToken();
 
     try {
       final request = await client.get(
@@ -286,82 +295,85 @@ class Blogservice {
     return null;
   }
 
-  //add blog to favorites
-  Future<String?> addToFavorite(String id) async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    final token = pref.getString('token');
-    try {
-      final request = await client.post(
-          Uri.parse("${Apis().baseurl}${Apis().favorites}/$id"),
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer $token',
-          });
+  // //add blog to favorites
+  // Future<String?> addToFavorite(String id) async {
+  //   // SharedPreferences pref = await SharedPreferences.getInstance();
+  //   // final token = pref.getString('token');
+  //   final token = await AuthHelper.getToken();
+  //   try {
+  //     final request = await client.post(
+  //         Uri.parse("${Apis().baseurl}${Apis().favorites}/$id"),
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //           'Authorization': 'Bearer $token',
+  //         });
 
-      debugPrint("📡 API CALL: Add Blog To Favorite...");
+  //     debugPrint("📡 API CALL: Add Blog To Favorite...");
 
-      if (request.statusCode == 200) {
-        final requestbody = await jsonDecode(request.body);
-        debugPrint("The blog added to favorites $requestbody");
-        final message = requestbody['message'];
+  //     if (request.statusCode == 200) {
+  //       final requestbody = await jsonDecode(request.body);
+  //       debugPrint("The blog added to favorites $requestbody");
+  //       final message = requestbody['message'];
 
-        return message;
-      }
-    } catch (e) {
-      debugPrint('$e');
-    }
-    return null;
-  }
+  //       return message;
+  //     }
+  //   } catch (e) {
+  //     debugPrint('$e');
+  //   }
+  //   return null;
+  // }
 
-  //get all favorite blogs
-  Future<List<BlogModel>?> getFavoriteBlogs() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    final token = pref.getString('token');
-    try {
-      final request = await client
-          .get(Uri.parse("${Apis().baseurl}${Apis().favorites}"), headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
-      });
+  // //get all favorite blogs
+  // Future<List<BlogModel>?> getFavoriteBlogs() async {
+  //   // SharedPreferences pref = await SharedPreferences.getInstance();
+  //   // final token = pref.getString('token');
+  //   final token = await AuthHelper.getToken();
+  //   try {
+  //     final request = await client
+  //         .get(Uri.parse("${Apis().baseurl}${Apis().favorites}"), headers: {
+  //       'Content-Type': 'application/json',
+  //       'Authorization': 'Bearer $token',
+  //     });
 
-      debugPrint("📡 API CALL: Get all Favorite Blogs...");
-      if (request.statusCode == 200) {
-        List<dynamic> requestbody = jsonDecode(request.body);
-        final List<BlogModel> blogs =
-            requestbody.map((json) => BlogModel.fromJson(json)).toList();
-        return blogs;
-      }
-    } catch (e) {
-      debugPrint("$e");
-    }
-    return null;
-  }
+  //     debugPrint("📡 API CALL: Get all Favorite Blogs...");
+  //     if (request.statusCode == 200) {
+  //       List<dynamic> requestbody = jsonDecode(request.body);
+  //       final List<BlogModel> blogs =
+  //           requestbody.map((json) => BlogModel.fromJson(json)).toList();
+  //       return blogs;
+  //     }
+  //   } catch (e) {
+  //     debugPrint("$e");
+  //   }
+  //   return null;
+  // }
 
-  //delete blog from Favorite
-  Future<bool?> deletefromFavorite(String id) async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    final token = pref.getString('token');
-    try {
-      final request = await client.delete(
-          Uri.parse("${Apis().baseurl}${Apis().favorites}/$id"),
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer $token',
-          });
-      debugPrint("📡 API CALL: Delete Blog From Favorites...");
+  // //delete blog from Favorite
+  // Future<bool?> deletefromFavorite(String id) async {
+  //   // SharedPreferences pref = await SharedPreferences.getInstance();
+  //   // final token = pref.getString('token');
+  //   final token = await AuthHelper.getToken();
+  //   try {
+  //     final request = await client.delete(
+  //         Uri.parse("${Apis().baseurl}${Apis().favorites}/$id"),
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //           'Authorization': 'Bearer $token',
+  //         });
+  //     debugPrint("📡 API CALL: Delete Blog From Favorites...");
 
-      if (request.statusCode == 200) {
-        final reqbody = jsonDecode(request.body);
-        final message = reqbody['message'];
-        debugPrint("$message");
-        return true;
-      } else {
-        debugPrint("deleteing request failed");
-        return false;
-      }
-    } catch (e) {
-      debugPrint("$e");
-    }
-    return null;
-  }
+  //     if (request.statusCode == 200) {
+  //       final reqbody = jsonDecode(request.body);
+  //       final message = reqbody['message'];
+  //       debugPrint("$message");
+  //       return true;
+  //     } else {
+  //       debugPrint("deleteing request failed");
+  //       return false;
+  //     }
+  //   } catch (e) {
+  //     debugPrint("$e");
+  //   }
+  //   return null;
+  // }
 }

@@ -237,6 +237,8 @@ class _LoginScreenState extends State<LoginScreen> {
         border: Border(bottom: BorderSide(color: Colors.grey.shade200)),
       ),
       child: TextFormField(
+        style: TextStyle(
+            color: Colors.grey, fontFamily: 'CrimsonText-SemiBoldItalic'),
         controller: controller,
         obscureText: isPassword ? !_isPasswordVisible : false,
         decoration: InputDecoration(
