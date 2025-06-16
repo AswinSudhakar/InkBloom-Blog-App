@@ -1,11 +1,7 @@
-import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:inkbloom/View/blogscreens/recommentedblogs.dart';
 import 'package:inkbloom/View/blogscreens/searchscreen.dart';
 import 'package:inkbloom/widgets/shimmer.dart';
-import 'package:lottie/lottie.dart';
 import 'package:inkbloom/ViewModel/blogprovider.dart';
-import 'package:inkbloom/ViewModel/themeprovider.dart';
 import 'package:inkbloom/main.dart';
 import 'package:inkbloom/service/userprofile.dart';
 import 'package:inkbloom/widgets/bloglistview.dart';
@@ -92,11 +88,6 @@ class _HomeScreenState extends State<HomeScreen2> with RouteAware {
 
   @override
   Widget build(BuildContext context) {
-    final userprefblog = BlogProvider().userprefblogs;
-    final displayedblogs =
-        userprefblog.length > 5 ? userprefblog.take(5).toList() : userprefblog;
-
-    final themeprovider = Provider.of<ThemeProvider>(context);
     final blogProvider = context.watch<BlogProvider>();
     final blogsToShow = selectedCategory == "All"
         ? blogProvider.blogs

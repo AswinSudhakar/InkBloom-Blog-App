@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:inkbloom/ViewModel/blogprovider.dart';
 import 'package:inkbloom/ViewModel/userprovider.dart';
-
 import 'package:inkbloom/widgets/bloglistview.dart';
 import 'package:inkbloom/widgets/shimmer.dart';
-import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 class Myblogs extends StatefulWidget {

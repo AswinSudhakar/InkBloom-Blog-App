@@ -46,51 +46,19 @@ class _BlogDetailState extends State<BlogDetail> {
     super.initState();
     fetchAndLoadUserData();
     final blogProvider = context.read<BlogProvider>();
-    isClicked = blogProvider.favoriteBlogs.any((blog) =>
-        blog.id == widget.blog.id); // Check if blog is already favorited
+    isClicked =
+        blogProvider.favoriteBlogs.any((blog) => blog.id == widget.blog.id);
   }
 
   @override
   Widget build(BuildContext context) {
-    Future<void> addToFav(BuildContext context, String id) async {
-      final blogProvider = context.read<BlogProvider>();
-
-      await blogProvider.addToFavorite(id);
-      final message = blogProvider.favoriteMessage ?? "Something went wrong";
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-            content: Text(message,
-                style: TextStyle(fontFamily: 'CrimsonText-Bold'))),
-      );
-
-      // Toggle heart color after successful action
-      setState(() {});
-    }
-
-    Future<void> removefromFav(BuildContext context, String id) async {
-      final blogProvider = context.read<BlogProvider>();
-
-      await blogProvider.deleteFromFav(id);
-      // final message = blogProvider.favoriteMessage ?? "Something went wrong";
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-            content: Text("removed from favorites",
-                style: TextStyle(fontFamily: 'CrimsonText-Bold'))),
-      );
-
-      // Toggle heart color after successful action
-      setState(() {});
-    }
-
     return SafeArea(
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.primary,
         bottomNavigationBar: (widget.blog.author == name ||
                 widget.blog.author == email)
             ? SizedBox(
-                height: 50, // adjust height here
+                height: 50,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -113,21 +81,12 @@ class _BlogDetailState extends State<BlogDetail> {
                         if (success == true) {
                           if (mounted) {
                             Navigator.pop(context);
-                            // ScaffoldMessenger.of(context).showSnackBar(
-                            //   SnackBar(
-                            //       content:
-                            //           Text('Blog deleted successfully')),
-                            // );
+
                             CustomToastMessagee.show(
                                 message: 'Blog Deleted Successfully',
                                 color: Colors.red);
                           }
                         } else {
-                          // ScaffoldMessenger.of(context).showSnackBar(
-                          //   SnackBar(
-                          //       content: Text('Failed to delete blog')),
-                          // );
-
                           CustomToastMessagee.show(
                               message: 'Failed to delete blog',
                               color: Colors.red);
@@ -142,12 +101,11 @@ class _BlogDetailState extends State<BlogDetail> {
                             content: Text(
                               'Created at: ${widget.blog.createdAt!.split('T').first}',
                             ),
-                            width: 300, // ✅ Allowed only with floating behavior
-                            behavior:
-                                SnackBarBehavior.floating, // ✅ Must be set
+                            width: 300,
+                            behavior: SnackBarBehavior.floating,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
-                            ), // Optional: looks better when floating
+                            ),
                           ),
                         );
                       },
@@ -163,7 +121,6 @@ class _BlogDetailState extends State<BlogDetail> {
             SizedBox(
               height: 350,
               width: double.infinity,
-
               child: Image.network(
                 widget.blog.imageUrl?.isNotEmpty == true
                     ? widget.blog.imageUrl!
@@ -191,19 +148,11 @@ class _BlogDetailState extends State<BlogDetail> {
                   );
                 },
               ),
-
-              // child: Image.network(
-              //   widget.blog.imageUrl?.isNotEmpty == true
-              //       ? widget.blog.imageUrl!
-              //       : 'https://th.bing.com/th/id/OIP.etbTey4SJkpyu9XPJZSxTAHaHa?w=164&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7',
-              //   fit: BoxFit.cover,
-              // ),
             ),
 
             // Scrollable Foreground
             DraggableScrollableSheet(
-              initialChildSize:
-                  0.60, // how much of the screen it covers initially
+              initialChildSize: 0.60,
               minChildSize: 0.60,
               maxChildSize: 0.95,
               builder: (context, scrollController) {
@@ -224,7 +173,7 @@ class _BlogDetailState extends State<BlogDetail> {
                     ],
                   ),
                   child: SingleChildScrollView(
-                    controller: scrollController, // important!
+                    controller: scrollController,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -243,50 +192,6 @@ class _BlogDetailState extends State<BlogDetail> {
                           ],
                         ),
                         SizedBox(height: 20),
-
-                        // // Author & Read Time
-                        // Container(
-                        //   padding: EdgeInsets.all(5),
-                        //   decoration: BoxDecoration(
-                        //       color: Colors.grey.withOpacity(.4),
-                        //       borderRadius: BorderRadius.circular(20)),
-                        //   width: double.infinity,
-                        //   height: 40,
-                        //   child: Row(
-                        //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        //     children: [
-                        //       Row(
-                        //         children: [
-                        //           CircleAvatar(
-                        //             backgroundImage: widget.blog.avatar != null
-                        //                 ? NetworkImage(widget.blog.avatar!)
-                        //                 : NetworkImage(
-                        //                     "https://th.bing.com/th/id/OIP.rcmXeqCUOiCg54dfU4v9tgHaHa?rs=1&pid=ImgDetMain"),
-                        //             radius: 15,
-                        //           ),
-                        //           SizedBox(
-                        //             width: 10,
-                        //           ),
-                        //           Expanded(
-                        //             child: Text(
-                        //               "Author: ${widget.blog.author}",
-                        //               style: TextStyle(
-                        //                   fontSize: 20,
-                        //                   fontFamily:
-                        //                       'CrimsonText-SemiBoldItalic'),
-                        //             ),
-                        //           ),
-                        //         ],
-                        //       ),
-                        //       Text(
-                        //         "Read Time: ${widget.blog.readTime}  Min",
-                        //         style: TextStyle(
-                        //             fontSize: 20,
-                        //             fontFamily: 'CrimsonText-SemiBoldItalic'),
-                        //       )
-                        //     ],
-                        //   ),
-                        // ),
 
                         Container(
                           decoration: BoxDecoration(
@@ -353,15 +258,6 @@ class _BlogDetailState extends State<BlogDetail> {
                         ),
                         SizedBox(height: 30),
 
-                        // Content
-                        // Text(
-                        //   '${widget.blog.content}',
-                        //   style: TextStyle(
-                        //       fontSize: 25,
-                        //       height: 1.6,
-                        //       fontFamily: 'CrimsonText-SemiBoldItalic'),
-                        // ),
-
                         StepwiseExpandableText(
                           text: widget.blog.content!,
                           linesPerStep: 15,
@@ -393,9 +289,7 @@ class _BlogDetailState extends State<BlogDetail> {
               top: 40,
               right: 20,
               child: CircleAvatar(
-                // backgroundColor: Color.fromARGB(128, 0, 0, 0),
                 backgroundColor: Theme.of(context).colorScheme.primary,
-
                 child: IconButton(
                   icon: Icon(
                     isClicked ? Icons.favorite : Icons.favorite_border,
@@ -414,9 +308,6 @@ class _BlogDetailState extends State<BlogDetail> {
                           });
                         }
                         if (mounted) {
-                          // ScaffoldMessenger.of(context).showSnackBar(
-                          //   SnackBar(content: Text("Removed from favorites")),
-                          // );
                           CustomToastMessagee.show(
                             message: 'Removed from favorites',
                           );
@@ -430,9 +321,6 @@ class _BlogDetailState extends State<BlogDetail> {
                         });
                       }
                       if (mounted) {
-                        // ScaffoldMessenger.of(context).showSnackBar(
-                        //   SnackBar(content: Text("Added to favorites")),
-                        // );
                         CustomToastMessagee.show(
                           message: 'Added to favorites',
                         );
@@ -442,96 +330,6 @@ class _BlogDetailState extends State<BlogDetail> {
                 ),
               ),
             ),
-
-            // if (widget.blog.author == name || widget.blog.author == email)
-            //   Align(
-            //       alignment: Alignment.bottomCenter,
-            //       child: Padding(
-            //         padding: const EdgeInsets.only(bottom: 30),
-            //         child: Container(
-            //           decoration: BoxDecoration(
-            //               borderRadius: BorderRadius.circular(20),
-            //               color: Colors.grey.withOpacity(.4)),
-            //           width: 300,
-            //           child: Row(
-            //             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            //             children: [
-            //               // IconButton(
-            //               //   onPressed: () {
-            //               //     addToFav(context, widget.blog.id!);
-            //               //   },
-            //               //   icon: Icon(
-            //               //     Icons.favorite,
-            //               //     color: isFav,
-            //               //   ),
-            //               // ),
-
-            //               IconButton(
-            //                 onPressed: () {
-            //                   Navigator.push(
-            //                       context,
-            //                       MaterialPageRoute(
-            //                         builder: (context) =>
-            //                             EditBlog(blog: widget.blog),
-            //                       ));
-            //                 },
-            //                 icon: Icon(Icons.edit),
-            //               ),
-            //               IconButton(
-            //                 onPressed: () async {
-            //                   final success = await Provider.of<BlogProvider>(
-            //                           context,
-            //                           listen: false)
-            //                       .Deleteblog(widget.blog);
-
-            //                   if (success == true) {
-            //                     if (mounted) {
-            //                       Navigator.pop(context);
-            //                       // ScaffoldMessenger.of(context).showSnackBar(
-            //                       //   SnackBar(
-            //                       //       content:
-            //                       //           Text('Blog deleted successfully')),
-            //                       // );
-            //                       CustomToastMessagee.show(
-            //                           message: 'Blog Deleted Successfully',
-            //                           color: Colors.red);
-            //                     }
-            //                   } else {
-            //                     // ScaffoldMessenger.of(context).showSnackBar(
-            //                     //   SnackBar(
-            //                     //       content: Text('Failed to delete blog')),
-            //                     // );
-
-            //                     CustomToastMessagee.show(
-            //                         message: 'Failed to delete blog',
-            //                         color: Colors.red);
-            //                   }
-            //                 },
-            //                 icon: Icon(Icons.delete),
-            //               ),
-            //               IconButton(
-            //                 onPressed: () {
-            //                   ScaffoldMessenger.of(context).showSnackBar(
-            //                     SnackBar(
-            //                       content: Text(
-            //                         'Created at: ${widget.blog.createdAt!.split('T').first}',
-            //                       ),
-            //                       width:
-            //                           300, // ✅ Allowed only with floating behavior
-            //                       behavior: SnackBarBehavior
-            //                           .floating, // ✅ Must be set
-            //                       shape: RoundedRectangleBorder(
-            //                         borderRadius: BorderRadius.circular(12),
-            //                       ), // Optional: looks better when floating
-            //                     ),
-            //                   );
-            //                 },
-            //                 icon: Icon(Icons.info),
-            //               )
-            //             ],
-            //           ),
-            //         ),
-            //       )),
           ],
         ),
       ),

@@ -36,11 +36,10 @@ class BlogModel {
       category: json['category'],
       topic: json['topic'],
       title: json['title'],
-      readTime: json['readTime'], // Fixed key naming
+      readTime: json['readTime'],
       avatar: json['avatar'],
-      imageUrl: json['imageUrl'], // Fixed key naming
+      imageUrl: json['imageUrl'],
       content: json['content'],
-
       createdAt: json['created_at'],
       updatedAt: json['updated_at'],
     );
@@ -54,11 +53,10 @@ class BlogModel {
       'category': category,
       'topic': topic,
       'title': title,
-      'readTime': readTime, // Fixed key naming
+      'readTime': readTime,
       'avatar': avatar,
-      'imageUrl': imageUrl, // Fixed key naming
+      'imageUrl': imageUrl,
       'content': content,
-
       'created_at': createdAt,
       'updated_at': updatedAt,
     };

@@ -132,14 +132,14 @@ class _AppDrawerState extends State<AppDrawer> {
                     onTap: () => _navigateTo(context, const AboutUsPage()),
                   ),
                   _buildDrawerItem(
-                    icon: Icons.logout,
-                    text: "Logout",
-                    onTap: () => authservice.logOut(context),
-                  ),
-                  _buildDrawerItem(
                     icon: Icons.share,
                     text: "Share App",
                     onTap: () => Share.share('com.example.inkbloom'),
+                  ),
+                  _buildDrawerItem(
+                    icon: Icons.logout,
+                    text: "Logout",
+                    onTap: () => authservice.logOut(context),
                   ),
                 ],
               ),

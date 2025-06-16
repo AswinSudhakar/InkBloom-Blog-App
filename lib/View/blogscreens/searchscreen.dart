@@ -1,12 +1,7 @@
-import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:inkbloom/ViewModel/blogprovider.dart';
-import 'package:inkbloom/ViewModel/themeprovider.dart';
-import 'package:inkbloom/test.dart';
-
 import 'package:inkbloom/widgets/bloglistview.dart';
 import 'package:inkbloom/widgets/shimmer.dart';
-import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 class Searchscreen extends StatefulWidget {
@@ -36,7 +31,7 @@ class _SearchscreenState extends State<Searchscreen> {
       });
     });
 
-    super.initState(); // ✅ Call this last
+    super.initState();
   }
 
   @override
@@ -47,7 +42,6 @@ class _SearchscreenState extends State<Searchscreen> {
 
   @override
   Widget build(BuildContext context) {
-    final themeprovider = Provider.of<ThemeProvider>(context);
     final blogProvider = context.watch<BlogProvider>();
 
     return Scaffold(
@@ -56,34 +50,13 @@ class _SearchscreenState extends State<Searchscreen> {
             icon: Icon(Icons.arrow_back),
             onPressed: () => Navigator.pop(context),
           ),
-          // title: AnimSearchBar(
-          //   searchIconColor:
-          //       themeprovider.isDarkMode ? Colors.white : Colors.black,
-          //   textFieldColor: themeprovider.isDarkMode
-          //       ? Colors.grey.shade800
-          //       : Colors.grey.shade200,
-          //   boxShadow: false,
-          //   color: themeprovider.isDarkMode ? Colors.black : Colors.white,
-          //   width: MediaQuery.of(context).size.width * 0.8,
-          //   textController: _searchController,
-          //   onSuffixTap: () {
-          //     setState(() {
-          //       _searchController.clear();
-          //     });
-          //   },
-
-          //   closeSearchOnSuffixTap: true,
-          //   helpText: 'Search blogs...',
-          //   animationDurationInMilli: 300,
-          //   autoFocus: true,
-          // ),
           actions: [
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.grey.withOpacity(.4), // Background color
-                  borderRadius: BorderRadius.circular(8), // Rounded corners
+                  color: Colors.grey.withOpacity(.4),
+                  borderRadius: BorderRadius.circular(8),
                 ),
                 height: 40,
                 width: 300,
@@ -98,14 +71,13 @@ class _SearchscreenState extends State<Searchscreen> {
                   onChanged: (query) {
                     if (query.length > 3) {
                       setState(() {
-                        hassearched = true; // 👈 Add this line
+                        hassearched = true;
                       });
                       Provider.of<BlogProvider>(context, listen: false)
                           .SearchBlogs(query);
                     } else {
                       setState(() {
-                        hassearched =
-                            false; // 👈 hide results for short queries
+                        hassearched = false;
                       });
                     }
                   },

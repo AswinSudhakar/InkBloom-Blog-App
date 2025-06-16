@@ -5,12 +5,9 @@ class Apis {
   final String resister = '/users/register';
   final String profile = '/users/profile';
   final String category = '/users/categories';
-
   final String categoryall = '/users/categories/all';
-
   final String favorutebyblogid = '/users/favourites/{blog_id}';
   final String favorites = '/users/favourites';
-
   final String blogurl = '/blogs/';
   final String search = '/blogs/search';
 }

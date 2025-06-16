@@ -3,8 +3,8 @@ class UserProfileModel {
   String? email;
   String? createdAt;
   String? profileImage;
-  List<String>? selectedCategories; // Changed from Null to String
-  List<String>? favourites; // Changed from Null to String
+  List<String>? selectedCategories;
+  List<String>? favourites;
 
   UserProfileModel({
     this.name,
@@ -23,10 +23,10 @@ class UserProfileModel {
       profileImage: json['profile_image'],
       selectedCategories: json['selected_categories'] != null
           ? List<String>.from(json['selected_categories'])
-          : [], // Convert dynamic list to List<String>
+          : [],
       favourites: json['favourites'] != null
           ? List<String>.from(json['favourites'])
-          : [], // Convert dynamic list to List<String>
+          : [],
     );
   }
 
