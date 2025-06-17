@@ -26,7 +26,6 @@ class _AuthorProfleState extends State<AuthorProfle> {
     return Scaffold(
       appBar: AppBar(),
       body: Column(
-        // mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(
             height: 10,

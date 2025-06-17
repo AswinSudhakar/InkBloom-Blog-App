@@ -34,7 +34,7 @@ class BlogProvider extends ChangeNotifier {
 
     try {
       List<BlogModel>? fetchedBlogs = await Blogservice().getAllBlogs();
-      _blogs = fetchedBlogs ?? []; // Ensuring non-null list
+      _blogs = fetchedBlogs ?? [];
     } catch (e) {
       _error = "Failed to fetch blogs: $e";
     }
@@ -64,8 +64,6 @@ class BlogProvider extends ChangeNotifier {
       print("🔁 fetchUserCategoryBlogs called");
 
       _userpreferedblogs = newblogs ?? [];
-      // _filteredBlogs.clear();
-      // _filteredBlogs.addAll(_userpreferedblogs);
     } catch (e) {
       _error = "Failed to fetch blogs: $e";
     }
@@ -79,7 +77,7 @@ class BlogProvider extends ChangeNotifier {
     try {
       String? response = await Blogservice().addBlog(newBlog);
       if (response != null) {
-        _blogs.insert(0, newBlog); // Insert new blog at the top
+        _blogs.insert(0, newBlog);
         notifyListeners();
       }
     } catch (e) {
@@ -157,13 +155,6 @@ class BlogProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // //add to favorites
-  // Future<void> AddToFavorite(String id) async {
-  //   final message = await Blogservice().AddToFavorite(id);
-  //   debugPrint(message);
-  //   notifyListeners();
-  // }
-
   String? _favoriteMessage;
   String? get favoriteMessage => _favoriteMessage;
 
@@ -185,7 +176,7 @@ class BlogProvider extends ChangeNotifier {
 
     try {
       List<BlogModel>? favblogs = await FavoriteService().getFavoriteBlogs();
-      _favoriteBlogs = favblogs ?? []; // Ensuring non-null list
+      _favoriteBlogs = favblogs ?? [];
     } catch (e) {
       _error = "Failed to fetch blogs: $e";
     }

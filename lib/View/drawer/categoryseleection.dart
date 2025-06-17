@@ -92,7 +92,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
             SizedBox(
               height: 20,
             ),
-
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
@@ -163,51 +162,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 ),
               ),
             ),
-
-            // Expanded(
-            //   child: GridView.builder(
-            //     itemCount: categories.length,
-            //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            //       crossAxisCount: 2, // 2 columns
-            //       mainAxisSpacing: 12,
-            //       crossAxisSpacing: 12,
-            //       childAspectRatio: 2.5,
-            //     ),
-            //     itemBuilder: (context, index) {
-            //       final category = categories[index];
-            //       final isSelected = selectedcategories.contains(category);
-
-            //       return GestureDetector(
-            //         onTap: () => oncategoryTappped(category),
-            //         child: Card(
-            //           elevation: 3,
-            //           shape: RoundedRectangleBorder(
-            //             borderRadius: BorderRadius.circular(20),
-            //             side: BorderSide(
-            //               color:
-            //                   isSelected ? Colors.grey : Colors.grey.shade300,
-            //               width: 2,
-            //             ),
-            //           ),
-            //           color: isSelected
-            //               ? Colors.grey.withOpacity(0.8)
-            //               : Colors.white,
-            //           child: Center(
-            //             child: Text(
-            //               category,
-            //               style: TextStyle(
-            //                 fontWeight: FontWeight.bold,
-            //                 fontFamily: 'CrimsonText-SemiBoldItalic',
-            //                 color: isSelected ? Colors.white : Colors.black87,
-            //                 fontSize: 16,
-            //               ),
-            //             ),
-            //           ),
-            //         ),
-            //       );
-            //     },
-            //   ),
-            // ),
           ],
         ),
       ),
@@ -218,7 +172,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
             Expanded(
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pop(context); // 👈 Cancels and goes back
+                  Navigator.pop(context);
                 },
                 style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.symmetric(vertical: 16),

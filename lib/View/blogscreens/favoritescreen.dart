@@ -72,8 +72,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
             : RefreshIndicator(
                 onRefresh: blogprovider.refreshfavoriites,
                 child: SingleChildScrollView(
-                  physics:
-                      const AlwaysScrollableScrollPhysics(), // allows pull even if not scrollable
+                  physics: const AlwaysScrollableScrollPhysics(),
                   child: SizedBox(
                     height: MediaQuery.of(context).size.height - kToolbarHeight,
                     child: Center(

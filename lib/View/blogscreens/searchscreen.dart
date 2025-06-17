@@ -19,7 +19,7 @@ class _SearchscreenState extends State<Searchscreen> {
 
   @override
   void initState() {
-    _searchController = TextEditingController(); // ✅ Initialize first
+    _searchController = TextEditingController();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _focusnode.requestFocus();

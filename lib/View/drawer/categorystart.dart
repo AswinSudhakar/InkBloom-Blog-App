@@ -103,32 +103,6 @@ class _CategoryScreenState extends State<CategoryScreenstart> {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            // // Clear All Button
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.start,
-            //   children: [
-            //     ElevatedButton(
-            //       onPressed: () {
-            //         clearAllCategories();
-            //       },
-            //       style: ElevatedButton.styleFrom(
-            //         padding: EdgeInsets.symmetric(vertical: 16),
-            //         backgroundColor: const Color.fromARGB(255, 212, 107, 107),
-            //         shape: RoundedRectangleBorder(
-            //           borderRadius: BorderRadius.circular(10),
-            //         ),
-            //       ),
-            //       child: Text(
-            //         'Clear All',
-            //         style: TextStyle(
-            //           fontSize: 18,
-            //           color: Colors.white,
-            //           fontFamily: 'CrimsonText-SemiBoldItalic',
-            //         ),
-            //       ),
-            //     ),
-            //   ],
-            // ),
             SizedBox(
               height: 20,
             ),
@@ -136,7 +110,7 @@ class _CategoryScreenState extends State<CategoryScreenstart> {
               child: GridView.builder(
                 itemCount: categories.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, // 2 columns
+                  crossAxisCount: 2,
                   mainAxisSpacing: 12,
                   crossAxisSpacing: 12,
                   childAspectRatio: 2.5,
@@ -179,63 +153,32 @@ class _CategoryScreenState extends State<CategoryScreenstart> {
           ],
         ),
       ),
-      // bottomNavigationBar: Container(
-      //   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-      //   child: ElevatedButton(
-      //     style: ElevatedButton.styleFrom(
-      //       padding: EdgeInsets.symmetric(vertical: 16),
-      //       backgroundColor: Colors.grey.shade300,
-      //       shape: RoundedRectangleBorder(
-      //         borderRadius: BorderRadius.circular(30),
-      //       ),
-      //       elevation: 5,
-      //     ),
-      //     onPressed: () {
-      //       Provider.of<CategoryProvider>(context, listen: false)
-      //           .updateUserCategories(selectedcategories);
-      //       print('Selected categories: $selectedcategories');
-      //       Navigator.push(
-      //           context,
-      //           MaterialPageRoute(
-      //             builder: (context) => HomeScreen2(),
-      //           ));
-      //     },
-      //     child: Text(
-      //       'Submit',
-      //       style: TextStyle(
-      //           fontSize: 18,
-      //           color: Colors.black,
-      //           fontFamily: 'CrimsonText-SemiBoldItalic'),
-      //     ),
-      //   ),
-      // ),
-
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
         child: Row(
           children: [
-            Expanded(
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context); // 👈 Cancels and goes back
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: 16),
-                  backgroundColor: Theme.of(context).colorScheme.error,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                ),
-                child: Text(
-                  'Cancel',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Theme.of(context).colorScheme.onPrimary,
-                    fontFamily: 'CrimsonText-SemiBoldItalic',
-                  ),
-                ),
-              ),
-            ),
+            // Expanded(
+            //   child: ElevatedButton(
+            //     onPressed: () {
+            //       Navigator.pop(context);
+            //     },
+            //     style: ElevatedButton.styleFrom(
+            //       padding: EdgeInsets.symmetric(vertical: 16),
+            //       backgroundColor: Theme.of(context).colorScheme.error,
+            //       shape: RoundedRectangleBorder(
+            //         borderRadius: BorderRadius.circular(30),
+            //       ),
+            //     ),
+            //     child: Text(
+            //       'Cancel',
+            //       style: TextStyle(
+            //         fontSize: 18,
+            //         color: Theme.of(context).colorScheme.onPrimary,
+            //         fontFamily: 'CrimsonText-SemiBoldItalic',
+            //       ),
+            //     ),
+            //   ),
+            // ),
             SizedBox(width: 16),
             Expanded(
               child: ElevatedButton(

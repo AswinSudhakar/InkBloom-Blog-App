@@ -43,7 +43,6 @@ class _StepwiseExpandableTextState extends State<StepwiseExpandableText> {
       style: textStyle,
     );
 
-    // Use TextPainter to check if text exceeds the current max lines
     final textPainter = TextPainter(
       text: textSpan,
       maxLines: _currentMaxLines,
@@ -51,10 +50,8 @@ class _StepwiseExpandableTextState extends State<StepwiseExpandableText> {
       ellipsis: '...',
     );
 
-    // Layout with max width of screen to calculate line overflow
     textPainter.layout(maxWidth: MediaQuery.of(context).size.width);
 
-    // Determine if there is more text to expand
     _canExpand = textPainter.didExceedMaxLines;
 
     return DefaultTextStyle(

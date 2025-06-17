@@ -120,36 +120,6 @@ class Blogservice {
     return null;
   }
 
-  //get the blogs by user category
-  Future<List<BlogModel>?> getBlogsByuserCategory() async {
-    final token = await AuthHelper.getToken();
-    try {
-      final response = await client.get(
-          Uri.parse(
-              "https://simple-blogging.onrender.com/blogs/by-selected-categories"),
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer $token',
-          });
-      debugPrint("📡 API CALL: Getting blogs by selected category...");
-      if (response.statusCode == 200) {
-        final List<dynamic> responsebody = jsonDecode(response.body);
-
-        final List<BlogModel> blogs =
-            responsebody.map((json) => BlogModel.fromJson(json)).toList();
-        debugPrint(
-            'the blogs returned by userselected category ------>:${blogs.length}');
-        return blogs;
-      } else {
-        debugPrint(
-            'error occured and statuscode failed:${response.statusCode}');
-      }
-    } catch (e) {
-      debugPrint('$e');
-    }
-    return null;
-  }
-
   //delete blog
   Future<bool?> deleteBlog(BlogModel blogModel) async {
     final token = await AuthHelper.getToken();
@@ -178,6 +148,36 @@ class Blogservice {
       }
     } catch (e) {
       debugPrint('Error deleting blog: $e');
+    }
+    return null;
+  }
+
+  //get the blogs by user category
+  Future<List<BlogModel>?> getBlogsByuserCategory() async {
+    final token = await AuthHelper.getToken();
+    try {
+      final response = await client.get(
+          Uri.parse(
+              "https://simple-blogging.onrender.com/blogs/by-selected-categories"),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token',
+          });
+      debugPrint("📡 API CALL: Getting blogs by selected category...");
+      if (response.statusCode == 200) {
+        final List<dynamic> responsebody = jsonDecode(response.body);
+
+        final List<BlogModel> blogs =
+            responsebody.map((json) => BlogModel.fromJson(json)).toList();
+        debugPrint(
+            'the blogs returned by userselected category ------>:${blogs.length}');
+        return blogs;
+      } else {
+        debugPrint(
+            'error occured and statuscode failed:${response.statusCode}');
+      }
+    } catch (e) {
+      debugPrint('$e');
     }
     return null;
   }

@@ -37,7 +37,6 @@ class _MainhomeState extends State<Mainhome> {
     });
   }
 
-  // Force internet re-check using DNS lookup
   Future<bool> _checkRealInternet() async {
     try {
       final result = await InternetAddress.lookup('example.com');
@@ -47,7 +46,6 @@ class _MainhomeState extends State<Mainhome> {
     }
   }
 
-  // Show dialog only if one is not already visible
   void _showNoInternetDialog() {
     if (_isDialogVisible) return;
     _isDialogVisible = true;
@@ -81,8 +79,8 @@ class _MainhomeState extends State<Mainhome> {
                     }
                   }
                 } catch (e, stack) {
-                  print("Error in Retry button: $e");
-                  print(stack);
+                  debugPrint("Error in Retry button: $e");
+                  debugPrint('$stack');
                 }
               },
               child: Text(

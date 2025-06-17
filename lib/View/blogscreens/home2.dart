@@ -45,11 +45,6 @@ class _HomeScreenState extends State<HomeScreen2> with RouteAware {
   void initState() {
     super.initState();
     fetchAndLoadUserData();
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   Provider.of<BlogProvider>(context, listen: false)
-    //       .fetchUserCategoryBlogs();
-    // });
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final provider = Provider.of<BlogProvider>(context, listen: false);
       provider.refreshblogs();
@@ -116,41 +111,6 @@ class _HomeScreenState extends State<HomeScreen2> with RouteAware {
                       builder: (context) => Searchscreen(),
                     )),
                 child: Icon(Icons.search)),
-            // InkWell(
-            //     onTap: () => Navigator.push(
-            //         context,
-            //         MaterialPageRoute(
-            //           builder: (context) => Searchscreen(),
-            //         )),
-            //     child: Icon(Icons.search)
-            // AnimSearchBar(
-            //   searchIconColor:
-            //       themeprovider.isDarkMode ? Colors.white : Colors.black,
-            //   textFieldColor: Colors.grey.shade200,
-            //   boxShadow: false,
-            //   color: themeprovider.isDarkMode ? Colors.black : Colors.white,
-            //   width: 280,
-            //   textController: _searchController,
-            //   onSuffixTap: () {
-            //     setState(() {
-            //       _searchController.clear();
-            //     });
-            //   },
-            //   onSubmitted: (query) {
-            //     if (query.trim().isNotEmpty) {
-            //       Provider.of<BlogProvider>(context, listen: false)
-            //           .SearchBlogs(query);
-            //       setState(() {
-            //         selectedCategory = 'Search';
-            //         _searchController.clear();
-            //       });
-            //     }
-            //   },
-            //   closeSearchOnSuffixTap: true,
-            //   helpText: 'Search blogs...',
-            //   animationDurationInMilli: 300,
-            // ),
-            // ),
             if (selectedCategory == 'Search')
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -178,13 +138,7 @@ class _HomeScreenState extends State<HomeScreen2> with RouteAware {
           ],
         ),
         body: blogProvider.isLoading
-            ? Center(child: Shimmerloading(context)
-                // Padding(
-                //   padding: EdgeInsets.symmetric(vertical: 100),
-                //   child:
-                //   CircularProgressIndicator(),
-                // ),
-                )
+            ? Center(child: Shimmerloading(context))
             : RefreshIndicator(
                 onRefresh: blogProvider.refreshblogs,
                 child: ListView(
@@ -194,7 +148,6 @@ class _HomeScreenState extends State<HomeScreen2> with RouteAware {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12),
                         child: Column(
-                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,

@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
     final ThemeData lightTheme = ThemeData(
       colorScheme: ColorScheme.light(
           error: const Color.fromARGB(255, 230, 146, 140),
-          onError: Colors.grey.shade500, //cancel
+          onError: Colors.grey.shade500,
           primary: Colors.white,
           onPrimary: Colors.black,
           background: Colors.grey,
@@ -67,10 +67,10 @@ class MyApp extends StatelessWidget {
     final ThemeData darkTheme = ThemeData(
       colorScheme: ColorScheme.dark(
           error: const Color.fromARGB(255, 230, 146, 140),
-          onError: Colors.grey.shade500, //cancel
-          primary: Colors.black, //text color
-          onPrimary: Colors.white, //main theme
-          background: Colors.grey.withOpacity(.3), //light grey theme
+          onError: Colors.grey.shade500,
+          primary: Colors.black,
+          onPrimary: Colors.white,
+          background: Colors.grey.withOpacity(.3),
           onBackground: Colors.white,
           surface: Colors.grey.shade900,
           onSurface: Colors.white,

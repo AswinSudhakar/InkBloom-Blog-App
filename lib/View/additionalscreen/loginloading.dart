@@ -7,7 +7,7 @@ class Loginloading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, // optional for dark theme
+      backgroundColor: Colors.white,
       body: Center(
           child: SizedBox(
         width: double.infinity,

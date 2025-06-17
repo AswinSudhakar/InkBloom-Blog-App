@@ -97,7 +97,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ],
             ),
 
-            SizedBox(height: 70), // Adjusted to fit avatar
+            SizedBox(height: 70),
 
             // Profile Information Fields
             Padding(
@@ -124,8 +124,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       style: ElevatedButton.styleFrom(
                         elevation: 12,
                         backgroundColor: Theme.of(context).colorScheme.surface,
-                        // foregroundColor:
-                        //     Theme.of(context).colorScheme.onPrimary,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),

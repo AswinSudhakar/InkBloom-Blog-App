@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inkbloom/service/categoryservice.dart'; // Make sure this path is correct
+import 'package:inkbloom/service/categoryservice.dart';
 
 class CategoryProvider extends ChangeNotifier {
   bool _isUpdating = false;
@@ -17,7 +17,7 @@ class CategoryProvider extends ChangeNotifier {
 
     try {
       List<String>? result = await Categoryservice().getuserCAtegory();
-      usercategory = result ?? []; // Ensuring non-null list
+      usercategory = result ?? [];
       print("Fetched user categories: $usercategory");
 
       return usercategory;

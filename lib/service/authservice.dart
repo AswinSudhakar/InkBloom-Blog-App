@@ -13,6 +13,7 @@ class Authservice {
   final client = http.Client();
   String? _token;
 
+  //login
   Future<String?> login(String username, String password) async {
     final Map<String, dynamic> body = {
       'username': username,
@@ -25,17 +26,9 @@ class Authservice {
           headers: {'Content-Type': 'application/x-www-form-urlencoded'},
           body: body);
 
-      // print("Request URL: ${Apis().baseurl}${Apis().authurl}");
-
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         _token = data['access_token'];
-
-        // print(response.statusCode);
-        // print('Response body: ${response.body}');
-
-        // print('the token for your login is : ${_token}');
-
         SharedPreferences pref = await SharedPreferences.getInstance();
         pref.setString('token', _token.toString());
       } else {
@@ -48,6 +41,7 @@ class Authservice {
     return null;
   }
 
+  //Register
   Future<String?> register(
       String username, String email, String password) async {
     final Map<String, dynamic> body = {
@@ -67,7 +61,6 @@ class Authservice {
         final data = json.decode(response.body);
 
         final message = data['message'];
-        // print(message);
         return message;
       } else {
         print('Registration failed with status code: ${response.statusCode}');
@@ -79,6 +72,7 @@ class Authservice {
     return null;
   }
 
+  //Logout
   Future<void> logOut(BuildContext context) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.remove('token');

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:inkbloom/View/additionalscreen/latest/authordetails.dart';
 import 'package:inkbloom/View/blogscreens/editblog.dart';
 import 'package:inkbloom/ViewModel/blogprovider.dart';
-
 import 'package:inkbloom/models/blog/blogmodel.dart';
 import 'package:inkbloom/service/userprofile.dart';
 import 'package:inkbloom/widgets/expandabletext.dart';
@@ -26,8 +25,8 @@ class _BlogDetailState extends State<BlogDetail> {
   String? avatar;
 
   Future<void> fetchAndLoadUserData() async {
-    await ProfileService().getUserProfile(); // Ensure profile is fetched
-    await _loadUserData(); // Then load from SharedPreferences
+    await ProfileService().getUserProfile();
+    await _loadUserData();
   }
 
   Future<void> _loadUserData() async {
@@ -117,7 +116,6 @@ class _BlogDetailState extends State<BlogDetail> {
             : null,
         body: Stack(
           children: [
-            // Background Image Section
             SizedBox(
               height: 350,
               width: double.infinity,
@@ -269,7 +267,6 @@ class _BlogDetailState extends State<BlogDetail> {
               },
             ),
 
-            // Optional Back Button on top
             Positioned(
               top: 40,
               left: 20,
