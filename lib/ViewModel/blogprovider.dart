@@ -208,4 +208,8 @@ class BlogProvider extends ChangeNotifier {
   Future<void> refreshuserpref() async {
     await fetchUserCategoryBlogs();
   }
+
+  Future<void> refreshuserblogs(String currentUserName) async {
+    await getMyBlogs(currentUserName);
+  }
 }

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:inkbloom/widgets/launchemail.dart';
 
 class PrivacyPolicyPage extends StatelessWidget {
   const PrivacyPolicyPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Privacy Policy'),
-        backgroundColor: theme.primaryColor,
-        foregroundColor: Colors.white,
+        title: const Text('Privacy&Policy',
+            style: TextStyle(fontFamily: 'CrimsonText-Bold', fontSize: 28)),
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -18,23 +18,30 @@ class PrivacyPolicyPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Privacy Policy',
-                style: theme.textTheme.headlineSmall
-                    ?.copyWith(fontWeight: FontWeight.bold),
-              ),
+              // Text(
+              //   'Privacy Policy',
+              //   style: theme.textTheme.headlineSmall
+              //       ?.copyWith(fontWeight: FontWeight.bold),
+              // ),
               const SizedBox(height: 16),
               const Text(
                 'Last updated: May 16, 2025',
-                style: TextStyle(fontStyle: FontStyle.italic),
+                style: TextStyle(
+                  fontStyle: FontStyle.italic,
+                  fontSize: 16,
+                ),
               ),
               const SizedBox(height: 24),
               const Text(
-                'InkBloom ("we", "our", or "us") values your privacy. This Privacy Policy explains how we collect, use, and protect your personal information when you use our blog application.',
-                style: TextStyle(fontSize: 16),
-              ),
+                  'InkBloom ("we", "our", or "us") values your privacy. This Privacy Policy explains how we collect, use, and protect your personal information when you use our blog application.',
+                  style: TextStyle(
+                    fontFamily: 'CrimsonText-Bold',
+                    fontSize: 16,
+                  )),
               const SizedBox(height: 20),
-              sectionTitle('1. Information We Collect'),
+              sectionTitle(
+                '1. Information We Collect',
+              ),
               sectionBody(
                 'We may collect the following information:\n\n'
                 '• Personal information (e.g., name, email, profile photo)\n'
@@ -72,9 +79,14 @@ class PrivacyPolicyPage extends StatelessWidget {
               const SizedBox(height: 20),
               sectionTitle('7. Contact Us'),
               sectionBody(
-                'If you have any questions about this Privacy Policy, you can contact us at:\n\n'
-                '📧 support@inkbloom.app',
-              ),
+                  'If you have any questions about this Privacy Policy, you can contact us at:'),
+              TextButton(
+                  onPressed: () => launchEmail(),
+                  child: Text('📧support@inkBloom.com',
+                      style: TextStyle(
+                          fontFamily: 'CrimsonText-Bold',
+                          fontSize: 19,
+                          color: Theme.of(context).colorScheme.onPrimary)))
             ],
           ),
         ),
@@ -83,16 +95,17 @@ class PrivacyPolicyPage extends StatelessWidget {
   }
 
   Widget sectionTitle(String text) {
-    return Text(
-      text,
-      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-    );
+    return Text(text,
+        style: TextStyle(
+          fontFamily: 'CrimsonText-Bold',
+          fontSize: 19,
+        ));
   }
 
   Widget sectionBody(String text) {
     return Text(
       text,
-      style: const TextStyle(fontSize: 16, height: 1.5),
+      style: TextStyle(fontFamily: 'CrimsonText-Bold', fontSize: 16),
     );
   }
 }

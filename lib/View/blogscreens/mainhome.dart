@@ -143,6 +143,8 @@ class _MainhomeState extends State<Mainhome> {
           ),
         ),
         bottomNavigationBar: BottomNavigationBar(
+            selectedLabelStyle: TextStyle(fontFamily: 'CrimsonText-Bold'),
+            unselectedLabelStyle: TextStyle(fontFamily: 'CrimsonText-Bold'),
             currentIndex: _currentindex,
             onTap: (int index) {
               if (index == 2) {
@@ -159,7 +161,10 @@ class _MainhomeState extends State<Mainhome> {
               }
             },
             items: [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
+              ),
               BottomNavigationBarItem(
                   icon: Icon(Icons.person), label: 'Account'),
               BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Add Blog'),

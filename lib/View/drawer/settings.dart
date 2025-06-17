@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:inkbloom/widgets/launchemail.dart';
 import 'package:inkbloom/widgets/toastmessage.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:inkbloom/ViewModel/themeprovider.dart';
@@ -23,26 +24,8 @@ class SettingsScreen extends StatelessWidget {
         if (await canLaunch(webUrl)) {
           await launch(webUrl);
         } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Could not launch WhatsApp')),
-          );
+          CustomToastMessagee.show(message: 'Could not launch WhatsApp');
         }
-      }
-    }
-
-    void launchEmail() async {
-      final Uri emailUri = Uri(
-        scheme: 'mailto',
-        path: 'support@InkBloom.com',
-        queryParameters: {'subject': 'App Support', 'body': 'Hi,'},
-      );
-
-      if (await canLaunchUrl(emailUri)) {
-        await launchUrl(emailUri);
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('No email app found')),
-        );
       }
     }
 
