@@ -49,7 +49,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         body: blogprovider.favoriteBlogs.isNotEmpty
             ? blogprovider.isLoading
                 ? Center(child: Shimmerloading(context))
-                : Container(
+                : SizedBox(
                     child: RefreshIndicator(
                       color: Theme.of(context).colorScheme.onPrimary,
                       onRefresh: blogprovider.refreshfavoriites,
