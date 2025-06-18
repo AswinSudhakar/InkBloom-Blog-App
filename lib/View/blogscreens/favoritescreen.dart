@@ -17,7 +17,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<BlogProvider>(context, listen: false).getfavBlogs();
+      Provider.of<BlogProvider>(context, listen: false).refreshfavoriites();
     });
     super.initState();
   }
@@ -51,20 +51,27 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                 ? Center(child: Shimmerloading(context))
                 : Container(
                     child: RefreshIndicator(
+                      color: Theme.of(context).colorScheme.onPrimary,
                       onRefresh: blogprovider.refreshfavoriites,
                       child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 30,
-                            ),
-                            BlogListSection(
-                              blogs:
-                                  context.watch<BlogProvider>().favoriteBlogs,
-                              isLoading:
-                                  context.watch<BlogProvider>().isLoading,
-                            )
-                          ],
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints(
+                            minHeight: MediaQuery.of(context).size.height -
+                                kToolbarHeight,
+                          ),
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 30,
+                              ),
+                              BlogListSection(
+                                blogs:
+                                    context.watch<BlogProvider>().favoriteBlogs,
+                                isLoading:
+                                    context.watch<BlogProvider>().isLoading,
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),

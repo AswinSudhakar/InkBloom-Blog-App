@@ -140,6 +140,7 @@ class _HomeScreenState extends State<HomeScreen2> with RouteAware {
         body: blogProvider.isLoading
             ? Center(child: Shimmerloading(context))
             : RefreshIndicator(
+                color: Theme.of(context).colorScheme.onPrimary,
                 onRefresh: blogProvider.refreshblogs,
                 child: ListView(
                   padding: const EdgeInsets.only(bottom: 20, top: 10),

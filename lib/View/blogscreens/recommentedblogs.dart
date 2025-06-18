@@ -29,6 +29,7 @@ class _RecommentedBlogsState extends State<RecommentedBlogs> {
       body: blogprovider.isLoading
           ? Center(child: Shimmerloading(context))
           : RefreshIndicator(
+              color: Theme.of(context).colorScheme.onPrimary,
               onRefresh: blogprovider.refreshuserpref,
               child: SingleChildScrollView(
                 child: Column(
