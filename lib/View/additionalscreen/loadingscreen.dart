@@ -7,7 +7,7 @@ class Loadingscreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       body: Center(
           child: SizedBox(
         width: double.infinity,

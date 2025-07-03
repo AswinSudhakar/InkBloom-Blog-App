@@ -9,14 +9,16 @@ class Blogservice {
   final client = http.Client();
 
   //Get all Blogs
-  Future<List<BlogModel>?> getAllBlogs() async {
+  Future<List<BlogModel>?> getAllBlogs({int page = 1}) async {
     final token = await AuthHelper.getToken();
     try {
-      final response = await client
-          .get(Uri.parse("${Apis().baseurl}${Apis().blogurl}"), headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
-      });
+      final response = await client.get(
+          Uri.parse("${Apis().baseurl}${Apis().blogurl}?page=$page"),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token',
+          });
+      debugPrint("📡 API CALL: Getting blogs for page $page");
       debugPrint("📡 API CALL: Getting all blogs ...");
       if (response.statusCode == 200) {
         final List<dynamic> responsebody = jsonDecode(response.body);
@@ -29,6 +31,31 @@ class Blogservice {
       }
     } catch (e) {
       debugPrint('errorrrr occured :$e');
+    }
+    return null;
+  }
+
+//get myblogs
+  Future<List<BlogModel>?> getMyBlogs({int page = 1}) async {
+    final token = await AuthHelper.getToken();
+    try {
+      final request = await client.get(
+          Uri.parse(
+              'https://simple-blogging.onrender.com/blogs/my-blogs?page=$page'),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token',
+          });
+      debugPrint("📡 API CALL: Getting My blogs for page $page");
+
+      if (request.statusCode == 200) {
+        final List<dynamic> responsebody = jsonDecode(request.body);
+        final List<BlogModel> blogs =
+            responsebody.map((json) => BlogModel.fromJson(json)).toList();
+        return blogs;
+      }
+    } catch (e) {
+      print(e);
     }
     return null;
   }
@@ -153,12 +180,12 @@ class Blogservice {
   }
 
   //get the blogs by user category
-  Future<List<BlogModel>?> getBlogsByuserCategory() async {
+  Future<List<BlogModel>?> getBlogsByuserCategory({int page = 1}) async {
     final token = await AuthHelper.getToken();
     try {
       final response = await client.get(
           Uri.parse(
-              "https://simple-blogging.onrender.com/blogs/by-selected-categories"),
+              "https://simple-blogging.onrender.com/blogs/by-selected-categories?page=$page"),
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer $token',

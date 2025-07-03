@@ -24,24 +24,18 @@ class AboutUsPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(
-                child: Image.asset(
-                  'assets/images/inkbloomhighresolutionlogo.png',
-                  height: 100,
-                ),
-              ),
               const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Welcome to InkBloom!',
+                  Text('Welcome to WordsView!',
                       style: TextStyle(
                           fontFamily: 'CrimsonText-Bold', fontSize: 28)),
                 ],
               ),
               const SizedBox(height: 16),
               Text('''
-                InkBloom is a creative blogging platform designed to give voice to thoughts, stories, and knowledge. Whether you're here to share your ideas or explore what others are saying, we’re committed to providing a clean, engaging, and inspiring experience.''',
+                WordsView is a creative blogging platform designed to give voice to thoughts, stories, and knowledge. Whether you're here to share your ideas or explore what others are saying, we’re committed to providing a clean, engaging, and inspiring experience.''',
                   style:
                       TextStyle(fontFamily: 'CrimsonText-Bold', fontSize: 16)),
               const SizedBox(height: 16),
@@ -59,12 +53,12 @@ class AboutUsPage extends StatelessWidget {
                       TextStyle(fontSize: 19, fontFamily: 'CrimsonText-Bold')),
               const SizedBox(height: 8),
               Text(
-                '📧 Email: support@inkbloom.blog\n🌐 Website: www.inkbloom.blog',
+                '📧 Email: wordsviewblogs@gmail.com \n🌐 Website: www.WordsView.blog',
                 style: TextStyle(fontFamily: 'CrimsonText-Bold', fontSize: 16),
               ),
               const SizedBox(height: 40),
               Center(
-                child: Text('© 2025 InkBloom. All rights reserved.',
+                child: Text('© 2025 WordsView. All rights reserved.',
                     style: TextStyle(
                         fontFamily: 'CrimsonText-Bold', fontSize: 16)),
               ),

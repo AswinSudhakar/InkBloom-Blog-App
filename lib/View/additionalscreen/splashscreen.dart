@@ -53,7 +53,7 @@ class _SplashScreenState extends State<SplashScreen> {
         children: [
           Center(
             child: Text(
-              "InkBloom",
+              "WordsView",
               style: GoogleFonts.playfairDisplay(
                 fontSize: 50,
                 fontWeight: FontWeight.bold,

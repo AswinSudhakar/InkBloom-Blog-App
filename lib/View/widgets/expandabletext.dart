@@ -5,10 +5,10 @@ class StepwiseExpandableText extends StatefulWidget {
   final int linesPerStep;
 
   const StepwiseExpandableText({
-    Key? key,
+    super.key,
     required this.text,
     this.linesPerStep = 12,
-  }) : super(key: key);
+  });
 
   @override
   _StepwiseExpandableTextState createState() => _StepwiseExpandableTextState();

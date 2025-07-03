@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inkbloom/widgets/launchemail.dart';
+import 'package:inkbloom/View/widgets/launchemail.dart';
 
 class PrivacyPolicyPage extends StatelessWidget {
   const PrivacyPolicyPage({super.key});
@@ -33,7 +33,7 @@ class PrivacyPolicyPage extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               const Text(
-                  'InkBloom ("we", "our", or "us") values your privacy. This Privacy Policy explains how we collect, use, and protect your personal information when you use our blog application.',
+                  'WordsView ("we", "our", or "us") values your privacy. This Privacy Policy explains how we collect, use, and protect your personal information when you use our blog application.',
                   style: TextStyle(
                     fontFamily: 'CrimsonText-Bold',
                     fontSize: 16,
@@ -82,7 +82,7 @@ class PrivacyPolicyPage extends StatelessWidget {
                   'If you have any questions about this Privacy Policy, you can contact us at:'),
               TextButton(
                   onPressed: () => launchEmail(),
-                  child: Text('📧support@inkBloom.com',
+                  child: Text('📧wordsviewblogs@gmail.com',
                       style: TextStyle(
                           fontFamily: 'CrimsonText-Bold',
                           fontSize: 19,

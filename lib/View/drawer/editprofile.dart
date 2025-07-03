@@ -4,7 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:inkbloom/View/blogscreens/mainhome.dart';
 import 'package:inkbloom/View/drawer/myaccount.dart';
 import 'package:inkbloom/ViewModel/userprovider.dart';
-import 'package:inkbloom/widgets/toastmessage.dart';
+import 'package:inkbloom/View/widgets/toastmessage.dart';
 import 'package:provider/provider.dart';
 
 class Editprofile extends StatefulWidget {
@@ -126,7 +126,7 @@ class _ProfileScreenState extends State<Editprofile> {
                               child: CircleAvatar(
                                 radius: 80,
                                 backgroundColor:
-                                    Theme.of(context).colorScheme.background,
+                                    Theme.of(context).colorScheme.surface,
                                 backgroundImage: _pickedImage != null
                                     ? FileImage(_pickedImage!)
                                     : (_removeProfileImage
@@ -199,7 +199,7 @@ class _ProfileScreenState extends State<Editprofile> {
                       style: TextStyle(
                         fontFamily: 'CrimsonText-SemiBoldItalic',
                         fontSize: 16,
-                        color: Theme.of(context).colorScheme.onBackground,
+                        color: Theme.of(context).colorScheme.onSurface,
                       ),
                       decoration: InputDecoration(
                         hintText: 'Full Name',
@@ -244,7 +244,7 @@ class _ProfileScreenState extends State<Editprofile> {
                         style: ElevatedButton.styleFrom(
                           minimumSize: const Size(100, 20),
                           backgroundColor:
-                              Theme.of(context).colorScheme.background,
+                              Theme.of(context).colorScheme.surface,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),

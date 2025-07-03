@@ -13,7 +13,7 @@ class Welcome extends StatelessWidget {
           width: double.infinity,
           height: double.infinity,
           child: Image.asset(
-            "assets/images/gw.jpg",
+            "assets/images/new3.jpg",
             fit: BoxFit.cover,
           ),
         ),

@@ -157,28 +157,6 @@ class _CategoryScreenState extends State<CategoryScreenstart> {
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
         child: Row(
           children: [
-            // Expanded(
-            //   child: ElevatedButton(
-            //     onPressed: () {
-            //       Navigator.pop(context);
-            //     },
-            //     style: ElevatedButton.styleFrom(
-            //       padding: EdgeInsets.symmetric(vertical: 16),
-            //       backgroundColor: Theme.of(context).colorScheme.error,
-            //       shape: RoundedRectangleBorder(
-            //         borderRadius: BorderRadius.circular(30),
-            //       ),
-            //     ),
-            //     child: Text(
-            //       'Cancel',
-            //       style: TextStyle(
-            //         fontSize: 18,
-            //         color: Theme.of(context).colorScheme.onPrimary,
-            //         fontFamily: 'CrimsonText-SemiBoldItalic',
-            //       ),
-            //     ),
-            //   ),
-            // ),
             SizedBox(width: 16),
             Expanded(
               child: ElevatedButton(

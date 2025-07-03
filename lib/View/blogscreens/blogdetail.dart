@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:inkbloom/View/additionalscreen/latest/authordetails.dart';
+import 'package:inkbloom/View/additionalscreen/authordetails.dart';
 import 'package:inkbloom/View/blogscreens/editblog.dart';
 import 'package:inkbloom/ViewModel/blogprovider.dart';
 import 'package:inkbloom/models/blog/blogmodel.dart';
 import 'package:inkbloom/service/userprofile.dart';
-import 'package:inkbloom/widgets/expandabletext.dart';
-import 'package:inkbloom/widgets/toastmessage.dart';
+import 'package:inkbloom/View/widgets/expandabletext.dart';
+import 'package:inkbloom/View/widgets/toastmessage.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -147,8 +147,6 @@ class _BlogDetailState extends State<BlogDetail> {
                 },
               ),
             ),
-
-            // Scrollable Foreground
             DraggableScrollableSheet(
               initialChildSize: 0.60,
               minChildSize: 0.60,
@@ -204,15 +202,15 @@ class _BlogDetailState extends State<BlogDetail> {
                             children: [
                               Expanded(
                                 child: InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => AuthorProfle(
-                                            blog: widget.blog,
-                                          ),
-                                        ));
-                                  },
+                                  // onTap: () {
+                                  //   Navigator.push(
+                                  //       context,
+                                  //       MaterialPageRoute(
+                                  //         builder: (context) => AuthorProfle(
+                                  //           blog: widget.blog,
+                                  //         ),
+                                  //       ));
+                                  // },
                                   child: Row(
                                     children: [
                                       CircleAvatar(
@@ -266,7 +264,6 @@ class _BlogDetailState extends State<BlogDetail> {
                 );
               },
             ),
-
             Positioned(
               top: 40,
               left: 20,
@@ -281,7 +278,6 @@ class _BlogDetailState extends State<BlogDetail> {
                 ),
               ),
             ),
-
             Positioned(
               top: 40,
               right: 20,

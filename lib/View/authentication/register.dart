@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inkbloom/View/additionalscreen/loadingscreen.dart';
+import 'package:inkbloom/View/widgets/termsofuse.dart';
 import 'package:inkbloom/service/authservice.dart';
 import 'package:inkbloom/View/authentication/login.dart';
 
@@ -79,20 +80,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
         body: Container(
           width: double.infinity,
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              colors: [
-                Colors.grey.shade900,
-                Colors.grey.shade600,
-                Colors.grey.shade400,
-              ],
-            ),
+            color: Theme.of(context).colorScheme.onPrimary,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 30),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.only(left: 30),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,7 +96,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       style: TextStyle(
                         fontFamily: 'CrimsonText-Bold',
                         fontSize: 35,
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                     ),
                     SizedBox(
@@ -113,8 +107,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               Expanded(
                 child: Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primary,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(60),
                       topRight: Radius.circular(60),
@@ -131,7 +125,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             Container(
                               padding: const EdgeInsets.all(20),
                               decoration: BoxDecoration(
-                                color: Colors.white,
+                                color: Theme.of(context).colorScheme.primary,
                                 borderRadius: BorderRadius.circular(10),
                                 boxShadow: const [
                                   BoxShadow(
@@ -174,6 +168,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     fontFamily: 'CrimsonText-SemiBoldItalic'),
                               ),
                             ),
+                            Termsofuse()
                           ],
                         ),
                       ),
@@ -197,8 +192,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
         border: Border(bottom: BorderSide(color: Colors.grey.shade200)),
       ),
       child: TextFormField(
+          cursorColor: Theme.of(context).colorScheme.onPrimary,
           style: TextStyle(
-              color: Colors.grey, fontFamily: 'CrimsonText-SemiBoldItalic'),
+              color: Theme.of(context).colorScheme.onPrimary,
+              fontFamily: 'CrimsonText-SemiBoldItalic'),
           controller: controller,
           obscureText: isPassword
               ? (isConfirmPassword
@@ -207,10 +204,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
               : false,
           decoration: InputDecoration(
             hintText: hint,
-            hintStyle: const TextStyle(
-                color: Colors.grey, fontFamily: 'CrimsonText-SemiBoldItalic'),
+            hintStyle: TextStyle(
+                color: Theme.of(context).colorScheme.onPrimary,
+                fontFamily: 'CrimsonText-SemiBoldItalic'),
             border: InputBorder.none,
-            prefixIcon: Icon(icon, color: Colors.grey),
+            prefixIcon: Icon(
+              icon,
+              color: Theme.of(context).colorScheme.onPrimary,
+            ),
             suffixIcon: isPassword
                 ? IconButton(
                     icon: Icon(
@@ -219,7 +220,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               : !_isPasswordVisible)
                           ? Icons.visibility_off
                           : Icons.visibility,
-                      color: Colors.grey,
+                      color: Theme.of(context).colorScheme.onPrimary,
                     ),
                     onPressed: () {
                       setState(() {

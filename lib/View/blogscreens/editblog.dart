@@ -4,7 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:inkbloom/View/blogscreens/mainhome.dart';
 import 'package:inkbloom/models/blog/blogmodel.dart';
 import 'package:inkbloom/ViewModel/blogprovider.dart';
-import 'package:inkbloom/widgets/toastmessage.dart';
+import 'package:inkbloom/View/widgets/toastmessage.dart';
 
 import 'package:provider/provider.dart';
 
@@ -69,7 +69,7 @@ class _EditBlogState extends State<EditBlog> {
         message: 'Blog updated successfully',
       );
 
-      blogProvider.fetchBlogs();
+      blogProvider.refreshblogs();
 
       Navigator.pushReplacement(
         context,
@@ -119,7 +119,7 @@ class _EditBlogState extends State<EditBlog> {
                   width: double.infinity,
                   height: 180,
                   decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.onBackground,
+                    color: Theme.of(context).colorScheme.onSurface,
                     borderRadius: BorderRadius.circular(15),
                     image: _selectedImage != null
                         ? DecorationImage(
@@ -254,7 +254,7 @@ class _EditBlogState extends State<EditBlog> {
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 14),
                         backgroundColor:
-                            Theme.of(context).colorScheme.onBackground,
+                            Theme.of(context).colorScheme.onSurface,
                         foregroundColor: Theme.of(context).colorScheme.primary,
                         textStyle: const TextStyle(fontSize: 16),
                         shape: RoundedRectangleBorder(

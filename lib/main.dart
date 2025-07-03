@@ -6,10 +6,9 @@ import 'package:inkbloom/ViewModel/userprovider.dart';
 import 'package:inkbloom/View/additionalscreen/splashscreen.dart';
 import 'package:provider/provider.dart';
 
-final RouteObserver<ModalRoute<void>> routeObserver =
-    RouteObserver<ModalRoute<void>>();
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+
   runApp(
     MultiProvider(
       providers: [
@@ -17,7 +16,7 @@ void main() {
           create: (context) => UserProvider(),
         ),
         ChangeNotifierProvider(
-          create: (context) => BlogProvider()..fetchBlogs(),
+          create: (context) => BlogProvider(),
         ),
         ChangeNotifierProvider(
           create: (context) => ThemeProvider(),
@@ -42,8 +41,6 @@ class MyApp extends StatelessWidget {
           onError: Colors.grey.shade500,
           primary: Colors.white,
           onPrimary: Colors.black,
-          background: Colors.grey,
-          onBackground: Colors.black,
           surface: Colors.grey.shade100,
           onSurface: Colors.black,
           onErrorContainer: const Color.fromARGB(255, 153, 224, 226),
@@ -67,15 +64,15 @@ class MyApp extends StatelessWidget {
 
     final ThemeData darkTheme = ThemeData(
       colorScheme: ColorScheme.dark(
-          error: const Color.fromARGB(255, 230, 146, 140),
-          onError: Colors.grey.shade500,
-          primary: Colors.black,
-          onPrimary: Colors.white,
-          background: Colors.grey.withOpacity(.3),
-          onBackground: Colors.white,
-          surface: Colors.grey.shade900,
-          onSurface: Colors.white,
-          onSecondary: Colors.grey),
+        error: const Color.fromARGB(255, 230, 146, 140),
+        onError: Colors.grey.shade500,
+        primary: Colors.black,
+        onPrimary: Colors.white,
+        surface: Colors.grey.shade900,
+        onSurface: Colors.white,
+        onSecondary: Colors.grey,
+        onErrorContainer: const Color.fromARGB(255, 153, 224, 226),
+      ),
       brightness: Brightness.dark,
       primarySwatch: Colors.grey,
       scaffoldBackgroundColor: Colors.black,
@@ -98,7 +95,6 @@ class MyApp extends StatelessWidget {
         theme: lightTheme,
         darkTheme: darkTheme,
         themeMode: themeProvider.themeMode,
-        navigatorObservers: [routeObserver],
         debugShowCheckedModeBanner: false,
         home: SplashScreen(),
       ),

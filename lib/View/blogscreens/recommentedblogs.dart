@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:inkbloom/ViewModel/blogprovider.dart';
-import 'package:inkbloom/widgets/bloglistview.dart';
-import 'package:inkbloom/widgets/shimmer.dart';
+import 'package:inkbloom/View/widgets/bloglistview.dart';
+import 'package:inkbloom/View/widgets/shimmer.dart';
 import 'package:provider/provider.dart';
 
 class RecommentedBlogs extends StatefulWidget {
@@ -12,6 +12,30 @@ class RecommentedBlogs extends StatefulWidget {
 }
 
 class _RecommentedBlogsState extends State<RecommentedBlogs> {
+  ScrollController _scrollController = ScrollController();
+  final blogprovider = BlogProvider();
+  @override
+  void initState() {
+    final provider = Provider.of<BlogProvider>(context, listen: false);
+    provider.loadRecommentedblogs();
+
+    _scrollController.addListener(() {
+      final provider = Provider.of<BlogProvider>(context, listen: false);
+      if (_scrollController.position.pixels >=
+              _scrollController.position.maxScrollExtent - 100 &&
+          provider.myhasMore &&
+          !provider.isloadingMy) {
+        provider.loadRecommentedblogs();
+      }
+    });
+    super.initState();
+  }
+
+  Future<void> _handleRefresh(BuildContext context) {
+    return Provider.of<BlogProvider>(context, listen: false)
+        .loadRecommentedblogs(reset: true);
+  }
+
   @override
   Widget build(BuildContext context) {
     final blogprovider = Provider.of<BlogProvider>(context);
@@ -26,20 +50,22 @@ class _RecommentedBlogsState extends State<RecommentedBlogs> {
               fontFamily: 'CrimsonText-Bold'),
         ),
       ),
-      body: blogprovider.isLoading
+      body: blogprovider.loadingRec
           ? Center(child: Shimmerloading(context))
           : RefreshIndicator(
               color: Theme.of(context).colorScheme.onPrimary,
-              onRefresh: blogprovider.refreshuserpref,
+              onRefresh: () => _handleRefresh(context),
               child: SingleChildScrollView(
+                controller: _scrollController,
                 child: Column(
                   children: [
                     SizedBox(
                       height: 30,
                     ),
                     BlogListSection(
-                      blogs: context.watch<BlogProvider>().userprefblogs,
-                      isLoading: context.watch<BlogProvider>().isLoading,
+                      blogs: context.watch<BlogProvider>().recBlogs,
+                      isLoading: context.watch<BlogProvider>().loadingRec,
+                      showloaderatbottom: blogprovider.rechasmore,
                     )
                   ],
                 ),

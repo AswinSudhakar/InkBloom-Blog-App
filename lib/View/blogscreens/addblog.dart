@@ -4,7 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:inkbloom/View/blogscreens/mainhome.dart';
 import 'package:inkbloom/models/blog/blogmodel.dart';
 import 'package:inkbloom/ViewModel/blogprovider.dart';
-import 'package:inkbloom/widgets/toastmessage.dart';
+import 'package:inkbloom/View/widgets/toastmessage.dart';
 
 import 'package:provider/provider.dart';
 
@@ -147,7 +147,7 @@ class _AddBlogState extends State<AddBlog> {
         message: 'Blog updated successfully',
       );
 
-      blogProvider.fetchBlogs();
+      blogProvider.refreshblogs();
 
       _contentController.clear();
       _readtimeController.clear();

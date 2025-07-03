@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:inkbloom/ViewModel/blogprovider.dart';
-import 'package:inkbloom/ViewModel/userprovider.dart';
-import 'package:inkbloom/widgets/bloglistview.dart';
-import 'package:inkbloom/widgets/shimmer.dart';
+
+import 'package:inkbloom/View/widgets/bloglistview.dart';
+import 'package:inkbloom/View/widgets/shimmer.dart';
+import 'package:inkbloom/service/blog/blogservice.dart';
 import 'package:provider/provider.dart';
 
 class Myblogs extends StatefulWidget {
@@ -16,15 +17,35 @@ class _FavoriteScreenState extends State<Myblogs> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<BlogProvider>(context, listen: false).fetchBlogs();
+      Provider.of<BlogProvider>(context, listen: false).loadMyBlogs();
     });
+
+    _scrollController.addListener(() {
+      final provider = Provider.of<BlogProvider>(context, listen: false);
+      if (_scrollController.position.pixels >=
+              _scrollController.position.maxScrollExtent - 100 &&
+          provider.myhasMore &&
+          !provider.isloadingMy) {
+        provider.loadMyBlogs();
+      }
+    });
+
     super.initState();
   }
 
+  Future<void> _handleRefresh(BuildContext context) {
+    return Provider.of<BlogProvider>(context, listen: false)
+        .loadMyBlogs(reset: true);
+  }
+
+  final ScrollController _scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
-    final userProvider = Provider.of<UserProvider>(context);
     final blogprovider = Provider.of<BlogProvider>(context);
+
+    final myblogs = blogprovider.myBlogs;
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -38,21 +59,20 @@ class _FavoriteScreenState extends State<Myblogs> {
       ),
       body: blogprovider.isLoading
           ? Center(child: Shimmerloading(context))
-          : SizedBox(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 30,
-                    ),
-                    BlogListSection(
-                      blogs: context
-                          .watch<BlogProvider>()
-                          .getMyBlogs(userProvider.name ?? 'Unknown'),
-                      isLoading: context.watch<BlogProvider>().isLoading,
-                    )
-                  ],
-                ),
+          : RefreshIndicator(
+              color: Theme.of(context).colorScheme.onPrimary,
+              onRefresh: () => _handleRefresh(context),
+              child: ListView(
+                controller: _scrollController,
+                padding: const EdgeInsets.only(top: 30),
+                children: [
+                  BlogListSection(
+                      blogs: myblogs,
+                      isLoading: blogprovider.isloadingMy,
+                      showloaderatbottom: blogprovider.myBlogs.isNotEmpty &&
+                          blogprovider.myhasMore &&
+                          blogprovider.isloadingMy),
+                ],
               ),
             ),
     );

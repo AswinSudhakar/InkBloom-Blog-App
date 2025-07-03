@@ -6,7 +6,10 @@ import 'package:inkbloom/View/blogscreens/favoritescreen.dart';
 import 'package:inkbloom/View/blogscreens/home2.dart';
 import 'package:inkbloom/View/blogscreens/myblogs.dart';
 import 'package:inkbloom/View/drawer/myaccount.dart';
+import 'package:inkbloom/ViewModel/blogprovider.dart';
+
 import 'package:inkbloom/service/connectivityservice.dart';
+import 'package:provider/provider.dart';
 
 class Mainhome extends StatefulWidget {
   const Mainhome({super.key});
@@ -103,6 +106,15 @@ class _MainhomeState extends State<Mainhome> {
         );
       },
     );
+  }
+
+  final provider = BlogProvider();
+
+  @override
+  void didPopNext() {
+    print("didPopNext called ✅");
+    Provider.of<BlogProvider>(context, listen: false).refreshblogs();
+    provider.refreshblogs();
   }
 
   @override

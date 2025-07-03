@@ -7,12 +7,14 @@ class BlogListSection extends StatelessWidget {
   final bool isLoading;
   final bool isScrollable;
   final void Function(BlogModel blog)? onTap;
+  final bool showloaderatbottom;
 
   const BlogListSection({
     super.key,
     required this.blogs,
     this.isLoading = false,
     this.isScrollable = false,
+    this.showloaderatbottom = false,
     this.onTap,
   });
 
@@ -40,8 +42,22 @@ class BlogListSection extends StatelessWidget {
       physics: isScrollable
           ? const BouncingScrollPhysics()
           : const NeverScrollableScrollPhysics(),
-      itemCount: blogs.length,
+      itemCount: blogs.length + (showloaderatbottom ? 1 : 0),
       itemBuilder: (context, index) {
+        if (index == blogs.length && showloaderatbottom) {
+          return Padding(
+            padding: EdgeInsets.all(16),
+            child: SizedBox(
+              height: 50,
+              width: 50,
+              child: Center(
+                child: CircularProgressIndicator(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
+              ),
+            ),
+          );
+        }
         final blog = blogs[index];
 
         return InkWell(
@@ -56,6 +72,7 @@ class BlogListSection extends StatelessWidget {
           child: Card(
             margin: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
             elevation: 5,
+            shadowColor: Theme.of(context).colorScheme.onPrimary,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
             ),
@@ -79,9 +96,8 @@ class BlogListSection extends StatelessWidget {
                           fit: BoxFit.cover,
                           loadingBuilder: (context, child, loadingProgress) {
                             if (loadingProgress == null) return child;
-                            return Container(
+                            return SizedBox(
                               width: 120,
-                              color: Colors.grey[300],
                               child: Center(
                                 child: CircularProgressIndicator(
                                   color:

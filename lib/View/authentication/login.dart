@@ -93,9 +93,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     if (_isloading) {
       return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         body: Center(
           child: Lottie.asset('assets/animations/lottieeee.json'),
         ),
@@ -107,20 +109,13 @@ class _LoginScreenState extends State<LoginScreen> {
           Container(
             width: double.infinity,
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                colors: [
-                  Colors.grey.shade900,
-                  Colors.grey.shade600,
-                  Colors.grey.shade400,
-                ],
-              ),
+              color: Theme.of(context).colorScheme.onPrimary,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 30),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.only(left: 30),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -128,15 +123,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       Text(
                         'Login',
                         style: TextStyle(
+                            color: Theme.of(context).colorScheme.primary,
                             fontSize: 35,
-                            color: Colors.white,
                             fontFamily: 'CrimsonText-Bold'),
                       ),
                       Text(
                         'Welcome Back',
                         style: TextStyle(
                             fontSize: 30,
-                            color: Colors.white,
+                            color: Theme.of(context).colorScheme.primary,
                             fontFamily: 'CrimsonText-Bold'),
                       ),
                       SizedBox(height: 25),
@@ -145,8 +140,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 Expanded(
                   child: Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.primary,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(60),
                         topRight: Radius.circular(60),
@@ -163,13 +158,15 @@ class _LoginScreenState extends State<LoginScreen> {
                               Container(
                                 padding: const EdgeInsets.all(20),
                                 decoration: BoxDecoration(
-                                  color: Colors.white,
+                                  color: Theme.of(context).colorScheme.primary,
                                   borderRadius: BorderRadius.circular(10),
-                                  boxShadow: const [
+                                  boxShadow: [
                                     BoxShadow(
-                                      color: Color.fromRGBO(225, 95, 27, .3),
-                                      blurRadius: 20,
-                                      offset: Offset(0, 10),
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onPrimary,
+                                      blurRadius: 10,
+                                      offset: Offset(0, 8),
                                     ),
                                   ],
                                 ),
@@ -218,23 +215,29 @@ class _LoginScreenState extends State<LoginScreen> {
         border: Border(bottom: BorderSide(color: Colors.grey.shade200)),
       ),
       child: TextFormField(
+        cursorColor: Theme.of(context).colorScheme.onPrimary,
         style: TextStyle(
-            color: Colors.grey, fontFamily: 'CrimsonText-SemiBoldItalic'),
+            color: Theme.of(context).colorScheme.onPrimary,
+            fontFamily: 'CrimsonText-SemiBoldItalic'),
         controller: controller,
         obscureText: isPassword ? !_isPasswordVisible : false,
         decoration: InputDecoration(
           hintText: hint,
-          hintStyle: const TextStyle(
-              color: Colors.grey, fontFamily: 'CrimsonText-SemiBoldItalic'),
+          hintStyle: TextStyle(
+              color: Theme.of(context).colorScheme.onPrimary,
+              fontFamily: 'CrimsonText-SemiBoldItalic'),
           border: InputBorder.none,
-          prefixIcon: Icon(icon, color: Colors.grey),
+          prefixIcon: Icon(
+            icon,
+            color: Theme.of(context).colorScheme.onPrimary,
+          ),
           suffixIcon: isPassword
               ? IconButton(
                   icon: Icon(
                     _isPasswordVisible
                         ? Icons.visibility
                         : Icons.visibility_off,
-                    color: Colors.grey,
+                    color: Theme.of(context).colorScheme.onPrimary,
                   ),
                   onPressed: () {
                     setState(() {

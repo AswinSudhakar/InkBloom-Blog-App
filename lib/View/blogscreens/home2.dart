@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:inkbloom/View/blogscreens/searchscreen.dart';
-import 'package:inkbloom/widgets/shimmer.dart';
+import 'package:inkbloom/View/widgets/shimmer.dart';
 import 'package:inkbloom/ViewModel/blogprovider.dart';
-import 'package:inkbloom/main.dart';
 import 'package:inkbloom/service/userprofile.dart';
-import 'package:inkbloom/widgets/bloglistview.dart';
-import 'package:inkbloom/widgets/bloglistviewhoriz.dart';
-import 'package:inkbloom/widgets/drawer.dart';
+import 'package:inkbloom/View/widgets/bloglistview.dart';
+import 'package:inkbloom/View/widgets/bloglistviewhoriz.dart';
+import 'package:inkbloom/View/widgets/drawer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 
@@ -22,32 +21,33 @@ class _HomeScreenState extends State<HomeScreen2> with RouteAware {
   String? email;
   String? avatar;
   final TextEditingController _searchController = TextEditingController();
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    routeObserver.subscribe(this, ModalRoute.of(context)!);
-  }
+  final provider = BlogProvider();
 
   @override
   void didPopNext() {
+    print("didPopNext called ✅");
     fetchAndLoadUserData();
     Provider.of<BlogProvider>(context, listen: false).refreshblogs();
+    provider.refreshblogs();
   }
 
-  @override
-  void dispose() {
-    routeObserver.unsubscribe(this);
-    super.dispose();
-  }
-
+  final ScrollController _scrollController = ScrollController();
   @override
   void initState() {
     super.initState();
-    fetchAndLoadUserData();
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final provider = Provider.of<BlogProvider>(context, listen: false);
       provider.refreshblogs();
+    });
+
+    _scrollController.addListener(() {
+      final provider = Provider.of<BlogProvider>(context, listen: false);
+      if (_scrollController.position.pixels >=
+              _scrollController.position.maxScrollExtent - 100 &&
+          provider.hasMore) {
+        provider.loadMoreBlogs();
+      }
     });
   }
 
@@ -137,15 +137,16 @@ class _HomeScreenState extends State<HomeScreen2> with RouteAware {
             SizedBox(width: 10),
           ],
         ),
-        body: blogProvider.isLoading
+        body: blogProvider.isfetching
             ? Center(child: Shimmerloading(context))
             : RefreshIndicator(
                 color: Theme.of(context).colorScheme.onPrimary,
                 onRefresh: blogProvider.refreshblogs,
                 child: ListView(
+                  controller: _scrollController,
                   padding: const EdgeInsets.only(bottom: 20, top: 10),
                   children: [
-                    if (blogProvider.userprefblogs.isNotEmpty)
+                    if (blogProvider.recBlogs.isNotEmpty)
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12),
                         child: Column(
@@ -176,10 +177,9 @@ class _HomeScreenState extends State<HomeScreen2> with RouteAware {
                               height: 10,
                             ),
                             HorizontalBlogList(
-                              blogs:
-                                  context.watch<BlogProvider>().userprefblogs,
+                              blogs: context.watch<BlogProvider>().recBlogs,
                               isLoading:
-                                  context.watch<BlogProvider>().isLoading,
+                                  context.watch<BlogProvider>().loadingRec,
                             ),
                             SizedBox(height: 10),
                             SizedBox(height: 20),
@@ -214,10 +214,12 @@ class _HomeScreenState extends State<HomeScreen2> with RouteAware {
                                             listen: false);
                                     if (category == "All" &&
                                         blogProvider.blogs.isEmpty) {
-                                      blogProvider.fetchBlogs();
-                                    } else if (category == "Recommended") {
-                                      blogProvider.fetchUserCategoryBlogs();
-                                    } else {
+                                      blogProvider.loadMoreBlogs();
+                                    }
+                                    // else if (category == "Recommended") {
+                                    //   blogProvider.loadRecommentedblogs();
+                                    // }
+                                    else {
                                       blogProvider
                                           .filterCategoryBlogs(category);
                                     }
@@ -244,6 +246,7 @@ class _HomeScreenState extends State<HomeScreen2> with RouteAware {
                     BlogListSection(
                       blogs: blogsToShow,
                       isLoading: blogProvider.isLoading,
+                      showloaderatbottom: blogProvider.hasMore,
                     ),
                   ],
                 ),

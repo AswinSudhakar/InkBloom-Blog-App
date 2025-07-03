@@ -113,7 +113,6 @@ class HorizontalBlogList extends StatelessWidget {
                         loadingBuilder: (context, child, progress) {
                           if (progress == null) return child;
                           return Container(
-                            color: Colors.grey[300],
                             child: const Center(
                                 child:
                                     CircularProgressIndicator(strokeWidth: 2)),
@@ -121,7 +120,6 @@ class HorizontalBlogList extends StatelessWidget {
                         },
                         errorBuilder: (context, error, stackTrace) {
                           return Container(
-                            color: Colors.grey[300],
                             child: const Icon(Icons.broken_image,
                                 size: 40, color: Colors.grey),
                           );

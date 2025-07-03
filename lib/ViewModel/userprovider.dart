@@ -36,6 +36,13 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  String? get safeProfileImage {
+    if (profileimage == null || profileimage!.endsWith('.heic')) {
+      return null;
+    }
+    return profileimage;
+  }
+
   Future<void> fetchandUpdate() async {
     try {
       UserProfileModel? userdata = await ProfileService().getUserProfile();

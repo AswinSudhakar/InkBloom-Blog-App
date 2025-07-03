@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:inkbloom/widgets/launchemail.dart';
-import 'package:inkbloom/widgets/toastmessage.dart';
+import 'package:inkbloom/View/widgets/launchemail.dart';
+import 'package:inkbloom/View/widgets/toastmessage.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:inkbloom/ViewModel/themeprovider.dart';
 import 'package:provider/provider.dart';
@@ -90,7 +90,7 @@ class SettingsScreen extends StatelessWidget {
               child: ListTile(
                 leading: Icon(Icons.support_agent),
                 title: Text('Contact Support', style: TextStyle(fontSize: 18)),
-                subtitle: Text('support@InkBloom.com'),
+                subtitle: Text('wordsviewblogs@gmail.com'),
                 onTap: launchEmail,
               ),
             ),
@@ -105,7 +105,7 @@ class SettingsScreen extends StatelessWidget {
                 subtitle: Text('+1234567890'),
                 onTap: () {
                   openWhatsApp(
-                      phone: "+1234567890", message: "Hello from InkBloom!");
+                      phone: "+1234567890", message: "Hello from WordsView!");
                 },
               ),
             ),
