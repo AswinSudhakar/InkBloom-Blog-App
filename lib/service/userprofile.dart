@@ -96,4 +96,44 @@ class ProfileService {
 
     return false;
   }
+
+//   Future<bool?> editUserProfile(String username, dynamic image) async {
+//   final token = await AuthHelper.getToken();
+
+//   String? imageUrl;
+
+//   if (image != null && image is File) {
+//     imageUrl = await CloudinaryService.uploadImageToCloudinary(
+//       image,
+//       isProfileImage: true,
+//     );
+//   } else if (image is String && image.isNotEmpty) {
+//     imageUrl = image;
+//   }
+
+//   try {
+//     final uri = Uri.parse("${Apis().baseurl}${Apis().profile}");
+//     var request = http.MultipartRequest('PUT', uri);
+//     request.headers['Authorization'] = 'Bearer $token';
+
+//     request.fields['name'] = username;
+//     if (imageUrl != null && imageUrl.isNotEmpty) {
+//       request.fields['profile_image_url'] = imageUrl;
+//     }
+
+//     final response = await request.send();
+
+//     if (response.statusCode == 200 || response.statusCode == 201) {
+//       debugPrint("✅ Profile updated successfully");
+//       return true;
+//     } else {
+//       final responseBody = await response.stream.bytesToString();
+//       debugPrint('❌ Update failed: ${response.statusCode} - $responseBody');
+//     }
+//   } catch (e) {
+//     debugPrint("❌ Error during profile update: $e");
+//   }
+
+//   return false;
+// }
 }
