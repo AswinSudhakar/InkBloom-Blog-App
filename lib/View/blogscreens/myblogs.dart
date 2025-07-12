@@ -3,17 +3,17 @@ import 'package:inkbloom/ViewModel/blogprovider.dart';
 
 import 'package:inkbloom/View/widgets/bloglistview.dart';
 import 'package:inkbloom/View/widgets/shimmer.dart';
-import 'package:inkbloom/service/blog/blogservice.dart';
+
 import 'package:provider/provider.dart';
 
 class Myblogs extends StatefulWidget {
   const Myblogs({super.key});
 
   @override
-  State<Myblogs> createState() => _FavoriteScreenState();
+  State<Myblogs> createState() => _MyBlogState();
 }
 
-class _FavoriteScreenState extends State<Myblogs> {
+class _MyBlogState extends State<Myblogs> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {

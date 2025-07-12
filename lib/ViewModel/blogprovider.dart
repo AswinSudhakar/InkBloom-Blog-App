@@ -106,6 +106,7 @@ class BlogProvider extends ChangeNotifier {
       _myHasMore = true;
       _myBlogs.clear();
       debugPrint("refreshed myblogs");
+      notifyListeners();
     }
 
     if (_isFetchingMy || !_myHasMore) return null;
@@ -128,8 +129,9 @@ class BlogProvider extends ChangeNotifier {
     _myBlogs.clear();
     _myPage = 1;
     _myHasMore = true;
-    notifyListeners();
+
     await loadMyBlogs();
+    notifyListeners();
   }
 
 //

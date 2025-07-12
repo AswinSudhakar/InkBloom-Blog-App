@@ -143,6 +143,7 @@ class _HomeScreenState extends State<HomeScreen2> with RouteAware {
                 color: Theme.of(context).colorScheme.onPrimary,
                 onRefresh: blogProvider.refreshblogs,
                 child: ListView(
+                  physics: const AlwaysScrollableScrollPhysics(),
                   controller: _scrollController,
                   padding: const EdgeInsets.only(bottom: 20, top: 10),
                   children: [

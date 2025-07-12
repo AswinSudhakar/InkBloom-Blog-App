@@ -61,9 +61,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                           ),
                           child: Column(
                             children: [
-                              SizedBox(
-                                height: 30,
-                              ),
                               BlogListSection(
                                 blogs:
                                     context.watch<BlogProvider>().favoriteBlogs,
@@ -78,6 +75,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                   )
             : RefreshIndicator(
                 onRefresh: blogprovider.refreshfavoriites,
+                color: Theme.of(context).colorScheme.onPrimary,
                 child: SingleChildScrollView(
                   physics: const AlwaysScrollableScrollPhysics(),
                   child: SizedBox(

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:inkbloom/api/api.dart';
 import 'package:inkbloom/models/user/usermodel.dart';
+import 'package:inkbloom/service/cloudinaryService/cloudinaryService.dart';
 import 'package:inkbloom/service/helper/authhelper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -61,9 +62,19 @@ class ProfileService {
     return null;
   }
 
-  //Edit UserProfile
   Future<bool?> editUserProfile(String username, dynamic image) async {
     final token = await AuthHelper.getToken();
+
+    String? imageUrl;
+
+    if (image != null && image is File) {
+      imageUrl = await CloudinaryService.uploadImageToCloudinary(
+        image,
+        isProfileImage: true,
+      );
+    } else if (image is String && image.isNotEmpty) {
+      imageUrl = image;
+    }
 
     try {
       final uri = Uri.parse("${Apis().baseurl}${Apis().profile}");
@@ -71,69 +82,105 @@ class ProfileService {
       request.headers['Authorization'] = 'Bearer $token';
 
       request.fields['name'] = username;
-
-      if (image != null) {
-        if (image is File) {
-          request.files.add(
-              await http.MultipartFile.fromPath('profile_image', image.path));
-        } else if (image is String && image.isNotEmpty) {
-          request.fields['profile_image_url'] = image;
-        }
+      if (imageUrl != null && imageUrl.isNotEmpty) {
+        // 👇 Send it as a field even though it's a URL
+        request.fields['profile_image'] = imageUrl;
       }
 
       final response = await request.send();
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        debugPrint("Profile updated successfully");
+        debugPrint("✅ Profile updated successfully");
         return true;
       } else {
         final responseBody = await response.stream.bytesToString();
-        debugPrint('Update failed: ${response.statusCode} - $responseBody');
+        debugPrint('❌ Update failed: ${response.statusCode} - $responseBody');
       }
     } catch (e) {
-      debugPrint("Error during profile update: $e");
+      debugPrint("❌ Error during profile update: $e");
     }
 
     return false;
   }
 
-//   Future<bool?> editUserProfile(String username, dynamic image) async {
-//   final token = await AuthHelper.getToken();
+  // Future<bool?> editUserProfile(String username, dynamic image) async {
+  //   final token = await AuthHelper.getToken();
 
-//   String? imageUrl;
+  //   String? imageUrl;
 
-//   if (image != null && image is File) {
-//     imageUrl = await CloudinaryService.uploadImageToCloudinary(
-//       image,
-//       isProfileImage: true,
-//     );
-//   } else if (image is String && image.isNotEmpty) {
-//     imageUrl = image;
-//   }
+  //   // Upload to Cloudinary if image is a local file
+  //   if (image != null && image is File) {
+  //     imageUrl = await CloudinaryService.uploadImageToCloudinary(
+  //       image,
+  //       isProfileImage: true,
+  //     );
+  //     debugPrint("Cloudinary URL: $imageUrl");
+  //   } else if (image is String && image.isNotEmpty) {
+  //     imageUrl = image;
+  //   }
 
-//   try {
-//     final uri = Uri.parse("${Apis().baseurl}${Apis().profile}");
-//     var request = http.MultipartRequest('PUT', uri);
-//     request.headers['Authorization'] = 'Bearer $token';
+  //   final Map<String, dynamic> body = {
+  //     "name": username,
+  //     if (imageUrl != null && imageUrl.isNotEmpty) "profile_image": imageUrl,
+  //   };
 
-//     request.fields['name'] = username;
-//     if (imageUrl != null && imageUrl.isNotEmpty) {
-//       request.fields['profile_image_url'] = imageUrl;
-//     }
+  //   try {
+  //     final response = await http.put(
+  //       Uri.parse("${Apis().baseurl}${Apis().profile}"),
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Authorization': 'Bearer $token',
+  //       },
+  //       body: jsonEncode(body),
+  //     );
 
-//     final response = await request.send();
+  //     if (response.statusCode == 200 || response.statusCode == 201) {
+  //       debugPrint("✅ Profile updated successfully");
+  //       return true;
+  //     } else {
+  //       debugPrint(
+  //           "❌ Update failed: ${response.statusCode} - ${response.body}");
+  //     }
+  //   } catch (e) {
+  //     debugPrint("❌ Error during profile update: $e");
+  //   }
 
-//     if (response.statusCode == 200 || response.statusCode == 201) {
-//       debugPrint("✅ Profile updated successfully");
-//       return true;
-//     } else {
-//       final responseBody = await response.stream.bytesToString();
-//       debugPrint('❌ Update failed: ${response.statusCode} - $responseBody');
-//     }
-//   } catch (e) {
-//     debugPrint("❌ Error during profile update: $e");
-//   }
+  //   return false;
+  // }
 
-//   return false;
-// }
+  //Edit UserProfile
+  // Future<bool?> editUserProfile(String username, dynamic image) async {
+  //   final token = await AuthHelper.getToken();
+
+  //   try {
+  //     final uri = Uri.parse("${Apis().baseurl}${Apis().profile}");
+  //     var request = http.MultipartRequest('PUT', uri);
+  //     request.headers['Authorization'] = 'Bearer $token';
+
+  //     request.fields['name'] = username;
+
+  //     if (image != null) {
+  //       if (image is File) {
+  //         request.files.add(
+  //             await http.MultipartFile.fromPath('profile_image', image.path));
+  //       } else if (image is String && image.isNotEmpty) {
+  //         request.fields['profile_image_url'] = image;
+  //       }
+  //     }
+
+  //     final response = await request.send();
+
+  //     if (response.statusCode == 200 || response.statusCode == 201) {
+  //       debugPrint("Profile updated successfully");
+  //       return true;
+  //     } else {
+  //       final responseBody = await response.stream.bytesToString();
+  //       debugPrint('Update failed: ${response.statusCode} - $responseBody');
+  //     }
+  //   } catch (e) {
+  //     debugPrint("Error during profile update: $e");
+  //   }
+
+  //   return false;
+  // }
 }

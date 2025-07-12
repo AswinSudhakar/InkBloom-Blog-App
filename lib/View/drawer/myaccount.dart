@@ -80,10 +80,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         child: ClipOval(
                           child: userProvider.profileimage != null &&
                                   userProvider.profileimage!.isNotEmpty
-                              ? Image.network(
-                                  userProvider.profileimage!,
-                                  fit: BoxFit.fill,
-                                )
+                              ? Image.network(userProvider.profileimage!,
+                                  fit: BoxFit.cover,
+                                  alignment: Alignment.topCenter)
                               : Container(
                                   color: Colors.grey.withOpacity(.3),
                                   child: Icon(Icons.person, size: 40),

@@ -61,6 +61,7 @@ class _AppDrawerState extends State<AppDrawer> {
                           ? Image.network(
                               userProvider.profileimage!,
                               fit: BoxFit.cover,
+                              alignment: Alignment.topCenter,
                               loadingBuilder: (context, child, progress) {
                                 if (progress == null) return child;
                                 return Center(
