@@ -16,11 +16,10 @@ class Categoryservice {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
       });
-      debugPrint(
-          'getting categories from ${Apis().baseurl}${Apis().categoryall}');
+
       if (request.statusCode == 200) {
         final List<String> categories = jsonDecode(request.body);
-        debugPrint('category length is ${categories.length}');
+
         return categories.isNotEmpty ? categories : null;
       } else {
         debugPrint('error occured and statuscode failed:${request.statusCode}');
@@ -38,7 +37,6 @@ class Categoryservice {
     final Map<String, dynamic> body = {
       "selected_categories": categories,
     };
-    debugPrint("the Category service is caled");
 
     try {
       final request =
@@ -48,8 +46,6 @@ class Categoryservice {
                 'Authorization': 'Bearer $token',
               },
               body: jsonEncode(body));
-
-      debugPrint(' category add url is ${Apis().baseurl}${Apis().category}');
 
       if (request.statusCode == 200) {
         final data = jsonDecode(request.body);
@@ -74,14 +70,13 @@ class Categoryservice {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
       });
-      debugPrint('getting categories from ${Apis().baseurl}${Apis().category}');
+
       if (request.statusCode == 200) {
         final dynamic decoded = jsonDecode(request.body);
-        debugPrint('Decoded user categories: $decoded');
 
         if (decoded is List) {
           final List<String> usercategories = List<String>.from(decoded);
-          debugPrint('Usercategory length is ${usercategories.length}');
+
           return usercategories.isNotEmpty ? usercategories : null;
         } else {
           debugPrint('Unexpected response format: $decoded');

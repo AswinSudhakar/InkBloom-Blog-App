@@ -18,7 +18,6 @@ class CategoryProvider extends ChangeNotifier {
     try {
       List<String>? result = await Categoryservice().getuserCAtegory();
       usercategory = result ?? [];
-      print("Fetched user categories: $usercategory");
 
       return usercategory;
     } catch (e) {

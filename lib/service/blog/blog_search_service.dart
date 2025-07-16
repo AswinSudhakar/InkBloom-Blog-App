@@ -18,11 +18,9 @@ class BlogSearchService {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer $token',
           });
-      debugPrint("📡 API CALL: Edit Blog...");
 
       if (request.statusCode == 200) {
         final List<dynamic> responsebody = jsonDecode(request.body);
-        debugPrint("🧪 Raw response: ${request.body}");
 
         final List<BlogModel> blogs =
             responsebody.map((json) => BlogModel.fromJson(json)).toList();

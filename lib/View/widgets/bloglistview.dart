@@ -121,26 +121,26 @@ class BlogListSection extends StatelessWidget {
                           },
                         ),
                       ),
-                      Positioned(
-                        bottom: 8,
-                        right: 8,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 4),
-                          decoration: BoxDecoration(
-                            color: Colors.black.withOpacity(0.6),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Text(
-                            '${blog.readTime ?? 'N/A'} Min Read',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ),
+                      // Positioned(
+                      //   bottom: 8,
+                      //   right: 8,
+                      //   child: Container(
+                      //     padding: const EdgeInsets.symmetric(
+                      //         horizontal: 8, vertical: 4),
+                      //     decoration: BoxDecoration(
+                      //       color: Colors.black.withOpacity(0.6),
+                      //       borderRadius: BorderRadius.circular(8),
+                      //     ),
+                      //     child: Text(
+                      //       '${blog.readTime ?? 'N/A'} Min Read',
+                      //       style: const TextStyle(
+                      //         color: Colors.white,
+                      //         fontSize: 12,
+                      //         fontWeight: FontWeight.w500,
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                   Expanded(

@@ -25,8 +25,6 @@ class BlogProvider extends ChangeNotifier {
   }
 
   Future<void> loadMoreBlogs() async {
-    debugPrint("🔄 loadBlogs called, page: $_currentPage, hasMore: $_hasMore");
-
     if (_isFetching || !_hasMore) return;
     _isFetching = true;
 
@@ -63,7 +61,6 @@ class BlogProvider extends ChangeNotifier {
       _searchPage = 1;
       _searchHasMore = true;
       _searchedBlogs.clear();
-      debugPrint("refreshed search");
     }
 
     if (_isFetchingSearch || !_searchHasMore) return null;
@@ -105,7 +102,7 @@ class BlogProvider extends ChangeNotifier {
       _myPage = 1;
       _myHasMore = true;
       _myBlogs.clear();
-      debugPrint("refreshed myblogs");
+
       notifyListeners();
     }
 
@@ -151,7 +148,6 @@ class BlogProvider extends ChangeNotifier {
       _recBlogsPage = 1;
       _recHasMore = true;
       _recblogs.clear();
-      debugPrint("refreshed myblogs");
     }
 
     if (_isFetchingRec || !_recHasMore) return null;
@@ -224,26 +220,6 @@ class BlogProvider extends ChangeNotifier {
         .toList();
   }
 
-  // //get user category blogs
-
-  // Future<void> fetchUserCategoryBlogs() async {
-  //   _isLoading = true;
-  //   _error = null;
-  //   notifyListeners();
-
-  //   try {
-  //     final newblogs = await Blogservice().getBlogsByuserCategory();
-  //     print("🔁 fetchUserCategoryBlogs called");
-
-  //     _userpreferedblogs = newblogs ?? [];
-  //   } catch (e) {
-  //     _error = "Failed to fetch blogs: $e";
-  //   }
-
-  //   _isLoading = false;
-  //   notifyListeners();
-  // }
-
   // Add a New Blog
   Future<void> addBlog(BlogModel newBlog) async {
     try {
@@ -296,7 +272,6 @@ class BlogProvider extends ChangeNotifier {
 
     try {
       final newblogs = await Blogservice().filterBlog(category);
-      debugPrint("🔁 filter blogs categorywise: ${newblogs?.length}");
 
       _filteredBlogs.clear();
       _filteredBlogs.addAll(newblogs ?? []);
@@ -309,27 +284,6 @@ class BlogProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // //search blogs
-  // Future<void> SearchBlogs(String query) async {
-  //   _isLoading = true;
-  //   _error = null;
-  //   notifyListeners();
-
-  //   try {
-  //     final newblogs = await BlogSearchService().searchBlogs(query);
-  //     debugPrint("🔁 Search blogs : ${newblogs?.length}");
-
-  //     _searchedblogs.clear();
-  //     _searchedblogs.addAll(newblogs ?? []);
-  //   } catch (e) {
-  //     _error = "❌ Failed to search blogs: $e";
-  //     debugPrint(_error);
-  //   }
-
-  //   _isLoading = false;
-  //   notifyListeners();
-  // }
-
   String? _favoriteMessage;
   String? get favoriteMessage => _favoriteMessage;
 
@@ -337,7 +291,6 @@ class BlogProvider extends ChangeNotifier {
 
   Future<void> addToFavorite(String id) async {
     final message = await FavoriteService().addToFavorite(id);
-    debugPrint("Favorite message: $message");
 
     _favoriteMessage = message;
     notifyListeners();
@@ -371,7 +324,6 @@ class BlogProvider extends ChangeNotifier {
   }
 
   Future<void> refreshblogs() async {
-    print("refresh page is called");
     resetAndFetchAllBlogs();
     resetAndFetchRecommented();
 

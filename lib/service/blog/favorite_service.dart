@@ -19,11 +19,9 @@ class FavoriteService {
             'Authorization': 'Bearer $token',
           });
 
-      debugPrint("📡 API CALL: Add Blog To Favorite...");
-
       if (request.statusCode == 200) {
         final requestbody = await jsonDecode(request.body);
-        debugPrint("The blog added to favorites $requestbody");
+
         final message = requestbody['message'];
 
         return message;
@@ -44,7 +42,6 @@ class FavoriteService {
         'Authorization': 'Bearer $token',
       });
 
-      debugPrint("📡 API CALL: Get all Favorite Blogs...");
       if (request.statusCode == 200) {
         List<dynamic> requestbody = jsonDecode(request.body);
         final List<BlogModel> blogs =
@@ -67,7 +64,6 @@ class FavoriteService {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer $token',
           });
-      debugPrint("📡 API CALL: Delete Blog From Favorites...");
 
       if (request.statusCode == 200) {
         final reqbody = jsonDecode(request.body);

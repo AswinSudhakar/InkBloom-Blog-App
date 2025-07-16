@@ -42,7 +42,6 @@ class ProfileService {
         } else {
           avatar = "";
         }
-        debugPrint("Profile Image URL: $avatar");
 
         await pref.setString('name', userprofile.name ?? 'Guest');
         await pref.setString('email', userprofile.email ?? 'No Email');
@@ -53,7 +52,6 @@ class ProfileService {
         await pref.setStringList(
             'selected_categories', userprofile.selectedCategories ?? []);
 
-        debugPrint('$userprofile');
         return userprofile;
       }
     } catch (e) {
@@ -83,14 +81,12 @@ class ProfileService {
 
       request.fields['name'] = username;
       if (imageUrl != null && imageUrl.isNotEmpty) {
-        // 👇 Send it as a field even though it's a URL
         request.fields['profile_image'] = imageUrl;
       }
 
       final response = await request.send();
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        debugPrint("✅ Profile updated successfully");
         return true;
       } else {
         final responseBody = await response.stream.bytesToString();
@@ -102,85 +98,4 @@ class ProfileService {
 
     return false;
   }
-
-  // Future<bool?> editUserProfile(String username, dynamic image) async {
-  //   final token = await AuthHelper.getToken();
-
-  //   String? imageUrl;
-
-  //   // Upload to Cloudinary if image is a local file
-  //   if (image != null && image is File) {
-  //     imageUrl = await CloudinaryService.uploadImageToCloudinary(
-  //       image,
-  //       isProfileImage: true,
-  //     );
-  //     debugPrint("Cloudinary URL: $imageUrl");
-  //   } else if (image is String && image.isNotEmpty) {
-  //     imageUrl = image;
-  //   }
-
-  //   final Map<String, dynamic> body = {
-  //     "name": username,
-  //     if (imageUrl != null && imageUrl.isNotEmpty) "profile_image": imageUrl,
-  //   };
-
-  //   try {
-  //     final response = await http.put(
-  //       Uri.parse("${Apis().baseurl}${Apis().profile}"),
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'Authorization': 'Bearer $token',
-  //       },
-  //       body: jsonEncode(body),
-  //     );
-
-  //     if (response.statusCode == 200 || response.statusCode == 201) {
-  //       debugPrint("✅ Profile updated successfully");
-  //       return true;
-  //     } else {
-  //       debugPrint(
-  //           "❌ Update failed: ${response.statusCode} - ${response.body}");
-  //     }
-  //   } catch (e) {
-  //     debugPrint("❌ Error during profile update: $e");
-  //   }
-
-  //   return false;
-  // }
-
-  //Edit UserProfile
-  // Future<bool?> editUserProfile(String username, dynamic image) async {
-  //   final token = await AuthHelper.getToken();
-
-  //   try {
-  //     final uri = Uri.parse("${Apis().baseurl}${Apis().profile}");
-  //     var request = http.MultipartRequest('PUT', uri);
-  //     request.headers['Authorization'] = 'Bearer $token';
-
-  //     request.fields['name'] = username;
-
-  //     if (image != null) {
-  //       if (image is File) {
-  //         request.files.add(
-  //             await http.MultipartFile.fromPath('profile_image', image.path));
-  //       } else if (image is String && image.isNotEmpty) {
-  //         request.fields['profile_image_url'] = image;
-  //       }
-  //     }
-
-  //     final response = await request.send();
-
-  //     if (response.statusCode == 200 || response.statusCode == 201) {
-  //       debugPrint("Profile updated successfully");
-  //       return true;
-  //     } else {
-  //       final responseBody = await response.stream.bytesToString();
-  //       debugPrint('Update failed: ${response.statusCode} - $responseBody');
-  //     }
-  //   } catch (e) {
-  //     debugPrint("Error during profile update: $e");
-  //   }
-
-  //   return false;
-  // }
 }
