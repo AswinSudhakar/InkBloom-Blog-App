@@ -18,6 +18,7 @@ class AddBlog extends StatefulWidget {
 class _AddBlogState extends State<AddBlog> {
   XFile? _selectedImage;
   final ImagePicker _picker = ImagePicker();
+  bool _isUploading = false;
 
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _topicController = TextEditingController();
@@ -110,6 +111,8 @@ class _AddBlogState extends State<AddBlog> {
   }
 
   void _uploadBlog() {
+    if (_isUploading) return;
+
     final title = _titleController.text.trim();
     final topic = _topicController.text.trim();
     final content = _contentController.text.trim();
@@ -141,6 +144,8 @@ class _AddBlogState extends State<AddBlog> {
     );
 
     final blogProvider = Provider.of<BlogProvider>(context, listen: false);
+
+    setState(() => _isUploading = true);
 
     blogProvider.addBlog(newBlog).then((_) {
       CustomToastMessagee.show(

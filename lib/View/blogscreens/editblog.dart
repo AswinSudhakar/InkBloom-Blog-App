@@ -19,6 +19,7 @@ class EditBlog extends StatefulWidget {
 class _EditBlogState extends State<EditBlog> {
   XFile? _selectedImage;
   final ImagePicker _picker = ImagePicker();
+  bool _isUploading = false;
 
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _topicController = TextEditingController();
@@ -49,6 +50,7 @@ class _EditBlogState extends State<EditBlog> {
   }
 
   void _editBlog(BlogModel blog) {
+    if (_isUploading) return;
     final updatedBlog = BlogModel(
       id: widget.blog.id,
       category: _selectedCategory,
@@ -62,6 +64,7 @@ class _EditBlogState extends State<EditBlog> {
           ? _selectedImage!.path
           : widget.blog.imageUrl ?? '',
     );
+    setState(() => _isUploading = true);
 
     final blogProvider = Provider.of<BlogProvider>(context, listen: false);
     blogProvider.editBlog(updatedBlog).then((_) {
