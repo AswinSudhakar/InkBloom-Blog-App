@@ -65,8 +65,6 @@ class _LoginScreenState extends State<LoginScreen> {
           );
           _emailController.clear();
           _passwordController.clear();
-
-          Navigator.pop(context);
         }
       } catch (e) {
         if (!mounted) return;

@@ -18,7 +18,16 @@ class Termsofuse extends StatelessWidget {
             ),
             children: [
               TextSpan(
-                  recognizer: TapGestureRecognizer()..onTap = () {},
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return PolicyDialogue(
+                              MdfileName: 'termsandconditions.md');
+                        },
+                      );
+                    },
                   text: '     Terms Of Services',
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.onErrorContainer,
