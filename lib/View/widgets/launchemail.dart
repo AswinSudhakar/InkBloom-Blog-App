@@ -4,7 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 void launchEmail() async {
   final Uri emailUri = Uri(
     scheme: 'mailto',
-    path: 'support@InkBloom.com',
+    path: 'wordsviewblogs@gmail.com',
     queryParameters: {'subject': 'App Support', 'body': 'Hi,'},
   );
 
