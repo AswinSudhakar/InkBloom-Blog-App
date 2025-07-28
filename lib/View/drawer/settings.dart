@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:inkbloom/View/widgets/launchemail.dart';
-import 'package:inkbloom/View/widgets/toastmessage.dart';
+import 'package:wordsview/View/widgets/launchemail.dart';
+import 'package:wordsview/View/widgets/toastmessage.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:inkbloom/ViewModel/themeprovider.dart';
+import 'package:wordsview/ViewModel/themeprovider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

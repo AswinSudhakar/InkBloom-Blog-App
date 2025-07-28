@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:inkbloom/View/blogscreens/mainhome.dart';
+import 'package:wordsview/View/blogscreens/mainhome.dart';
 
-import 'package:inkbloom/View/drawer/editprofile.dart';
-import 'package:inkbloom/ViewModel/userprovider.dart';
+import 'package:wordsview/View/drawer/editprofile.dart';
+import 'package:wordsview/ViewModel/userprovider.dart';
 import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {

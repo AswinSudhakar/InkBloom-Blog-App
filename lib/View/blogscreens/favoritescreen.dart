@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:inkbloom/View/blogscreens/mainhome.dart';
-import 'package:inkbloom/ViewModel/blogprovider.dart';
-import 'package:inkbloom/View/widgets/bloglistview.dart';
-import 'package:inkbloom/View/widgets/shimmer.dart';
+import 'package:wordsview/View/blogscreens/mainhome.dart';
+import 'package:wordsview/ViewModel/blogprovider.dart';
+import 'package:wordsview/View/widgets/bloglistview.dart';
+import 'package:wordsview/View/widgets/shimmer.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 

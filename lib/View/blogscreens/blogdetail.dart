@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:inkbloom/View/additionalscreen/authordetails.dart';
-import 'package:inkbloom/View/blogscreens/editblog.dart';
-import 'package:inkbloom/ViewModel/blogprovider.dart';
-import 'package:inkbloom/models/blog/blogmodel.dart';
-import 'package:inkbloom/service/userprofile.dart';
-import 'package:inkbloom/View/widgets/expandabletext.dart';
-import 'package:inkbloom/View/widgets/toastmessage.dart';
+
+import 'package:wordsview/View/blogscreens/editblog.dart';
+import 'package:wordsview/ViewModel/blogprovider.dart';
+import 'package:wordsview/models/blog/blogmodel.dart';
+import 'package:wordsview/service/userprofile.dart';
+import 'package:wordsview/View/widgets/expandabletext.dart';
+import 'package:wordsview/View/widgets/toastmessage.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

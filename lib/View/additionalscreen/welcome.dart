@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inkbloom/View/authentication/register.dart';
+import 'package:wordsview/View/authentication/register.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Welcome extends StatelessWidget {

@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:inkbloom/View/additionalscreen/welcome.dart';
-import 'package:inkbloom/View/authentication/login.dart';
-import 'package:inkbloom/View/blogscreens/mainhome.dart';
+import 'package:wordsview/View/additionalscreen/welcome.dart';
+import 'package:wordsview/View/authentication/login.dart';
+import 'package:wordsview/View/blogscreens/mainhome.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {

@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:inkbloom/api/api.dart';
-import 'package:inkbloom/service/helper/authhelper.dart';
+import 'package:wordsview/api/api.dart';
+import 'package:wordsview/service/helper/authhelper.dart';
 
 class Categoryservice {
   final client = http.Client();

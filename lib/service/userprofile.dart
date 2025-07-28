@@ -3,10 +3,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:inkbloom/api/api.dart';
-import 'package:inkbloom/models/user/usermodel.dart';
-import 'package:inkbloom/service/cloudinaryService/cloudinaryService.dart';
-import 'package:inkbloom/service/helper/authhelper.dart';
+import 'package:wordsview/api/api.dart';
+import 'package:wordsview/models/user/usermodel.dart';
+import 'package:wordsview/service/cloudinaryService/cloudinaryService.dart';
+import 'package:wordsview/service/helper/authhelper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final String pbaseurl = 'https://simple-blogging.onrender.com';

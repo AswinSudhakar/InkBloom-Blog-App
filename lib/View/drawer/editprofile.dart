@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:inkbloom/View/blogscreens/mainhome.dart';
-import 'package:inkbloom/View/drawer/myaccount.dart';
-import 'package:inkbloom/ViewModel/userprovider.dart';
-import 'package:inkbloom/View/widgets/toastmessage.dart';
+import 'package:wordsview/View/blogscreens/mainhome.dart';
+import 'package:wordsview/View/drawer/myaccount.dart';
+import 'package:wordsview/ViewModel/userprovider.dart';
+import 'package:wordsview/View/widgets/toastmessage.dart';
 import 'package:provider/provider.dart';
 
 class Editprofile extends StatefulWidget {

@@ -1,14 +1,14 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:inkbloom/View/blogscreens/addblog.dart';
-import 'package:inkbloom/View/blogscreens/favoritescreen.dart';
-import 'package:inkbloom/View/blogscreens/home2.dart';
-import 'package:inkbloom/View/blogscreens/myblogs.dart';
-import 'package:inkbloom/View/drawer/myaccount.dart';
-import 'package:inkbloom/ViewModel/blogprovider.dart';
+import 'package:wordsview/View/blogscreens/addblog.dart';
+import 'package:wordsview/View/blogscreens/favoritescreen.dart';
+import 'package:wordsview/View/blogscreens/home2.dart';
+import 'package:wordsview/View/blogscreens/myblogs.dart';
+import 'package:wordsview/View/drawer/myaccount.dart';
+import 'package:wordsview/ViewModel/blogprovider.dart';
 
-import 'package:inkbloom/service/connectivityservice.dart';
+import 'package:wordsview/service/connectivityservice.dart';
 import 'package:provider/provider.dart';
 
 class Mainhome extends StatefulWidget {

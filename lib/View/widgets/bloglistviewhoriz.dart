@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:inkbloom/View/blogscreens/blogdetail.dart';
-import 'package:inkbloom/View/blogscreens/recommentedblogs.dart';
-import 'package:inkbloom/models/blog/blogmodel.dart';
+import 'package:wordsview/View/blogscreens/blogdetail.dart';
+import 'package:wordsview/View/blogscreens/recommentedblogs.dart';
+import 'package:wordsview/models/blog/blogmodel.dart';
 
 class HorizontalBlogList extends StatelessWidget {
   final List<BlogModel> blogs;

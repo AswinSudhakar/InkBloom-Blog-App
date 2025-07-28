@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:inkbloom/View/blogscreens/mainhome.dart';
-import 'package:inkbloom/models/blog/blogmodel.dart';
-import 'package:inkbloom/ViewModel/blogprovider.dart';
-import 'package:inkbloom/View/widgets/toastmessage.dart';
+import 'package:wordsview/View/blogscreens/mainhome.dart';
+import 'package:wordsview/models/blog/blogmodel.dart';
+import 'package:wordsview/ViewModel/blogprovider.dart';
+import 'package:wordsview/View/widgets/toastmessage.dart';
 
 import 'package:provider/provider.dart';
 

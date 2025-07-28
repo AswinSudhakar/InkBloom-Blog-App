@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:inkbloom/View/blogscreens/searchscreen.dart';
-import 'package:inkbloom/View/widgets/shimmer.dart';
-import 'package:inkbloom/ViewModel/blogprovider.dart';
-import 'package:inkbloom/service/userprofile.dart';
-import 'package:inkbloom/View/widgets/bloglistview.dart';
-import 'package:inkbloom/View/widgets/bloglistviewhoriz.dart';
-import 'package:inkbloom/View/widgets/drawer.dart';
+import 'package:wordsview/View/blogscreens/searchscreen.dart';
+import 'package:wordsview/View/widgets/shimmer.dart';
+import 'package:wordsview/ViewModel/blogprovider.dart';
+import 'package:wordsview/service/userprofile.dart';
+import 'package:wordsview/View/widgets/bloglistview.dart';
+import 'package:wordsview/View/widgets/bloglistviewhoriz.dart';
+import 'package:wordsview/View/widgets/drawer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 
@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen2> with RouteAware {
   String? name;
   String? email;
   String? avatar;
-  final TextEditingController _searchController = TextEditingController();
+
   final provider = BlogProvider();
 
   @override
@@ -86,9 +86,7 @@ class _HomeScreenState extends State<HomeScreen2> with RouteAware {
     final blogProvider = context.watch<BlogProvider>();
     final blogsToShow = selectedCategory == "All"
         ? blogProvider.blogs
-        : selectedCategory == "Search"
-            ? blogProvider.searchedblogs
-            : blogProvider.filteredblogs;
+        : blogProvider.filteredblogs;
 
     return SafeArea(
       child: Scaffold(
@@ -111,29 +109,6 @@ class _HomeScreenState extends State<HomeScreen2> with RouteAware {
                       builder: (context) => Searchscreen(),
                     )),
                 child: Icon(Icons.search)),
-            if (selectedCategory == 'Search')
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: ElevatedButton.icon(
-                  onPressed: () {
-                    setState(() {
-                      selectedCategory = 'All';
-                    });
-                    _searchController.clear();
-                    blogProvider.refreshblogs();
-                  },
-                  icon: Icon(Icons.clear),
-                  label: Text('Clear'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.grey.withOpacity(0.7),
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ),
-              ),
             SizedBox(width: 10),
           ],
         ),

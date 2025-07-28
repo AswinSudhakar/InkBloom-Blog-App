@@ -1,6 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:inkbloom/View/dialogues/policy_dialogue.dart';
+import 'package:wordsview/View/dialogues/policy_dialogue.dart';
 
 class Termsofuse extends StatelessWidget {
   const Termsofuse({super.key});

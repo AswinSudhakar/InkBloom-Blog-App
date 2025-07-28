@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:inkbloom/View/blogscreens/blogdetail.dart';
-import 'package:inkbloom/models/blog/blogmodel.dart';
+import 'package:wordsview/View/blogscreens/blogdetail.dart';
+import 'package:wordsview/models/blog/blogmodel.dart';
 
 class BlogListSection extends StatelessWidget {
   final List<BlogModel> blogs;

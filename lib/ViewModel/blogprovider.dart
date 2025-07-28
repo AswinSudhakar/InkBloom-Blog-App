@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:inkbloom/models/blog/blogmodel.dart';
-import 'package:inkbloom/service/blog/blog_search_service.dart';
-import 'package:inkbloom/service/blog/blogservice.dart';
-import 'package:inkbloom/service/blog/favorite_service.dart';
+import 'package:wordsview/models/blog/blogmodel.dart';
+import 'package:wordsview/service/blog/blog_search_service.dart';
+import 'package:wordsview/service/blog/blogservice.dart';
+import 'package:wordsview/service/blog/favorite_service.dart';
 
 class BlogProvider extends ChangeNotifier {
 //

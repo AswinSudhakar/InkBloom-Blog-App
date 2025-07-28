@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:inkbloom/View/additionalscreen/loadingscreen.dart';
-import 'package:inkbloom/View/widgets/termsofuse.dart';
-import 'package:inkbloom/service/authservice.dart';
-import 'package:inkbloom/View/authentication/login.dart';
+import 'package:wordsview/View/additionalscreen/loadingscreen.dart';
+import 'package:wordsview/View/widgets/termsofuse.dart';
+import 'package:wordsview/service/authservice.dart';
+import 'package:wordsview/View/authentication/login.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});

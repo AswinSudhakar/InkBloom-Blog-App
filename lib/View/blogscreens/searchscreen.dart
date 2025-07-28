@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:inkbloom/ViewModel/blogprovider.dart';
-import 'package:inkbloom/View/widgets/bloglistview.dart';
-import 'package:inkbloom/View/widgets/shimmer.dart';
-import 'package:inkbloom/service/blog/blog_search_service.dart';
+import 'package:wordsview/ViewModel/blogprovider.dart';
+import 'package:wordsview/View/widgets/bloglistview.dart';
+import 'package:wordsview/View/widgets/shimmer.dart';
 import 'package:provider/provider.dart';
 
 class Searchscreen extends StatefulWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inkbloom/service/categoryservice.dart';
+import 'package:wordsview/service/categoryservice.dart';
 
 class CategoryProvider extends ChangeNotifier {
   bool _isUpdating = false;

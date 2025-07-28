@@ -1,4 +1,4 @@
-import 'package:inkbloom/View/widgets/toastmessage.dart';
+import 'package:wordsview/View/widgets/toastmessage.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 void launchEmail() async {

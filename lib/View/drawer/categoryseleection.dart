@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:inkbloom/View/blogscreens/mainhome.dart';
-import 'package:inkbloom/ViewModel/blogprovider.dart';
-import 'package:inkbloom/ViewModel/categoryprovider.dart';
+import 'package:wordsview/View/blogscreens/mainhome.dart';
+import 'package:wordsview/ViewModel/blogprovider.dart';
+import 'package:wordsview/ViewModel/categoryprovider.dart';
 import 'package:provider/provider.dart';
 
 class CategoryScreen extends StatefulWidget {

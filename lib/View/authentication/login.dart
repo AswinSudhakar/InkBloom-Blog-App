@@ -1,10 +1,11 @@
+import 'package:wordsview/models/user/usermodel.dart';
 import 'package:flutter/material.dart';
-import 'package:inkbloom/View/blogscreens/mainhome.dart';
-import 'package:inkbloom/View/drawer/categorystart.dart';
-import 'package:inkbloom/ViewModel/userprovider.dart';
-import 'package:inkbloom/models/user/usermodel.dart';
-import 'package:inkbloom/service/authservice.dart';
-import 'package:inkbloom/View/authentication/register.dart';
+import 'package:wordsview/View/blogscreens/mainhome.dart';
+import 'package:wordsview/View/drawer/categorystart.dart';
+import 'package:wordsview/ViewModel/userprovider.dart';
+
+import 'package:wordsview/service/authservice.dart';
+import 'package:wordsview/View/authentication/register.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 

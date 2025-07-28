@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:inkbloom/ViewModel/blogprovider.dart';
-import 'package:inkbloom/ViewModel/categoryprovider.dart';
-import 'package:inkbloom/ViewModel/themeprovider.dart';
-import 'package:inkbloom/ViewModel/userprovider.dart';
-import 'package:inkbloom/View/additionalscreen/splashscreen.dart';
+import 'package:wordsview/ViewModel/blogprovider.dart';
+import 'package:wordsview/ViewModel/categoryprovider.dart';
+import 'package:wordsview/ViewModel/themeprovider.dart';
+import 'package:wordsview/ViewModel/userprovider.dart';
+import 'package:wordsview/View/additionalscreen/splashscreen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
