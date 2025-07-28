@@ -123,7 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         'Login',
                         style: TextStyle(
                             color: Theme.of(context).colorScheme.primary,
-                            fontSize: 35,
+                            fontSize: 40,
                             fontFamily: 'CrimsonText-Bold'),
                       ),
                       Text(

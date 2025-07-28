@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wordsview/View/blogscreens/mainhome.dart';
 
 import 'package:wordsview/View/drawer/editprofile.dart';
+import 'package:wordsview/ViewModel/blogprovider.dart';
 import 'package:wordsview/ViewModel/userprovider.dart';
 import 'package:provider/provider.dart';
 
@@ -16,7 +17,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Future<void> fetchAndLoadUserData() async {
     // await ProfileService().getUserProfile(); // Ensure profile is fetched
     Provider.of<UserProvider>(context, listen: false).loadData();
-    Provider.of<UserProvider>(context, listen: false).fetchandUpdate();
+    // Provider.of<UserProvider>(context, listen: false).fetchandUpdate();
+    context.read<UserProvider>().loadData();
+    context.read<UserProvider>().fetchandUpdate();
+
     // await _loadUserData();
   }
 
@@ -36,7 +40,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Top Section with Name & Profile Pic
             Stack(
               clipBehavior: Clip.none,
               children: [
@@ -74,19 +77,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   right: 0,
                   child: Column(
                     children: [
-                      SizedBox(
-                        width: 100,
-                        height: 100,
-                        child: ClipOval(
-                          child: userProvider.profileimage != null &&
+                      Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              blurRadius: 6,
+                              offset: Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        child: CircleAvatar(
+                          radius: 50,
+                          backgroundColor: Colors.white,
+                          backgroundImage: userProvider.profileimage != null &&
                                   userProvider.profileimage!.isNotEmpty
-                              ? Image.network(userProvider.profileimage!,
-                                  fit: BoxFit.cover,
-                                  alignment: Alignment.topCenter)
-                              : Container(
-                                  color: Colors.grey.withOpacity(.3),
-                                  child: Icon(Icons.person, size: 40),
-                                ),
+                              ? NetworkImage(userProvider.profileimage!)
+                              : null,
+                          child: userProvider.profileimage == null ||
+                                  userProvider.profileimage!.isEmpty
+                              ? Icon(Icons.person, size: 40, color: Colors.grey)
+                              : null,
                         ),
                       ),
                       SizedBox(height: 20),

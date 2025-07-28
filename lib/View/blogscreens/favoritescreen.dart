@@ -24,7 +24,9 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final blogprovider = Provider.of<BlogProvider>(context);
+    final blogprovider = Provider.of<BlogProvider>(context, listen: true);
+    // final blogprovider = context.watch<BlogProvider>();
+
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(

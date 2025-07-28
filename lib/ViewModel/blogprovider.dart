@@ -79,6 +79,11 @@ class BlogProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void clearsearch() {
+    _searchedBlogs.clear();
+    notifyListeners();
+  }
+
   Future<void> resetAndFetchSearchBlogs(String query) async {
     _searchedBlogs.clear();
     _searchPage = 1;

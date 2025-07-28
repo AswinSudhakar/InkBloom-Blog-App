@@ -26,6 +26,7 @@ class _SearchscreenState extends State<Searchscreen> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _focusnode.requestFocus();
+      context.read<BlogProvider>().clearsearch();
     });
 
     _focusnode.addListener(() {
@@ -55,6 +56,7 @@ class _SearchscreenState extends State<Searchscreen> {
   void dispose() {
     _searchController.dispose();
     _scrollController.dispose();
+
     super.dispose();
   }
 

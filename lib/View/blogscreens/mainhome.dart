@@ -7,7 +7,6 @@ import 'package:wordsview/View/blogscreens/home2.dart';
 import 'package:wordsview/View/blogscreens/myblogs.dart';
 import 'package:wordsview/View/drawer/myaccount.dart';
 import 'package:wordsview/ViewModel/blogprovider.dart';
-
 import 'package:wordsview/service/connectivityservice.dart';
 import 'package:provider/provider.dart';
 

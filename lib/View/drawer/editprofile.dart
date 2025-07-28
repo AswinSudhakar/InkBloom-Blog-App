@@ -27,6 +27,8 @@ class _ProfileScreenState extends State<Editprofile> {
     _nameController.text = userProvider.name ?? '';
   }
 
+  bool _isPickingImage = false;
+
   @override
   void initState() {
     super.initState();
@@ -34,13 +36,22 @@ class _ProfileScreenState extends State<Editprofile> {
   }
 
   Future<void> _pickImage() async {
-    final XFile? pickedFile =
-        await _picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      setState(() {
-        _pickedImage = File(pickedFile.path);
-        _removeProfileImage = false;
-      });
+    if (_isPickingImage) return; // Prevent multiple calls
+    _isPickingImage = true;
+
+    try {
+      final XFile? pickedFile =
+          await _picker.pickImage(source: ImageSource.gallery);
+      if (pickedFile != null) {
+        setState(() {
+          _pickedImage = File(pickedFile.path);
+          _removeProfileImage = false;
+        });
+      }
+    } catch (e) {
+      print("Image picker error: $e");
+    } finally {
+      _isPickingImage = false;
     }
   }
 

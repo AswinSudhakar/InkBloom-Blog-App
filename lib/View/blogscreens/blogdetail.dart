@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wordsview/View/additionalscreen/authordetails.dart';
 
 import 'package:wordsview/View/blogscreens/editblog.dart';
 import 'package:wordsview/ViewModel/blogprovider.dart';
@@ -202,15 +203,12 @@ class _BlogDetailState extends State<BlogDetail> {
                             children: [
                               Expanded(
                                 child: InkWell(
-                                  // onTap: () {
-                                  //   Navigator.push(
-                                  //       context,
-                                  //       MaterialPageRoute(
-                                  //         builder: (context) => AuthorProfle(
-                                  //           blog: widget.blog,
-                                  //         ),
-                                  //       ));
-                                  // },
+                                  onTap: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            AuthorProfle(blog: widget.blog),
+                                      )),
                                   child: Row(
                                     children: [
                                       CircleAvatar(
