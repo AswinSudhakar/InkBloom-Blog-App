@@ -135,7 +135,8 @@ class _AppDrawerState extends State<AppDrawer> {
                   _buildDrawerItem(
                     icon: Icons.share,
                     text: "Share App",
-                    onTap: () => Share.share('com.example.inkbloom'),
+                    onTap: () => Share.share(
+                        'https://drive.google.com/file/d/10IJUHj5f2nyiVBU1_0ulLmDl0wHty_6i/view?usp=sharing'),
                   ),
                   _buildDrawerItem(
                     icon: Icons.logout,
